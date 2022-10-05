@@ -1,0 +1,6 @@
+{
+    "presets": [["@babel/preset-env", { "modules": "auto" }]],
+    "plugins": [
+        ["module-resolver",  { "root": ["./src"] } ]
+    ]
+}

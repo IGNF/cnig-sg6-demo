@@ -1,0 +1,24 @@
+.app-home {
+    margin: auto;
+}
+
+.app-home > * {
+    margin: 20px auto;
+}
+
+.app-card {
+    display: block;
+    position: relative;
+
+    max-width: 1080px;
+
+    width: 100%;
+
+    background-color: #f5fbfe;
+
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+
+    padding: 16px;
+    border-radius: 4px;
+}

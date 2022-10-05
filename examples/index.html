@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Editeur PLU CNIG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../dist/editeurPluCnig.css">
+    <script src="../dist/editeurPluCnig.js"></script>
+</head>
+<body>
+
+    <div>
+        <h1>Editeur PLU CNIG</h1>
+        <h4>A faire</h4>
+        <ul>
+            <li>[X] Tinymce - Français</li>
+            <li>[X] Tinymce - classes de texte</li>
+            <li>[ ] Tinymce - classes de texte - a faire valider</li>
+            <li>[ ] Sauvegarde en local</li>
+            <li>[ ] Chargement depuis fichier XML</li>
+            <li>[ ] Export XML</li>
+        </ul>
+    </div>
+
+    <div id="container"></div>
+
+    <!-- <div id="article-form">
+        <p>Saisie</p>
+
+        <div class="tinymce">
+            <textarea id="default"></textarea>
+        </div>
+    </div> -->
+
+    <script type="application/javascript">
+        console.log('Application Start', editeurPluCnig.REVISION);
+
+        const app = new editeurPluCnig.Application();
+        app.init('container');
+
+    </script>
+</body>
+</html>
