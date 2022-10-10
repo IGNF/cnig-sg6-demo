@@ -1,11 +1,10 @@
 import Component from '../Core/Component';
-import Reglement from '../Model/Reglement';
 
 export class DetailPluComponent extends Component {
 
     constructor(reglement) {
         super();
-        this.name = 'plu-preview';
+        this.name = 'detail-plu';
         
         this.init(reglement);
     }

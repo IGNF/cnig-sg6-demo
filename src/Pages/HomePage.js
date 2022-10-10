@@ -3,13 +3,12 @@ import Reglement from '../Model/Reglement';
 
 import DetailPluComponent from '../Components/DetailPluComponent';
 import ListTitresComponent from '../Components/ListTitresComponent';
+import LoadComponent from '../Components/LoadComponent';
 import StorageService from '../Services/StorageService';
 
 export class HomePage extends Component {
 
-    detailPlu;
-
-    listTitres;
+    components = [];
 
     storageService;
 
@@ -25,15 +24,15 @@ export class HomePage extends Component {
 
     init(reglement = null) {
 
-        this.detailPlu = new DetailPluComponent(reglement);
-        this.listTitres = new ListTitresComponent(reglement);
+        this.components = [
+            new DetailPluComponent(reglement),
+            new ListTitresComponent(reglement),
+            new LoadComponent()
+        ];
     }
 
     save() {
         console.log('save');
-    }
-    load() {
-        console.log('load');
     }
     export() {
         console.log('export');
@@ -45,11 +44,11 @@ export class HomePage extends Component {
         return `
             <div class="app-home">
                 <h2>Home</h2>
-                ${this.detailPlu?.getElement().outerHTML}
-                ${this.listTitres?.getElement().outerHTML}
+                ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
+                ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
                 <div class="app-button">
                     <button class="btn-save">Sauvegarde</button>
-                    <button class="btn-load">Chargement</button>
+                    ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
                     <button class="btn-export">Export</button>
                 </div>
             </div>
@@ -60,14 +59,12 @@ export class HomePage extends Component {
     registerEvents() {
         super.registerEvents();
 
-        this.detailPlu.registerEvents();
-        this.listTitres.registerEvents();
+        this.components.forEach((component) => {
+            component.registerEvents();
+        });
 
         const saveSelector = `.${this.name} .btn-save`;
         document.querySelector(saveSelector)?.addEventListener('click', event => this.save(event));
-
-        const loadSelector = `.${this.name} .btn-load`;
-        document.querySelector(loadSelector)?.addEventListener('click', event => this.load(event));
 
         const exportSelector = `.${this.name} .btn-export`;
         document.querySelector(exportSelector)?.addEventListener('click', event => this.export(event));
