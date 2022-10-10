@@ -33,7 +33,6 @@ export class ListTitresComponent extends Component {
         console.log('add', event.target);
 
         const reglement = this.storageService.getReglement();
-        console.log(reglement);
     }
 
 
@@ -43,10 +42,7 @@ export class ListTitresComponent extends Component {
 
 
     delete(event) {
-        console.log('delete', event.target);
-
         const reglement = this.storageService.getReglement();
-        console.log(reglement);
         const id = event.target.getAttribute('idtitle');
         reglement.removeTitre(id);
         // trigger event 

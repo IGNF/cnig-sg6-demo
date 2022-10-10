@@ -3,8 +3,9 @@ import Reglement from '../Model/Reglement';
 
 import DetailPluComponent from '../Components/DetailPluComponent';
 import ListTitresComponent from '../Components/ListTitresComponent';
-import LoadComponent from '../Components/LoadComponent';
+import LoadButtonComponent from '../Components/LoadButtonComponent';
 import StorageService from '../Services/StorageService';
+import ExportButtonComponent from '../Components/ExportButtonComponent';
 
 export class HomePage extends Component {
 
@@ -27,16 +28,9 @@ export class HomePage extends Component {
         this.components = [
             new DetailPluComponent(reglement),
             new ListTitresComponent(reglement),
-            new LoadComponent()
+            new LoadButtonComponent(),
+            new ExportButtonComponent()
         ];
-    }
-
-    save() {
-        console.log('save');
-    }
-    export() {
-        console.log('export');
-
     }
 
 
@@ -47,9 +41,8 @@ export class HomePage extends Component {
                 ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
                 ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
                 <div class="app-button">
-                    <button class="btn-save">Sauvegarde</button>
                     ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
-                    <button class="btn-export">Export</button>
+                    ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
                 </div>
             </div>
         `;

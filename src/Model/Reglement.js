@@ -38,8 +38,6 @@ class Reglement {
 
 
     removeTitre(id) {
-        console.log('remove titre', id);
-
         const index = this.titres.findIndex(t => t.id === id);
         if (index === -1) {
             return;

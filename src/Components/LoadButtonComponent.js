@@ -3,7 +3,7 @@ import StorageService from '../Services/StorageService';
 
 import XmlImport from '../Import/XmlImport';
 
-export class LoadComponent extends Component {
+export class LoadButtonComponent extends Component {
 
     storageService;
 
@@ -15,7 +15,6 @@ export class LoadComponent extends Component {
     }
 
     loadFile(event) {
-        console.log('loadfile', event);
         if (event.target.files.length !== 1) {
             console.error('no file selected');
             return;
@@ -33,12 +32,10 @@ export class LoadComponent extends Component {
 
     getTemplate() {
         return `
-            <div class="card">
-                <form class="load-form">
-                    <button class="btn-load">Charger</button>
-                    <input style="display: none;" value="Charger" type="file" id="input" accept=".xml"/>
-                </form>
-            </div>
+            <button>Charger</button>
+            <form class="load-form" style="display: none;">
+                <input type="file" id="input" accept=".xml"/>
+            </form>
         `;
     }
 
@@ -48,14 +45,12 @@ export class LoadComponent extends Component {
         const selector = `.${this.name} #input`;
         document.querySelector(selector).addEventListener('change', event => this.loadFile(event));
 
-        const loadSelector = `.${this.name} .btn-load`;
+        const loadSelector = `.${this.name} button`;
         document.querySelector(loadSelector).addEventListener('click', (event) => {
-            // stop form
-            event.preventDefault();
             document.querySelector(selector).click();
         });
     }
 
 }
 
-export default LoadComponent;
+export default LoadButtonComponent;

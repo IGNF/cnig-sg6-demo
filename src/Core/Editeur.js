@@ -77,7 +77,6 @@ class Editeur {
     }
 
     actionSave() {
-        console.log('lmmalzmel');
         this.saveEvent.next();
     }
 

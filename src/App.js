@@ -14,9 +14,8 @@ export class App {
 
 
     constructor() {
-        // load from at opening
+        // load from localstorage at opening
         setTimeout(() => {
-            // this.loadFromXML();
             this.storageService.loadFromLocalStorage();
         }, 200);
 
@@ -25,19 +24,6 @@ export class App {
         this.storageService.change.pipe(
             map(reglement => this.change(reglement))
         ).subscribe();
-    }
-
-
-    loadFromXML() {
-        console.log('loadFromXML');
-
-        const loader = new XmlImport();
-        const reglement = loader.load();
-
-        this.storageService.setReglement(reglement);
-        console.log(reglement);
-
-        this.change(reglement);
     }
 
 
