@@ -1,23 +1,30 @@
 import HomePage from './Pages/HomePage';
 import XmlImport from './Import/XmlImport';
 
+import StorageService from './Services/StorageService';
+import { map } from 'rxjs';
+
 export class App {
 
     rootElement;
 
     rootComponent;
 
+    storageService;
+
+
     constructor() {
-        this.loadFromLocalStorage();
-
+        // load from at opening
         setTimeout(() => {
-            this.loadFromXML();
+            // this.loadFromXML();
+            this.storageService.loadFromLocalStorage();
         }, 200);
-    }
 
+        this.storageService = new StorageService();
 
-    loadFromLocalStorage() {
-        console.log('loadFromLocalStorage', localStorage);
+        this.storageService.change.pipe(
+            map(reglement => this.change(reglement))
+        ).subscribe();
     }
 
 
@@ -27,11 +34,14 @@ export class App {
         const loader = new XmlImport();
         const reglement = loader.load();
 
+        this.storageService.setReglement(reglement);
+        console.log(reglement);
+
         this.change(reglement);
     }
 
 
-    init(htmlSelector) {
+    appendToHTML(htmlSelector) {
         const element = document.getElementById(htmlSelector);
         if (!element) {
             throw new Error(`Impossible de trouver ${htmlSelector}`);
@@ -47,6 +57,7 @@ export class App {
         }
         const component = new HomePage(reglement);
         this.rootElement.appendChild(component.getElement());
+        component.registerEvents();
         this.rootComponent = component;
     }
 

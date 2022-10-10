@@ -6,6 +6,10 @@
     margin: 20px auto;
 }
 
+.app-home .app-card {
+    margin: auto;
+}
+
 .app-card {
     display: block;
     position: relative;

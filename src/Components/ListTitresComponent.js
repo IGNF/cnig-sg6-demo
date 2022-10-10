@@ -3,17 +3,23 @@ import Reglement from '../Model/Reglement';
 
 import EditTitreComponent from './EditTitreComponent';
 
+import StorageService from '../Services/StorageService'
+
 export class ListTitresComponent extends Component {
 
     reglement;
 
     editTitre;
 
+    storageService;
+
     constructor(reglement) {
         super();
         this.name = 'list-titres';
 
         this.init(reglement);
+
+        this.storageService = new StorageService();
     }
 
     init(reglement = null) {
@@ -23,8 +29,28 @@ export class ListTitresComponent extends Component {
     }
 
 
-    ouiche() {
-        console.log('on dit ouiche lorraine');
+    add(event) {
+        console.log('add', event.target);
+
+        const reglement = this.storageService.getReglement();
+        console.log(reglement);
+    }
+
+
+    update(event) {
+        console.log('update', event.target);
+    }
+
+
+    delete(event) {
+        console.log('delete', event.target);
+
+        const reglement = this.storageService.getReglement();
+        console.log(reglement);
+        const id = event.target.getAttribute('idtitle');
+        reglement.removeTitre(id);
+        // trigger event 
+        this.storageService.save(reglement);
     }
 
 
@@ -32,11 +58,8 @@ export class ListTitresComponent extends Component {
         if (!this.reglement) {
             return 'list-titres';
         }
-        function baba() {
-            this.ouiche();
-        }
         function listFromTitle(title) {
-            if (title.niveau > 2) {
+            if (title.niveau > 1) {
                 return '';
             }
             let sublist = '';
@@ -46,9 +69,10 @@ export class ListTitresComponent extends Component {
             return `
                 <li id="${title.id}
                     niveau="${title.niveau}"
-                    class="list-item"
-                    onClick="baba()">
+                    class="list-item">
                     ${title.intitule}
+                    <button idtitle="${title.id}" class="btn-update">Modifier</button>
+                    <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
                     <ul>${sublist}</ul>
                 </li>
             `;
@@ -62,11 +86,32 @@ export class ListTitresComponent extends Component {
                 </div>
                 <div class="app-content">
                     <ul>${content}</ul>
+                    <button class="btn-add">Ajouter</button>
                 </div>
                 ${this.editTitre?.getElement().innerHTML}
             </div>
         `;
         return template;
+    }
+
+
+    registerEvents() {
+        super.registerEvents();
+        
+        const updateSelector = `.${this.name} .list-item .btn-update`;
+        const updateButtons = Array.from(document.querySelectorAll(updateSelector));
+        updateButtons.forEach((item) => {
+            item.addEventListener('click', event => this.update(event));
+        });
+
+        const deleteSelector = `.${this.name} .list-item .btn-delete`;
+        const deleteButtons = Array.from(document.querySelectorAll(deleteSelector));
+        deleteButtons.forEach((item) => {
+            item.addEventListener('click', event => this.delete(event));
+        });
+
+        const addSelector = `.${this.name} .btn-add`;
+        document.querySelector(addSelector)?.addEventListener('click', event => this.add(event));
     }
 
 }
