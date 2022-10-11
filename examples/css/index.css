@@ -26,3 +26,41 @@
     padding: 16px;
     border-radius: 4px;
 }
+
+
+.app-dialog {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #80808099;
+}
+.app-dialog > * {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-reglement {
+    max-width: 780px;
+    width: 100%;
+    background: white;
+
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.form-reglement form {
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-reglement form > * {
+    display: block;
+    width: 49%;
+}

@@ -1,4 +1,7 @@
 import Component from '../Core/Component';
+import ReglementForm from '../Form/ReglementForm';
+
+import DialogService from '../Services/DialogService';
 
 export class DetailPluComponent extends Component {
 
@@ -7,11 +10,22 @@ export class DetailPluComponent extends Component {
         this.name = 'detail-plu';
         
         this.init(reglement);
+
+        this.dialogService = new DialogService();
     }
 
     init(reglement = null) {
         this.reglement = reglement;
     }
+
+
+    openForm(event) {
+        console.log('openForm', event);
+        const form = new ReglementForm(this.reglement);
+
+        this.dialogService.open(form);
+    }
+
 
     getTemplate() {
         if (!this.reglement) {
@@ -31,8 +45,14 @@ export class DetailPluComponent extends Component {
                         <li>typeDoc: ${this.reglement.typeDoc}</li>
                     </ul>
                 </div>
+                <button class="btn-update">Modifier</button>
             </div>
         `;
+    }
+
+    registerEvents() {
+        const selector = `.${this.name} button`;
+        document.querySelector(selector)?.addEventListener('click', event => this.openForm(event));
     }
 
 }
