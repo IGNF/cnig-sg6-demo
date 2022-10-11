@@ -3,7 +3,10 @@ import Reglement from '../Model/Reglement';
 
 import EditTitreComponent from './EditTitreComponent';
 
-import StorageService from '../Services/StorageService'
+import StorageService from '../Services/StorageService';
+import TitreForm from '../Form/TitreForm';
+import DialogService from '../Services/DialogService';
+import Titre from '../Model/Titre';
 
 export class ListTitresComponent extends Component {
 
@@ -20,6 +23,7 @@ export class ListTitresComponent extends Component {
         this.init(reglement);
 
         this.storageService = new StorageService();
+        this.dialogService = new DialogService();
     }
 
     init(reglement = null) {
@@ -30,23 +34,32 @@ export class ListTitresComponent extends Component {
 
 
     add(event) {
-        console.log('add', event.target);
-
-        const reglement = this.storageService.getReglement();
+        const form = new TitreForm(new Titre());
+        this.dialogService.open(form);
     }
 
 
     update(event) {
-        console.log('update', event.target);
+        const id = event.target.getAttribute('idtitle');
+        const reglement = this.storageService.getReglement();
+        const titre = reglement.getTitreById(id);
+
+        const form = new TitreForm(titre);
+        this.dialogService.open(form);
     }
 
 
     delete(event) {
-        const reglement = this.storageService.getReglement();
         const id = event.target.getAttribute('idtitle');
+        const reglement = this.storageService.getReglement();
+
         reglement.removeTitre(id);
-        // trigger event 
         this.storageService.save(reglement);
+    }
+
+
+    openEditor(event) {
+
     }
 
 
@@ -63,10 +76,11 @@ export class ListTitresComponent extends Component {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
             }
             return `
-                <li id="${title.id}
+                <li id="${title.id}"
                     niveau="${title.niveau}"
                     class="list-item">
                     ${title.intitule}
+                    <span class="separator"></span>
                     <button idtitle="${title.id}" class="btn-update">Modifier</button>
                     <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
                     <ul>${sublist}</ul>
@@ -94,6 +108,12 @@ export class ListTitresComponent extends Component {
     registerEvents() {
         super.registerEvents();
         
+        const clickSelector = `.${this.name} .list-item`;
+        const listItem = Array.from(document.querySelectorAll(clickSelector));
+        listItem.forEach((item) => {
+            item.addEventListener('click', event => this.openEditor(event));
+        });
+
         const updateSelector = `.${this.name} .list-item .btn-update`;
         const updateButtons = Array.from(document.querySelectorAll(updateSelector));
         updateButtons.forEach((item) => {

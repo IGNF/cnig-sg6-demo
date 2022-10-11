@@ -37,6 +37,15 @@ class Reglement {
     }
 
 
+    getTitreById(id) {
+        const index = this.titres.findIndex(t => t.id === id);
+        if (index === -1) {
+            return null;
+        }
+        return this.titres[index];
+    }
+
+
     removeTitre(id) {
         const index = this.titres.findIndex(t => t.id === id);
         if (index === -1) {

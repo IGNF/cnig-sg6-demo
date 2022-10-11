@@ -18,13 +18,8 @@ class ReglementForm extends Component {
         this.dialogService = new DialogService();
     }
 
-    init() {
-        this.form;
-    }
-
 
     valid(event) {
-        console.log('validate form');
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
 
