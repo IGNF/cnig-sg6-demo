@@ -33,8 +33,12 @@ class TitreForm extends Component {
         this.titre.inseeCommune =   form.inseeCommune.value;
 
         // save titre dans reglement
+        const reglement = this.storageService.getReglement();
+        if (!reglement.getTitreById(form.id.value)) {
+            reglement.titres.push(this.titre);
+        }
         
-        this.storageService.save(this.storageService.getReglement());
+        this.storageService.save(reglement);
         this.dialogService.close();
     }
 
@@ -50,21 +54,21 @@ class TitreForm extends Component {
             <h4>Modifier le reglement</h4>
             <form>
                 <label for="id">id</label>
-                <input id="id" type="string" value="${this.titre.id}">
+                <input id="id" type="string" value="${this.titre.id || ''}">
                 <label for="intitule">intitule</label>
-                <input id="intitule" type="string" value="${this.titre.intitule}">
+                <input id="intitule" type="string" value="${this.titre.intitule || ''}">
                 <label for="niveau">niveau</label>
-                <input id="niveau" type="string" value="${this.titre.niveau}">
+                <input id="niveau" type="string" value="${this.titre.niveau || ''}">
                 <label for="numero">numero</label>
-                <input id="numero" type="string" value="${this.titre.numero}">
+                <input id="numero" type="string" value="${this.titre.numero || ''}">
                 <label for="href">href</label>
-                <input id="href" type="string" value="${this.titre.href}">
+                <input id="href" type="string" value="${this.titre.href || ''}">
                 <label for="idZone">idZone</label>
-                <input id="idZone" type="string" value="${this.titre.idZone}">
+                <input id="idZone" type="string" value="${this.titre.idZone || ''}">
                 <label for="idPrescription">idPrescription</label>
-                <input id="idPrescription" type="string" value="${this.titre.idPrescription}">
+                <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">
                 <label for="inseeCommune">inseeCommune</label>
-                <input id="inseeCommune" type="string" value="${this.titre.inseeCommune}">
+                <input id="inseeCommune" type="string" value="${this.titre.inseeCommune || ''}">
             </form>
             <div class="form-action">
                 <button class="btn-valid">Valider</button>

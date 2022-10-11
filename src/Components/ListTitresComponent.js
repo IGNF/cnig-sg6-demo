@@ -26,9 +26,9 @@ export class ListTitresComponent extends Component {
         this.dialogService = new DialogService();
     }
 
+
     init(reglement = null) {
         this.reglement = reglement;
-
         this.editTitre = new EditTitreComponent();
     }
 

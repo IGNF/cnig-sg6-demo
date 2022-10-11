@@ -67,6 +67,7 @@ button {
 .form-reglement form > *, .form-titre form > * {
     display: block;
     width: 49%;
+    margin: 5px 0px;
 }
 
 .list-titres ul li {
