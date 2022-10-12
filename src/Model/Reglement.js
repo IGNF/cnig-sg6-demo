@@ -1,3 +1,4 @@
+import Titre from "./Titre";
 
 class Reglement {
 
@@ -31,7 +32,7 @@ class Reglement {
         this.lien = data.lien;
         this.idUrba = data.idUrba;
         this.typeDoc = data.typeDoc;
-        this.titres = data.titres;
+        this.titres = data.titres.map(titreData => new Titre().unserialise(titreData));
         this.htmlContent = data.htmlContent;
         return this;
     }

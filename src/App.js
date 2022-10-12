@@ -8,10 +8,9 @@ export class App {
 
     rootElement;
 
-    rootComponent;
-
     storageService;
 
+    component;
 
     constructor() {
         // load from localstorage at opening
@@ -38,13 +37,13 @@ export class App {
 
 
     change(reglement = null) {
-        if (this.rootComponent) {
-            this.rootComponent.removeAll();
+        if (this.component) {
+            this.component.change(reglement);
+            return;
         }
-        const component = new HomePage(reglement);
-        this.rootElement.appendChild(component.getElement());
-        component.registerEvents();
-        this.rootComponent = component;
+        this.component = new HomePage(reglement);
+        this.rootElement.appendChild(this.component.getElement());
+        this.component.registerEvents();
     }
 
 

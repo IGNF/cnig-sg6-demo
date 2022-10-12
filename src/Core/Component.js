@@ -12,9 +12,7 @@ export class Component {
         return element;
     }
 
-    registerEvents() {
-        console.log('registerEvents', this.name);
-    }
+    registerEvents() { }
 
     getStyle() { return ''; }
 

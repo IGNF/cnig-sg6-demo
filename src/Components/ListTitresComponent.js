@@ -1,20 +1,19 @@
 import Component from '../Core/Component';
-import Reglement from '../Model/Reglement';
-
-import EditTitreComponent from './EditTitreComponent';
 
 import StorageService from '../Services/StorageService';
 import TitreForm from '../Form/TitreForm';
 import DialogService from '../Services/DialogService';
 import Titre from '../Model/Titre';
+import Editeur from '../Core/Editeur';
+import tinymce from 'tinymce';
 
 export class ListTitresComponent extends Component {
 
     reglement;
 
-    editTitre;
-
     storageService;
+
+    editeur;
 
     constructor(reglement) {
         super();
@@ -29,7 +28,6 @@ export class ListTitresComponent extends Component {
 
     init(reglement = null) {
         this.reglement = reglement;
-        this.editTitre = new EditTitreComponent();
     }
 
 
@@ -59,13 +57,19 @@ export class ListTitresComponent extends Component {
 
 
     openEditor(event) {
+        const id = event.target.getAttribute('idtitle');
 
+        const reglement = this.storageService.getReglement();
+        const titre = reglement.getTitreById(id);
+
+        const editor = tinymce.activeEditor;
+        editor.setContent(titre.getHtmlContent());
     }
 
 
     getTemplate() {
         if (!this.reglement) {
-            return 'list-titres';
+            return '';
         }
         function listFromTitle(title) {
             if (title.niveau > 1) {
@@ -79,7 +83,7 @@ export class ListTitresComponent extends Component {
                 <li id="${title.id}"
                     niveau="${title.niveau}"
                     class="list-item">
-                    ${title.intitule}
+                    <p idtitle="${title.id}">${title.intitule}</p>
                     <span class="separator"></span>
                     <button idtitle="${title.id}" class="btn-update">Modifier</button>
                     <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
@@ -92,13 +96,16 @@ export class ListTitresComponent extends Component {
         const template = `
             <div class="app-card">
                 <div class="app-header">
-                    <h2>Sommaire</h2>
+                    <h2>Liste des titres</h2>
+                    <p>
+                        Gérer la liste des titres.
+                        Clicker sur un titre pour modifier le contenu
+                    </p>
                 </div>
                 <div class="app-content">
                     <ul>${content}</ul>
                     <button class="btn-add">Ajouter</button>
                 </div>
-                ${this.editTitre?.getElement().innerHTML}
             </div>
         `;
         return template;
@@ -107,8 +114,12 @@ export class ListTitresComponent extends Component {
 
     registerEvents() {
         super.registerEvents();
+
+        // add Editor
+        this.editeur = new Editeur();
+        this.editeur.init('app-tinymce');
         
-        const clickSelector = `.${this.name} .list-item`;
+        const clickSelector = `.${this.name} .list-item p`;
         const listItem = Array.from(document.querySelectorAll(clickSelector));
         listItem.forEach((item) => {
             item.addEventListener('click', event => this.openEditor(event));

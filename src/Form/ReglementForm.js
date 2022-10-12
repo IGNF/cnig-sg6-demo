@@ -35,7 +35,6 @@ class ReglementForm extends Component {
 
 
     close(event) {
-        console.log('validate form');
         this.dialogService.close();
     }
 
@@ -63,6 +62,9 @@ class ReglementForm extends Component {
     }
 
     registerEvents() {
+        console.log('[ReglementForm] registerevent');
+        super.registerEvents();
+
         const validSelector = `.${this.name} .btn-valid`;
         document.querySelector(validSelector).addEventListener('click', event => this.valid(event));
 

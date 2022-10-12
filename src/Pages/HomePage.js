@@ -34,15 +34,48 @@ export class HomePage extends Component {
     }
 
 
+    change(reglement = null) {
+
+        this.refreshComponent('detail-plu', reglement, DetailPluComponent);
+        this.refreshComponent('list-titres', reglement, ListTitresComponent);
+    }
+
+
+    refreshComponent(name, reglement, componentClass) {
+        // remove
+        const index = this.components.findIndex(c => c.name === name);
+        const component = this.components.splice(index, 1)[0];
+        const selector = `.${this.name} .${component.name}`;
+        const element = document.querySelector(selector);
+        const parent = element.parentNode;
+        element.remove();
+
+        // add
+        const newComponent = new componentClass(reglement);
+        this.components.push(newComponent);
+        parent.appendChild(newComponent.getElement());
+        newComponent.registerEvents();
+    }
+
+
     getTemplate() {
         return `
             <div class="app-home">
-                <h2>Home</h2>
-                ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
-                ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
-                <div class="app-button">
+                <div class="toolbar">
+                    <div class="toolbar-title">
+                        <h1>Plu:ReglementDU</h1>
+                        <p>Outils d'export de PLU au format XML CNIG</p>
+                    </div>
+                    <div class="separator"></div>
                     ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
                     ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
+                </div>
+                <div>
+                    ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
+                    ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
+                </div>
+                <div class="app-content-editor">
+                    <textarea id="app-tinymce"></textarea>
                 </div>
             </div>
         `;

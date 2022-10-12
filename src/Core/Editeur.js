@@ -27,13 +27,8 @@ class Editeur {
         this.saveEvent.pipe(
             debounceTime(500)
         ).subscribe(() => {
-            console.log('Save');
-            this.triggerSave();
+            // TODO
         });
-    }
-
-    getTinyEditor() {
-        return this.editor;
     }
 
     init(id) {
@@ -50,7 +45,7 @@ class Editeur {
                 edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
                 insert: { title: 'Insert', items: 'image link media addcomment pageembed template codesample | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
                 format: { title: 'Format', items: 'bold italic underline codeformat | styles align lineheight | forecolor | language | removeformat' },
-                table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' },
+                table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' }
             },
             style_formats: [
                 { title: 'Titre', block: 'h1', classes: 'plu-title' },
@@ -82,11 +77,6 @@ class Editeur {
 
     actionPluRule() {
         this.editor.insertContent('<strong>baba</strong>');
-    }
-
-    triggerSave() {
-        const content = this.editor.getContent();
-        localStorage.setItem('editor', content);
     }
 
 }

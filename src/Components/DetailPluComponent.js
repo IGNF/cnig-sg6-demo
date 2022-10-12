@@ -20,7 +20,6 @@ export class DetailPluComponent extends Component {
 
 
     openForm(event) {
-        console.log('openForm', event);
         const form = new ReglementForm(this.reglement);
 
         this.dialogService.open(form);
@@ -29,7 +28,11 @@ export class DetailPluComponent extends Component {
 
     getTemplate() {
         if (!this.reglement) {
-            return 'detail-plu';
+            return `
+                <div class="app-card">
+                    <p>Charger un fichier XML ou démarrer un nouveau document</p>
+                </div>
+            `;
         }
         return `
             <div class="app-card">
@@ -37,13 +40,12 @@ export class DetailPluComponent extends Component {
                     <h2>${this.reglement.nom}</h2>
                 </div>
                 <div class="app-content">
-                    <ul>
-                        <li>id: ${this.reglement.id}</li>
-                        <li>nom: ${this.reglement.nom}</li>
-                        <li>lien: ${this.reglement.lien}</li>
-                        <li>idUrba: ${this.reglement.idUrba}</li>
-                        <li>typeDoc: ${this.reglement.typeDoc}</li>
-                    </ul>
+                    <p>${this.reglement.typeDoc}</p>
+                    <p>${this.reglement.idUrba}</p>
+                    <p>
+                        Document disponible sur le géoportail de l'urbanisme
+                        <a href="${this.reglement.lien}" target="_blanck">ici</a>
+                    </p>
                 </div>
                 <button class="btn-update">Modifier</button>
             </div>

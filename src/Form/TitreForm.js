@@ -44,7 +44,6 @@ class TitreForm extends Component {
 
 
     close(event) {
-        console.log('validate form');
         this.dialogService.close();
     }
 

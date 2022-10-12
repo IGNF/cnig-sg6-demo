@@ -12,5 +12,4 @@ export { default as XmlImport } from 'Import/XmlImport';
 export { default as DetailPluComponent } from 'Components/DetailPluComponent';
 
 export { default as DetailTitreComponent } from 'Components/DetailTitreComponent';
-export { default as EditTitreComponent } from 'Components/EditTitreComponent';
 export { default as ListTitresComponent } from 'Components/ListTitresComponent';
