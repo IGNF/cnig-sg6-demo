@@ -5,6 +5,8 @@ class StorageService {
 
     reglement;
 
+    activeTitre;
+
     change = new Subject();
 
     constructor() {
@@ -20,14 +22,6 @@ class StorageService {
         this.change.next(this.reglement);
     }
 
-    setReglement(reglement) {
-        this.reglement = reglement;
-    }
-
-    getReglement() {
-        return this.reglement;
-    }
-
     saveToLocalStorage() {
         localStorage.setItem('reglement', JSON.stringify(this.reglement));
     }
@@ -36,6 +30,22 @@ class StorageService {
         this.reglement = new Reglement().unserialise(JSON.parse(localStorage.getItem('reglement')));
 
         this.change.next(this.reglement);
+    }
+
+    setReglement(reglement) {
+        this.reglement = reglement;
+    }
+
+    getReglement() {
+        return this.reglement;
+    }
+
+    setActiveTitre(titre) {
+        this.activeTitre = titre;
+    }
+
+    getActiveTitre() {
+        return this.activeTitre;
     }
 
 }

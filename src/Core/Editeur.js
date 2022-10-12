@@ -16,20 +16,36 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/lists';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/emoticons';
+import StorageService from '../Services/StorageService';
 
 class Editeur {
 
-    saveEvent = new Subject();
-
     editor;
 
+    storageService;
+
+    saveEvent = new Subject();
+
     constructor() {
+        this.storageService = new StorageService();
+
         this.saveEvent.pipe(
             debounceTime(500)
         ).subscribe(() => {
             // TODO
+            const editorContent = this.getContent();
+            const activeTitre = this.storageService.getActiveTitre();
+            activeTitre.contents[0].htmlContent = editorContent;
+            console.log('must save', this.storageService.getActiveTitre(), this.getContent());
+            this.storageService.saveToLocalStorage();
         });
     }
+
+
+    getContent() {
+        return tinymce.activeEditor.getContent();
+    }
+
 
     init(id) {
         tinymce.init({
@@ -68,6 +84,10 @@ class Editeur {
         editor.ui.registry.addButton('pluSave', {
             text: 'Sauvegarde',
             onAction: () => this.actionSave()
+        });
+
+        editor.on('input', (event) => {
+            this.saveEvent.next(event);
         });
     }
 

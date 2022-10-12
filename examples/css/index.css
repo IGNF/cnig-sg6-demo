@@ -138,3 +138,12 @@ button {
     padding: 10px;
 }
 
+.app-content-reduce{
+    height: 0;
+    overflow: hidden;
+    transition: height 0.15s ease-in;
+}
+
+.app-header {
+    display: flex;
+}

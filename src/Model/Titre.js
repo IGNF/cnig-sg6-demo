@@ -1,3 +1,4 @@
+import Contenu from './Contenu';
 
 class Titre {
 
@@ -33,17 +34,48 @@ class Titre {
         this.idZone =         data.idZone;
         this.idPrescription = data.idPrescription;
         this.inseeCommune =   data.inseeCommune;
-        this.contents =       data.contents;
+        // TODO manage order
+        this.contents =       data.contents.map(contentData => new Contenu().unserialise(contentData));
         this.children =       data.children.map(titreData => new Titre().unserialise(titreData));
         return this;
     }
 
 
-    getHtmlContent() {
-        const partContent = this.contents.map(contenu => contenu.htmlContent).join('');
-        const partChildren = this.children.map(titre => titre.getHtmlContent()).join('');
+    toSimpleContent() {
+        const partContent = this.contents.map(contenu => contenu.toSimpleContent()).join('');
+        const partChildren = this.children.map(titre => titre.toSimpleContent()).join('');
+        return `
+            ${partContent}
+            ${partChildren}
+        `;
+    };
 
-        return `${partContent}${partChildren}`;
+
+    toHtml() {
+        const partContent = this.contents.map(contenu => contenu.toHtml()).join('');
+        const partChildren = this.children.map(titre => titre.toHtml()).join('');
+        return `
+            <div id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
+                numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
+                idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
+                ${partContent}
+                ${partChildren}
+            </div>
+        `;
+    };
+
+
+    toXml() {
+        const partContent = this.contents.map(contenu => contenu.toXml()).join('');
+        const partChildren = this.children.map(titre => titre.toXml()).join('');
+        return `
+            <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
+                numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
+                idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
+                ${partContent}
+                ${partChildren}
+            </plu:Titre>
+        `;
     };
 
 }

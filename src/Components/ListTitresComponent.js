@@ -61,9 +61,21 @@ export class ListTitresComponent extends Component {
 
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
+        this.storageService.setActiveTitre(titre);
 
         const editor = tinymce.activeEditor;
-        editor.setContent(titre.getHtmlContent());
+        editor.setContent(titre.toSimpleContent());
+    }
+
+
+    reduce(event) {
+        const selector = `.${this.name} .app-content`;
+        const element = document.querySelector(selector);
+        if (element.classList.contains('app-content-reduce')) {
+            element.classList.remove('app-content-reduce');
+        } else {
+            element.classList.add('app-content-reduce');
+        }
     }
 
 
@@ -97,12 +109,14 @@ export class ListTitresComponent extends Component {
             <div class="app-card">
                 <div class="app-header">
                     <h2>Liste des titres</h2>
+                    <div class="separator"></div>
+                    <button class="btn-reduce">Reduire</buttton>
+                </div>
+                <div class="app-content">
                     <p>
                         Gérer la liste des titres.
                         Clicker sur un titre pour modifier le contenu
                     </p>
-                </div>
-                <div class="app-content">
                     <ul>${content}</ul>
                     <button class="btn-add">Ajouter</button>
                 </div>
@@ -139,6 +153,9 @@ export class ListTitresComponent extends Component {
 
         const addSelector = `.${this.name} .btn-add`;
         document.querySelector(addSelector)?.addEventListener('click', event => this.add(event));
+
+        const selectorReduce = `.${this.name} button.btn-reduce`;
+        document.querySelector(selectorReduce)?.addEventListener('click', event => this.reduce(event));
     }
 
 }

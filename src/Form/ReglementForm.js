@@ -62,7 +62,6 @@ class ReglementForm extends Component {
     }
 
     registerEvents() {
-        console.log('[ReglementForm] registerevent');
         super.registerEvents();
 
         const validSelector = `.${this.name} .btn-valid`;

@@ -88,12 +88,6 @@ export class HomePage extends Component {
         this.components.forEach((component) => {
             component.registerEvents();
         });
-
-        const saveSelector = `.${this.name} .btn-save`;
-        document.querySelector(saveSelector)?.addEventListener('click', event => this.save(event));
-
-        const exportSelector = `.${this.name} .btn-export`;
-        document.querySelector(exportSelector)?.addEventListener('click', event => this.export(event));
     }
 
 }

@@ -17,6 +17,38 @@ class Contenu {
     constructor() {
     }
 
+    unserialise(data) {
+        this.id =             data.id;
+        this.href =           data.href;
+        this.idZone =         data.idZone;
+        this.idPrescription = data.idPrescription;
+        this.htmlContent =    data.htmlContent;
+        return this;
+    }
+
+
+    toSimpleContent() {
+        return `${this.htmlContent}`;
+    };
+
+
+    toHtml() {
+        return `
+            <div id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+                ${this.htmlContent}
+            </div>
+        `;
+    }
+
+
+    toXml() {
+        return `
+            <plu:Contenu id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+                ${this.htmlContent}
+            </plu:Contenu>
+        `;
+    };
+
 }
 
 export default Contenu;
