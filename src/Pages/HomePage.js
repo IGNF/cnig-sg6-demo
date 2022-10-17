@@ -74,9 +74,11 @@ export class HomePage extends Component {
                     ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
                     ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
                 </div>
+                <!--
                 <div class="app-content-editor">
                     <textarea id="app-tinymce"></textarea>
                 </div>
+                -->
             </div>
         `;
     }

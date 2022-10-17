@@ -34,9 +34,8 @@ class Contenu {
 
     toHtml() {
         return `
-            <div id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
-                ${this.htmlContent}
-            </div>
+            <div class="section plu-content" id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}"></div>
+            ${this.htmlContent}
         `;
     }
 

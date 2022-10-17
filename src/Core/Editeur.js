@@ -35,8 +35,8 @@ class Editeur {
             // TODO
             const editorContent = this.getContent();
             const activeTitre = this.storageService.getActiveTitre();
-            activeTitre.contents[0].htmlContent = editorContent;
-            console.log('must save', this.storageService.getActiveTitre(), this.getContent());
+            // TODO must use and XMLimport rule and replace Title
+            console.log('must save', activeTitre, newTitre, this.getContent());
             this.storageService.saveToLocalStorage();
         });
     }
@@ -67,6 +67,7 @@ class Editeur {
                 { title: 'Titre', block: 'h1', classes: 'plu-title' },
                 { title: 'Titre niveau 2', block: 'h2' },
                 { title: 'Titre niveau 3', block: 'h3' },
+                { title: 'Titre niveau 4', block: 'h4' },
                 { title: 'Article', block: 'div', classes: 'plu-article' },
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]

@@ -16,6 +16,7 @@ class Titre {
     inseeCommune;
 
     // Liste de contenu
+    // export content before children
     contents;
     // Liste de Zone enfants
     children;
@@ -55,12 +56,12 @@ class Titre {
         const partContent = this.contents.map(contenu => contenu.toHtml()).join('');
         const partChildren = this.children.map(titre => titre.toHtml()).join('');
         return `
-            <div id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
+            <div class="section plu-titre" id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
                 numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
                 idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
-                ${partContent}
-                ${partChildren}
             </div>
+            ${partContent}
+            ${partChildren}
         `;
     };
 

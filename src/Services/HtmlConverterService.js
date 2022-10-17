@@ -3,41 +3,71 @@ import Titre from '../Model/Titre';
 import Contenu from '../Model/Contenu';
 
 
-class XmlImport {
-
-	xmlReglement;
+class HtmlConverterService {
 
 
     constructor() {
-
     }
 
 
-    load(xmlString) {
-        const parser = new DOMParser();
-        // const xmlReglement = parser.parseFromString(xmlString, 'text/html');
-        const xmlReglement = parser.parseFromString(xmlString, 'application/xml');
-		this.xmlReglement = xmlReglement;
+    createReglement(htmlString) {
 
         const reglement = new Reglement();
-
-        const reglementElement = xmlReglement.getElementsByTagName('plu:ReglementDU')[0];
-        reglement.id =      reglementElement.getAttribute('id');
-        reglement.lien =    reglementElement.getAttribute('lien');
-        reglement.nom =     reglementElement.getAttribute('nom');
-        reglement.idUrba =  reglementElement.getAttribute('idUrba');
-        reglement.typeDoc = reglementElement.getAttribute('typeDoc');
-
-        reglement.titres = Array.from(xmlReglement.getElementsByTagName('plu:Titre'))
-            .filter(element => element.getAttribute('niveau') == 1)
-            .map((element) => {
-                return this.loadTitre(element);
-            });
-
         return reglement;
     }
 
+    createTitre(htmlString) {
+
+        const node = document.createElement('div');
+        node.innerHTML = htmlString;
+
+        const children = Array.from(node.children);
+
+        // 1. Recompose section plu-titre / plu-content
+        // plu-titre -> h1, h2, h3...
+        let title;
+        let content;
+        const result = children.reduce((previous, child, index) => {
+            console.log('child', child);
+            if (child.classList.contains('plu-titre')) {
+                title = child;
+            }
+            if (child.classList.contains('plu-content')) {
+                content = child;
+            }
+            if (!child.tagName.match('H[1-6]')) {
+                return previous;
+            }
+            const candidat = {
+                child: child,
+                index: index,
+                voisin: null,
+                mustbe: null,
+                title: title,
+                content: content
+            };
+            if (index > 0) {
+                const voisin = children[index - 1];
+                candidat.voisin = voisin;
+            }
+            if (!candidat.voisin.classList.contains('section')) {
+                candidat.mustbe = '<div class="section plu-titre"></div>';
+            }
+            previous.push(candidat);
+            return previous;
+        }, []);
+        console.log(result);
+
+        // 2. Read Node by Node
+
+        const titre = new Titre();
+        return titre;
+    }
+
+
     loadTitre(element) {
+        console.log('loadTitre');
+        console.log(element);
         const titre = new Titre();
 
         titre.id = element.getAttribute('id');
@@ -61,13 +91,6 @@ class XmlImport {
 		return titre;
     }
 
-
-    lameCheckHTML(htmlString) {
-        const doc = document.createAttribute('div');
-        doc.innerHTML = htmlString;
-        return doc.innerHTML === htmlString;
-    }
-
     loadContenu(element) {
         const contenu = new Contenu();
 
@@ -87,4 +110,4 @@ class XmlImport {
 
 }
 
-export default XmlImport;
+export default HtmlConverterService;

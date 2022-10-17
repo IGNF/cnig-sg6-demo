@@ -64,7 +64,7 @@ export class ListTitresComponent extends Component {
         this.storageService.setActiveTitre(titre);
 
         const editor = tinymce.activeEditor;
-        editor.setContent(titre.toSimpleContent());
+        editor.setContent(titre.toHtml(), { format: 'raw' });
     }
 
 
