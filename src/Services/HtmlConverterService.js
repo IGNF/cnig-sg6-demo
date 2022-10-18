@@ -1,4 +1,3 @@
-import Reglement from '../Model/Reglement';
 import Titre from '../Model/Titre';
 import Contenu from '../Model/Contenu';
 
