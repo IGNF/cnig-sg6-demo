@@ -16,34 +16,35 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/lists';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/emoticons';
-import StorageService from '../Services/StorageService';
 
-class Editeur {
+import StorageService from './StorageService';
+import HtmlConverterService from './HtmlConverterService';
 
-    editor;
+class EditeurService {
 
     storageService;
 
     saveEvent = new Subject();
 
     constructor() {
-        this.storageService = new StorageService();
+        if (EditeurService.instance) {
+            return EditeurService.instance;
+        }
 
-        this.saveEvent.pipe(
-            debounceTime(500)
-        ).subscribe(() => {
-            // TODO
-            const editorContent = this.getContent();
-            const activeTitre = this.storageService.getActiveTitre();
-            // TODO must use and XMLimport rule and replace Title
-            console.log('must save', activeTitre, newTitre, this.getContent());
-            this.storageService.saveToLocalStorage();
-        });
+        this.storageService = new StorageService();
+        this.htmlConverterService = new HtmlConverterService();
+
+        EditeurService.instance = this;
     }
 
 
     getContent() {
         return tinymce.activeEditor.getContent();
+    }
+
+
+    setContent(content, options) {
+        return tinymce.activeEditor.setContent(content, options);
     }
 
 
@@ -57,6 +58,7 @@ class Editeur {
             plugins: 'image link media table emoticons',
             menubar: 'edit insert format table',
             toolbar: 'styles pluRule pluSave',
+            extended_valid_elements: this.getExtendedValidElements(),
             menu: {
                 edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
                 insert: { title: 'Insert', items: 'image link media addcomment pageembed template codesample | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
@@ -72,10 +74,27 @@ class Editeur {
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]
         });
+
+        this.saveEvent.pipe(
+            debounceTime(5000)
+        ).subscribe(() => {
+            this.actionSave();
+        });
+    }
+
+    getExtendedValidElements () {
+        return [
+            'div[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h1[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h2[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h3[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h4[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h5[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
+            'h6[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]'
+        ].join(',');
     }
 
     setup(editor) {
-        this.editor = editor;
 
         editor.ui.registry.addButton('pluRule', {
             text: 'Règles',
@@ -93,13 +112,29 @@ class Editeur {
     }
 
     actionSave() {
-        this.saveEvent.next();
+        tinymce.activeEditor.mode.set('readonly');
+
+        setTimeout((event) => {
+            const editorContent = this.getContent();
+            const newTitre = this.htmlConverterService.recomposeTitre(editorContent);
+            if (!newTitre) {
+                tinymce.activeEditor.mode.set('design');
+                return;
+            }
+            tinymce.activeEditor.setContent(newTitre.toHtml());
+    
+            const reglement = this.storageService.getReglement();
+            reglement.replaceTitre(newTitre);
+            this.storageService.save(reglement);
+
+            tinymce.activeEditor.mode.set('design');
+        }, 500);
     }
 
     actionPluRule() {
-        this.editor.insertContent('<strong>baba</strong>');
+        tinymce.activeEditor.insertContent('<strong>baba</strong>');
     }
 
 }
 
-export default Editeur;
+export default EditeurService;

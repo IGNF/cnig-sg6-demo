@@ -22,6 +22,14 @@ class Titre {
     children;
 
     constructor() {
+        this.id =             `idelem${Date.now()}`;
+        this.intitule =       '';
+        this.niveau =         '';
+        this.numero =         '';
+        this.href =           '';
+        this.idZone =         '';
+        this.idPrescription = 'nonConcerne';
+        this.inseeCommune =   '';
         this.contents = [];
         this.children = [];
     }
@@ -42,6 +50,14 @@ class Titre {
     }
 
 
+    findSubtitle(needle) {
+        if (needle.intitule === this.intitule && needle.niveau === this.niveau) {
+            return this;
+        }
+        return this.children.find(child => child.findSubtitle(needle));
+    }
+
+
     toSimpleContent() {
         const partContent = this.contents.map(contenu => contenu.toSimpleContent()).join('');
         const partChildren = this.children.map(titre => titre.toSimpleContent()).join('');
@@ -55,21 +71,32 @@ class Titre {
     toHtml() {
         const partContent = this.contents.map(contenu => contenu.toHtml()).join('');
         const partChildren = this.children.map(titre => titre.toHtml()).join('');
-        return `
-            <div class="section plu-titre" id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
-                numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
-                idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
-            </div>
+        const html = `
             ${partContent}
             ${partChildren}
         `;
+        const node = document.createElement('div');
+        node.innerHTML = html;
+        const titleNode = node.querySelector(`h${this.niveau}`);
+        if (titleNode) {
+            titleNode.setAttribute('id', this.id);
+            titleNode.setAttribute('data-intitule', this.intitule);
+            titleNode.setAttribute('data-niveau', this.niveau);
+            titleNode.setAttribute('data-numero', this.numero);
+            titleNode.setAttribute('data-href', this.href);
+            titleNode.setAttribute('data-idzone', this.idZone);
+            titleNode.setAttribute('data-idprescription', this.idPrescription);
+            titleNode.setAttribute('data-inseecommune', this.inseeCommune);
+        }
+        return node.innerHTML;
     };
 
 
     toXml() {
         const partContent = this.contents.map(contenu => contenu.toXml()).join('');
         const partChildren = this.children.map(titre => titre.toXml()).join('');
-        return `
+        // TODO clean data attributes
+        const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
                 numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
                 idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
@@ -77,7 +104,12 @@ class Titre {
                 ${partChildren}
             </plu:Titre>
         `;
+        return this.sanitizeXml(xmlString);
     };
+
+    sanitizeXml(string) {
+        return string.trim().replace(/\u00a0/g, ' ')
+    }
 
 }
 

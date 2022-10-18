@@ -15,6 +15,11 @@ class Contenu {
     htmlContent;
 
     constructor() {
+        this.id =             `idelem${Date.now()}`;
+        this.href =           '';
+        this.idZone =         '';
+        this.idPrescription = 'nonConcerne';
+        this.htmlContent =    '';
     }
 
     unserialise(data) {
@@ -33,10 +38,17 @@ class Contenu {
 
 
     toHtml() {
-        return `
-            <div class="section plu-content" id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}"></div>
+        const html = `
+            <div class="section plu-contenu" id="${this.id}" data-href="${this.href}" data-idZone="${this.idZone}" data-idPrescription="${this.idPrescription}"></div>
             ${this.htmlContent}
         `;
+        const node = document.createElement('div');
+        node.innerHTML = html;
+        const children = Array.from(node.children);
+        children.forEach((child) => {
+            child.setAttribute('data-id-contenu', this.id);
+        });
+        return node.innerHTML;
     }
 
 
@@ -45,7 +57,7 @@ class Contenu {
             <plu:Contenu id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
                 ${this.htmlContent}
             </plu:Contenu>
-        `;
+        `.trim();
     };
 
 }

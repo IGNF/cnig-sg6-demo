@@ -5,8 +5,6 @@ class StorageService {
 
     reglement;
 
-    activeTitre;
-
     change = new Subject();
 
     constructor() {
@@ -38,14 +36,6 @@ class StorageService {
 
     getReglement() {
         return this.reglement;
-    }
-
-    setActiveTitre(titre) {
-        this.activeTitre = titre;
-    }
-
-    getActiveTitre() {
-        return this.activeTitre;
     }
 
 }

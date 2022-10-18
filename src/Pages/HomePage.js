@@ -1,11 +1,11 @@
 import Component from '../Core/Component';
-import Reglement from '../Model/Reglement';
 
 import DetailPluComponent from '../Components/DetailPluComponent';
 import ListTitresComponent from '../Components/ListTitresComponent';
 import LoadButtonComponent from '../Components/LoadButtonComponent';
-import StorageService from '../Services/StorageService';
 import ExportButtonComponent from '../Components/ExportButtonComponent';
+
+import StorageService from '../Services/StorageService';
 
 export class HomePage extends Component {
 
@@ -74,11 +74,9 @@ export class HomePage extends Component {
                     ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
                     ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
                 </div>
-                <!--
                 <div class="app-content-editor">
                     <textarea id="app-tinymce"></textarea>
                 </div>
-                -->
             </div>
         `;
     }

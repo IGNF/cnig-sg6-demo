@@ -1,11 +1,11 @@
 import Component from '../Core/Component';
+import TitreForm from '../Form/TitreForm';
+
+import Titre from '../Model/Titre';
 
 import StorageService from '../Services/StorageService';
-import TitreForm from '../Form/TitreForm';
 import DialogService from '../Services/DialogService';
-import Titre from '../Model/Titre';
-import Editeur from '../Core/Editeur';
-import tinymce from 'tinymce';
+import EditeurService from '../Services/EditeurService';
 
 export class ListTitresComponent extends Component {
 
@@ -23,6 +23,7 @@ export class ListTitresComponent extends Component {
 
         this.storageService = new StorageService();
         this.dialogService = new DialogService();
+        this.editeurService = new EditeurService();
     }
 
 
@@ -61,10 +62,8 @@ export class ListTitresComponent extends Component {
 
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
-        this.storageService.setActiveTitre(titre);
 
-        const editor = tinymce.activeEditor;
-        editor.setContent(titre.toHtml(), { format: 'raw' });
+        this.editeurService.setContent(titre.toHtml(), { format: 'raw' });
     }
 
 
@@ -95,8 +94,7 @@ export class ListTitresComponent extends Component {
                 <li id="${title.id}"
                     niveau="${title.niveau}"
                     class="list-item">
-                    <p idtitle="${title.id}">${title.intitule}</p>
-                    <span class="separator"></span>
+                    <p class="separator" idtitle="${title.id}">${title.intitule}</p>
                     <button idtitle="${title.id}" class="btn-update">Modifier</button>
                     <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
                     <ul>${sublist}</ul>
@@ -130,8 +128,7 @@ export class ListTitresComponent extends Component {
         super.registerEvents();
 
         // add Editor
-        this.editeur = new Editeur();
-        this.editeur.init('app-tinymce');
+        this.editeurService.init('app-tinymce');
         
         const clickSelector = `.${this.name} .list-item p`;
         const listItem = Array.from(document.querySelectorAll(clickSelector));

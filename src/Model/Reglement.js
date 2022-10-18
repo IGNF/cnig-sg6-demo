@@ -56,6 +56,16 @@ class Reglement {
     }
 
 
+    replaceTitre(titre) {
+        const index = this.titres.findIndex(t => t.id === titre.id);
+        if (index === -1) {
+            this.titres.push(titre);
+            return;
+        }
+        this.titres.splice(index, 1, titre);
+    }
+
+
     toSimpleContent() {
         const content = this.titres.map(titre => titre.toSimpleContent()).join('');
         return `
@@ -77,7 +87,7 @@ class Reglement {
 
     toXml() {
         const content = this.titres.map(titre => titre.toXml()).join('');
-        return `<?xml version="1.0" encoding="UTF-8"?>
+        const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
             <plu:ReglementDU
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://www.w3.org/1999/xhtml"
@@ -90,7 +100,12 @@ class Reglement {
                 ${content}
             </plu:ReglementDU>
         `;
+        return this.sanitizeXml(xmlString);
     };
+
+    sanitizeXml(string) {
+        return string.trim().replace(/\u00a0/g, ' ').replace(/            /g, '').replace(/&nbsp;/g, '');
+    }
 
 }
 
