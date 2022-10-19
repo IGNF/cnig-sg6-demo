@@ -68,7 +68,7 @@ export class ListTitresComponent extends Component {
 
 
     reduce(event) {
-        const selector = `.${this.name} .app-content`;
+        const selector = `.${this.name} .app-card-content`;
         const element = document.querySelector(selector);
         if (element.classList.contains('app-content-reduce')) {
             element.classList.remove('app-content-reduce');
@@ -105,12 +105,12 @@ export class ListTitresComponent extends Component {
 
         const template = `
             <div class="app-card">
-                <div class="app-header">
+                <div class="app-card-header">
                     <h2>Liste des titres</h2>
                     <div class="separator"></div>
                     <button class="btn-reduce">Reduire</buttton>
                 </div>
-                <div class="app-content">
+                <div class="app-card-content">
                     <p>
                         Gérer la liste des titres.
                         Clicker sur un titre pour modifier le contenu

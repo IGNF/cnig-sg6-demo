@@ -27,7 +27,7 @@ export class DetailPluComponent extends Component {
 
 
     reduce(event) {
-        const selector = `.${this.name} .app-content`;
+        const selector = `.${this.name} .app-card-content`;
         const element = document.querySelector(selector);
         if (element.classList.contains('app-content-reduce')) {
             element.classList.remove('app-content-reduce');
@@ -47,12 +47,12 @@ export class DetailPluComponent extends Component {
         }
         return `
             <div class="app-card">
-                <div class="app-header">
+                <div class="app-card-header">
                     <h2>${this.reglement.nom}</h2>
                     <div class="separator"></div>
                     <button class="btn-reduce">Reduire</buttton>
                 </div>
-                <div class="app-content">
+                <div class="app-card-content">
                     <p>${this.reglement.typeDoc}</p>
                     <p>${this.reglement.idUrba}</p>
                     <p>

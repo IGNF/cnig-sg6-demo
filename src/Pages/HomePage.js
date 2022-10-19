@@ -60,23 +60,21 @@ export class HomePage extends Component {
 
     getTemplate() {
         return `
-            <div class="app-home">
-                <div class="toolbar">
-                    <div class="toolbar-title">
-                        <h1>Plu:ReglementDU</h1>
-                        <p>Outils d'export de PLU au format XML CNIG</p>
-                    </div>
-                    <div class="separator"></div>
-                    ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
-                    ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
+            <div class="toolbar">
+                <div class="toolbar-title">
+                    <h1>Plu:ReglementDU</h1>
+                    <p>Outils d'export de PLU au format XML CNIG</p>
                 </div>
-                <div>
-                    ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
-                    ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
-                </div>
-                <div class="app-content-editor">
-                    <textarea id="app-tinymce"></textarea>
-                </div>
+                <div class="separator"></div>
+                ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
+                ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
+            </div>
+            <div class="app-home-content">
+                ${this.components.find(c => c.name === 'detail-plu')?.getElement().outerHTML}
+                ${this.components.find(c => c.name === 'list-titres')?.getElement().outerHTML}
+            </div>
+            <div class="app-content-editor">
+                <textarea id="app-tinymce"></textarea>
             </div>
         `;
     }
