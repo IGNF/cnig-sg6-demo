@@ -64,9 +64,11 @@ button {
 .app-card-header {
     display: flex;
 }
+.app-card-header button {
+    margin: 0px 5px;
+}
 .app-card-content ul {
-    height: 100%;
-    max-height: 247px;
+    max-height: 130px;
     overflow-y: auto;
 }
 .app-card-content {
@@ -176,13 +178,13 @@ button {
 
 /* autre */
 .detail-plu .app-card-content {
-    height: 10.0em;
+    height: 7.5em;
 }
 .detail-plu .app-card-content.app-content-reduce {
     height: 0;
 }
 .list-titres .app-card-content {
-    height: 15.0em;
+    height: 11.5em;
 }
 .list-titres .app-card-content.app-content-reduce {
     height: 0;

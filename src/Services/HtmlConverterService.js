@@ -57,11 +57,17 @@ class HtmlConverterService {
         titre.intitule = element.innerText.toLowerCase();
         // from data attributes
         const attributes = [
-            'id', 'data-numero', 'data-href',
-            'data-idzone', 'data-idprescription', 'data-inseecommune'
+            'id', 'numero', 'href',
+            'idZone', 'idPrescription', 'inseeCommune'
         ];
-        attributes.filter(att => element.getAttribute(att)).forEach((att) => {
-            titre[att] = element.getAttribute(att);
+        attributes.forEach((att) => {
+            let attribute = att;
+            if (attribute !== 'id') {
+                attribute = 'data-' + attribute.toLowerCase();
+            }
+            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
+                titre[att] = element.getAttribute(attribute);
+            }
         });
         return titre;
     }

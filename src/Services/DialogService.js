@@ -4,8 +4,6 @@ class DialogService {
 
     selector;
 
-    toggle = new Subject();
-
     constructor() {
         if (DialogService.instance) {
             return DialogService.instance;

@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import Component from '../Core/Component';
 import DialogService from '../Services/DialogService';
 import StorageService from '../Services/StorageService';
@@ -7,6 +8,10 @@ class TitreForm extends Component {
     form;
 
     titre;
+
+    onSave = new Subject();
+
+    onClose = new Subject();
 
     constructor(titre) {
         super();
@@ -25,8 +30,8 @@ class TitreForm extends Component {
 
         this.titre.id =             form.id.value;
         this.titre.intitule =       form.intitule.value;
-        this.titre.niveau =         form.niveau.value;
-        this.titre.numero =         form.numero.value;
+        this.titre.niveau =         parseInt(form.niveau.value);
+        this.titre.numero =         parseInt(form.numero.value);
         this.titre.href =           form.href.value;
         this.titre.idZone =         form.idZone.value;
         this.titre.idPrescription = form.idPrescription.value;
@@ -34,30 +39,41 @@ class TitreForm extends Component {
 
         // save titre dans reglement
         const reglement = this.storageService.getReglement();
-        if (!reglement.getTitreById(form.id.value)) {
-            reglement.titres.push(this.titre);
+        const existing = reglement.getTitreById(this.titre.id);
+        if (existing) {
+            // mise à jour des attributs par copie
+            // on en touche pas au children / contents
+            reglement.updateTitre(this.titre);
+        } else {
+            // cas mise à jour pour les titre de niveau 1
+            // les titres de niveau 2+ sont creer au parsing du document
+            reglement.addTitre(this.titre);
         }
         
+        this.onSave.next(this.titre);
+
         this.storageService.save(reglement);
-        this.dialogService.close();
+
+        this.close();
     }
 
 
     close(event) {
+        this.onClose.next();
         this.dialogService.close();
     }
 
 
     getTemplate() {
         return `
-            <h4>Modifier le reglement</h4>
+            <h4>Modifier le titre</h4>
             <form>
                 <label for="id">id</label>
-                <input id="id" type="string" value="${this.titre.id || ''}">
+                <input id="id" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">intitule</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}">
                 <label for="niveau">niveau</label>
-                <input id="niveau" type="string" value="${this.titre.niveau || ''}">
+                <input id="niveau" type="string" value="${this.titre.niveau || ''}" readonly>
                 <label for="numero">numero</label>
                 <input id="numero" type="string" value="${this.titre.numero || ''}">
                 <label for="href">href</label>

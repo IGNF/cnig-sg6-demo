@@ -40,10 +40,13 @@ class Reglement {
 
     getTitreById(id) {
         const index = this.titres.findIndex(t => t.id === id);
-        if (index === -1) {
-            return null;
+        if (index !== -1) {
+            return this.titres[index];
         }
-        return this.titres[index];
+        for (const index in this.titres) {
+            const titre = this.titres[index].findTitreById(id);
+            if (titre) { return titre; }
+        }
     }
 
 
@@ -63,6 +66,25 @@ class Reglement {
             return;
         }
         this.titres.splice(index, 1, titre);
+    }
+
+    updateTitre(formData) {
+        const existing = this.getTitreById(formData.id);
+        if (!existing) {
+            return;
+        }
+        existing.intitule = formData.intitule;
+        existing.niveau = formData.niveau;
+        existing.numero = formData.numero;
+        existing.href = formData.href;
+        existing.idZone = formData.idZone;
+        existing.idPrescription = formData.idPrescription;
+        existing.inseeCommune = formData.inseeCommune;
+        return;
+    }
+
+    addTitre(titre) {
+        this.titres.push(titre);
     }
 
 

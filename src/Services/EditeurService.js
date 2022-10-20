@@ -19,6 +19,9 @@ import 'tinymce/plugins/emoticons';
 
 import StorageService from './StorageService';
 import HtmlConverterService from './HtmlConverterService';
+import Titre from '../Model/Titre';
+import DialogService from './DialogService';
+import TitreForm from '../Form/TitreForm';
 
 class EditeurService {
 
@@ -33,6 +36,7 @@ class EditeurService {
 
         this.storageService = new StorageService();
         this.htmlConverterService = new HtmlConverterService();
+        this.dialogService = new DialogService();
 
         EditeurService.instance = this;
     }
@@ -97,8 +101,8 @@ class EditeurService {
     setup(editor) {
 
         editor.ui.registry.addButton('pluRule', {
-            text: 'Règles',
-            onAction: () => this.actionPluRule()
+            text: 'Titre Form',
+            onAction: () => this.actionPluRule(2)
         });
 
         editor.ui.registry.addButton('pluSave', {
@@ -131,8 +135,22 @@ class EditeurService {
         }, 500);
     }
 
-    actionPluRule() {
-        tinymce.activeEditor.insertContent('<strong>baba</strong>');
+
+    actionPluRule(niveau) {
+        const selectedNode = tinymce.activeEditor.selection.getNode();
+        let titre = null;
+        if (selectedNode.tagName.match('H[1-6]')) {
+            titre = this.htmlConverterService.newTitleFromSource(selectedNode);
+        } else {
+            titre = new Titre();
+        }
+
+        const form = new TitreForm(titre);
+        // form.onSave.subscribe((titre) => {
+        // });
+
+        this.dialogService.open(form);
+        // this.addTitreEvent.next(newTitre);
     }
 
 }

@@ -49,6 +49,13 @@ class Titre {
         return this;
     }
 
+    findTitreById(id) {
+        if (this.id === id) {
+            return this;
+        }
+        return this.children.find(child => child.findTitreById(id));
+    }
+
 
     findSubtitle(needle) {
         if (needle.intitule === this.intitule && needle.niveau === this.niveau) {

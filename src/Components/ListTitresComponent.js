@@ -33,7 +33,9 @@ export class ListTitresComponent extends Component {
 
 
     add(event) {
-        const form = new TitreForm(new Titre());
+        const newTitre = new Titre();
+        newTitre.niveau = 1;
+        const form = new TitreForm(newTitre);
         this.dialogService.open(form);
     }
 
@@ -108,6 +110,7 @@ export class ListTitresComponent extends Component {
                 <div class="app-card-header">
                     <h2>Liste des titres</h2>
                     <div class="separator"></div>
+                    <button class="btn-add">Ajouter</button>
                     <button class="btn-reduce">Reduire</buttton>
                 </div>
                 <div class="app-card-content">
@@ -116,7 +119,6 @@ export class ListTitresComponent extends Component {
                         Clicker sur un titre pour modifier le contenu
                     </p>
                     <ul>${content}</ul>
-                    <button class="btn-add">Ajouter</button>
                 </div>
             </div>
         `;

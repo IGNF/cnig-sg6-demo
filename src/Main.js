@@ -5,3 +5,4 @@ const conf = {
 export const REVISION = conf.version;
 
 export { default as Application } from './App';
+export { default as StorageService } from './Services/StorageService';
