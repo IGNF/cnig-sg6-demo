@@ -19,6 +19,11 @@ class Reglement {
     htmlContent;
 
     constructor() {
+        this.id = `idreglementdu${Date.now()}`;
+        this.nom = 'Veuillez modifier le titre';
+        this.lien = '';
+        this.idUrba = '';
+        this.typeDoc = '';
         this.titres = [];
     }
 
@@ -27,6 +32,9 @@ class Reglement {
     }
 
     unserialise(data) {
+        if (data === null) {
+            return null;
+        }
         this.id = data.id;
         this.nom = data.nom;
         this.lien = data.lien;

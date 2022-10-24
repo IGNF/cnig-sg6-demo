@@ -7,6 +7,9 @@ class XmlExport {
 
 
     export(reglement) {
+        if (!reglement) {
+            return;
+        }
 
         const txt = reglement.toXml();
         const blob = new Blob([txt], { type: 'application/xml' });

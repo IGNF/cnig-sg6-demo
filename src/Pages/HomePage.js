@@ -6,6 +6,7 @@ import LoadButtonComponent from '../Components/LoadButtonComponent';
 import ExportButtonComponent from '../Components/ExportButtonComponent';
 
 import StorageService from '../Services/StorageService';
+import NouveauButtonComponent from '../Components/NouveauButtonComponent';
 
 export class HomePage extends Component {
 
@@ -28,6 +29,7 @@ export class HomePage extends Component {
         this.components = [
             new DetailPluComponent(reglement),
             new ListTitresComponent(reglement),
+            new NouveauButtonComponent(),
             new LoadButtonComponent(),
             new ExportButtonComponent()
         ];
@@ -66,6 +68,7 @@ export class HomePage extends Component {
                     <p>Outils d'export de PLU au format XML CNIG</p>
                 </div>
                 <div class="separator"></div>
+                ${this.components.find(c => c.name === 'new-btn')?.getElement().outerHTML}
                 ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
                 ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
             </div>

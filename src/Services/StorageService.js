@@ -25,7 +25,9 @@ class StorageService {
     }
 
     loadFromLocalStorage() {
-        this.reglement = new Reglement().unserialise(JSON.parse(localStorage.getItem('reglement')));
+        if (localStorage.getItem('reglement')) {
+            this.reglement = new Reglement().unserialise(JSON.parse(localStorage.getItem('reglement')));
+        }
 
         this.change.next(this.reglement);
     }
