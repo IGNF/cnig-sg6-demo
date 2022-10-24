@@ -101,12 +101,12 @@ class EditeurService {
     setup(editor) {
 
         editor.ui.registry.addButton('pluRule', {
-            text: 'Titre Form',
+            text: 'Voir les métadonnées',
             onAction: () => this.actionPluRule(2)
         });
 
         editor.ui.registry.addButton('pluSave', {
-            text: 'Sauvegarde',
+            text: 'Sauvegarde sur votre navigateur',
             onAction: () => this.actionSave()
         });
 
@@ -146,11 +146,7 @@ class EditeurService {
         }
 
         const form = new TitreForm(titre);
-        // form.onSave.subscribe((titre) => {
-        // });
-
         this.dialogService.open(form);
-        // this.addTitreEvent.next(newTitre);
     }
 
 }

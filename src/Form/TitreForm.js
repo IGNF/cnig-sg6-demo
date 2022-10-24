@@ -28,6 +28,11 @@ class TitreForm extends Component {
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
 
+        if (form.niveau.value === '') {
+            alert("Le niveau du titre doit être renseigné");
+            return;
+        }
+
         this.titre.id =             form.id.value;
         this.titre.intitule =       form.intitule.value;
         this.titre.niveau =         parseInt(form.niveau.value);
@@ -86,7 +91,7 @@ class TitreForm extends Component {
                 <input id="inseeCommune" type="string" value="${this.titre.inseeCommune || ''}">
             </form>
             <div class="form-action">
-                <button class="btn-valid">Valider</button>
+                <button class="btn-valid">Mettre à jour ou créer le titre</button>
                 <button class="btn-close">Annuler</button>
             </div>
         `;
