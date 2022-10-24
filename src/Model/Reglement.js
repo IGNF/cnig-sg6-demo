@@ -1,3 +1,4 @@
+import Contenu from "./Contenu";
 import Titre from "./Titre";
 
 class Reglement {
@@ -92,6 +93,11 @@ class Reglement {
     }
 
     addTitre(titre) {
+        const contenu = new Contenu();
+        contenu.htmlContent = `
+            <h1>${titre.intitule}</h1>
+        `;
+        titre.contents.push(contenu);
         this.titres.push(titre);
     }
 

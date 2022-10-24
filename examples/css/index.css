@@ -79,6 +79,9 @@ button {
 .separator {
     flex-grow: 1;
 }
+.hidden {
+    display: none;
+}
 
 
 /*

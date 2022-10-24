@@ -11,8 +11,6 @@ class TitreForm extends Component {
 
     onSave = new Subject();
 
-    onClose = new Subject();
-
     constructor(titre) {
         super();
         this.name = 'form-titre';
@@ -64,7 +62,6 @@ class TitreForm extends Component {
 
 
     close(event) {
-        this.onClose.next();
         this.dialogService.close();
     }
 
@@ -78,9 +75,9 @@ class TitreForm extends Component {
                 <label for="intitule">intitule</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}">
                 <label for="niveau">niveau</label>
-                <input id="niveau" type="string" value="${this.titre.niveau || ''}" readonly>
+                <input id="niveau" type="number" value="${this.titre.niveau || 0}" readonly>
                 <label for="numero">numero</label>
-                <input id="numero" type="string" value="${this.titre.numero || ''}">
+                <input id="numero" type="number" value="${this.titre.numero || 0}">
                 <label for="href">href</label>
                 <input id="href" type="string" value="${this.titre.href || ''}">
                 <label for="idZone">idZone</label>

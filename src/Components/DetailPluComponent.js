@@ -56,7 +56,7 @@ export class DetailPluComponent extends Component {
                 <div class="app-card-content">
                     <p>${this.reglement.typeDoc}</p>
                     <p>${this.reglement.idUrba}</p>
-                    <p>
+                    <p class="${this.reglement.lien != '' ? '' : 'hidden'}">
                         Document disponible sur le géoportail de l'urbanisme
                         <a href="${this.reglement.lien}" target="_blanck">ici</a>
                     </p>

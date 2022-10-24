@@ -7,6 +7,7 @@ import ExportButtonComponent from '../Components/ExportButtonComponent';
 
 import StorageService from '../Services/StorageService';
 import NouveauButtonComponent from '../Components/NouveauButtonComponent';
+import DialogService from '../Services/DialogService';
 
 export class HomePage extends Component {
 
@@ -14,12 +15,15 @@ export class HomePage extends Component {
 
     storageService;
 
+    dialogService;
+
     constructor(reglement = null) {
         super();
         this.name = 'home-page';
 
         this.init(reglement);
 
+        this.dialogService = new DialogService();
         this.storageService = new StorageService();
     }
 
@@ -88,6 +92,13 @@ export class HomePage extends Component {
 
         this.components.forEach((component) => {
             component.registerEvents();
+        });
+
+
+        document.addEventListener('keyup', (event) => {
+            if (event.key == 'Escape') {
+                this.dialogService.close();
+            }
         });
     }
 
