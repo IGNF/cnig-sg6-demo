@@ -21,7 +21,7 @@ class Reglement {
 
     constructor() {
         this.id = `idreglementdu${Date.now()}`;
-        this.nom = 'Modifiez la fiche générale du réglement';
+        this.nom = 'Modifiez la fiche';
         this.lien = '';
         this.idUrba = '';
         this.typeDoc = '';

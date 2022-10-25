@@ -79,11 +79,11 @@ class EditeurService {
             ]
         });
 
-        this.saveEvent.pipe(
-            debounceTime(5000)
-        ).subscribe(() => {
-            this.actionSave();
-        });
+        // this.saveEvent.pipe(
+        //     debounceTime(5000)
+        // ).subscribe(() => {
+        //     this.actionSave();
+        // });
     }
 
     getExtendedValidElements () {

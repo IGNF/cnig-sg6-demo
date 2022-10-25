@@ -92,13 +92,16 @@ export class ListTitresComponent extends Component {
             if (title.children && title.children.length > 0) {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
             }
+            const buttonPart = `
+                <button idtitle="${title.id}" class="btn-update">Modifier</button>
+                <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
+            `;
             return `
                 <li id="${title.id}"
                     niveau="${title.niveau}"
                     class="list-item">
                     <p class="separator" idtitle="${title.id}">${title.intitule}</p>
-                    <button idtitle="${title.id}" class="btn-update">Modifier</button>
-                    <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
+                    ${title.niveau == 1 ? buttonPart : ''}
                     <ul>${sublist}</ul>
                 </li>
             `;
@@ -108,7 +111,7 @@ export class ListTitresComponent extends Component {
         const template = `
             <div class="app-card">
                 <div class="app-card-header">
-                    <h2>Liste des titres</h2>
+                    <h2>Sommaire</h2>
                     <div class="separator"></div>
                     <button class="btn-add">Ajouter</button>
                     <button class="btn-reduce">Reduire</buttton>
