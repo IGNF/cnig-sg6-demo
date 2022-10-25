@@ -69,7 +69,7 @@ export class HomePage extends Component {
             <div class="toolbar">
                 <div class="toolbar-title">
                     <h1>Plu:ReglementDU</h1>
-                    <p>Outils d'export de PLU au format XML CNIG</p>
+                    <p>Outils d'export de réglement d'urbanisme au format CNIG/XML</p>
                 </div>
                 <div class="separator"></div>
                 ${this.components.find(c => c.name === 'new-btn')?.getElement().outerHTML}

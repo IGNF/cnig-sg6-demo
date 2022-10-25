@@ -45,17 +45,18 @@ class ReglementForm extends Component {
             <form>
                 <label for="id">Identifiant</label>
                 <input type="string" value="${this.reglement.id}" id="id">
-                <label for="nom">nom</label>
+                <label for="nom">Nom du réglement</label>
                 <input type="string" value="${this.reglement.nom}" id="nom">
-                <label for="lien">lien</label>
+                <label for="lien">Lien, ressource web ou GPU</label>
                 <input type="string" value="${this.reglement.lien}" id="lien">
-                <label for="idUrba">idUrba</label>
+                <label for="idUrba">Identifiant d'urbanisme</label>
                 <input type="string" value="${this.reglement.idUrba}" id="idUrba">
-                <label for="typeDoc">typeDoc</label>
+                <label for="typeDoc">Type de document</label>
                 <input type="string" value="${this.reglement.typeDoc}" id="typeDoc">
             </form>
             <div class="form-action">
-                <button class="btn-valid">Valider</button>
+                <div class="separator"></div>
+                <button class="btn-valid">Modifier</button>
                 <button class="btn-close">Annuler</button>
             </div>
         `;

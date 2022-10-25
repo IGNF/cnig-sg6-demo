@@ -70,25 +70,26 @@ class TitreForm extends Component {
         return `
             <h4>Modifier le titre</h4>
             <form>
-                <label for="id">id</label>
+                <label for="id">Identifiant</label>
                 <input id="id" type="string" value="${this.titre.id || ''}" readonly>
-                <label for="intitule">intitule</label>
+                <label for="intitule">Intitulé</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}">
-                <label for="niveau">niveau</label>
+                <label for="niveau">Niveau du titre</label>
                 <input id="niveau" type="number" value="${this.titre.niveau || 0}" readonly>
-                <label for="numero">numero</label>
+                <label for="numero">Numéro</label>
                 <input id="numero" type="number" value="${this.titre.numero || 0}">
-                <label for="href">href</label>
+                <label for="href">Lien interne</label>
                 <input id="href" type="string" value="${this.titre.href || ''}">
-                <label for="idZone">idZone</label>
+                <label for="idZone">Zone (U, Ua, ect.)</label>
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}">
-                <label for="idPrescription">idPrescription</label>
+                <label for="idPrescription">Identifiant de prescription si nécessaire</label>
                 <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">
-                <label for="inseeCommune">inseeCommune</label>
+                <label for="inseeCommune">Code INSEE des communes concernées</label>
                 <input id="inseeCommune" type="string" value="${this.titre.inseeCommune || ''}">
             </form>
             <div class="form-action">
-                <button class="btn-valid">Mettre à jour ou créer le titre</button>
+                <div class="separator"></div>
+                <button class="btn-valid">Mettre à jour / Créer le titre</button>
                 <button class="btn-close">Annuler</button>
             </div>
         `;

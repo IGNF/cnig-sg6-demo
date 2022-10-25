@@ -68,7 +68,6 @@ button {
     margin: 0px 5px;
 }
 .app-card-content ul {
-    max-height: 130px;
     overflow-y: auto;
 }
 .app-card-content {
@@ -136,6 +135,10 @@ button {
 .list-titres ul li > * {
     margin: 0px 5px;
     user-select: none;
+    max-width: 351px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
@@ -175,6 +178,12 @@ button {
     width: 49%;
     margin: 5px 0px;
 }
+.form-action {
+    display: flex;
+}
+.form-action > * {
+    margin: 0px 5px;
+}
 
 /* tinymce Editor */
 
@@ -187,8 +196,36 @@ button {
     height: 0;
 }
 .list-titres .app-card-content {
-    height: 11.5em;
+    height: 540px;
 }
 .list-titres .app-card-content.app-content-reduce {
     height: 0;
+}
+.app-card ul {
+    padding: 0;
+}
+
+/* grid system */
+.home-page {
+    display: grid;
+    grid-template-columns: 650px 1fr;
+    grid-template-areas:
+        "header header"
+        "home editor"
+        "footer footer";
+}
+.toolbar {
+    grid-area: header;
+}
+.app-home-content {
+    grid-area: home;
+}
+.app-content-editor {
+    grid-area: editor;
+}
+@media only screen and (max-width: 650px) {
+    .home-page {
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -58,7 +58,7 @@ class EditeurService {
             setup: (editor) => { return this.setup(editor); },
             language: 'fr_FR',
             theme: 'silver',
-            height: 500,
+            height: 820,
             plugins: 'image link media table emoticons',
             menubar: 'edit insert format table',
             toolbar: 'styles pluRule pluSave',
