@@ -78,7 +78,8 @@ button {
 .separator {
     flex-grow: 1;
 }
-.hidden {
+.hidden,
+.form-titre form > *.hidden {
     display: none;
 }
 

@@ -2,6 +2,7 @@ import Component from '../Core/Component';
 import StorageService from '../Services/StorageService';
 
 import XmlExport from '../Export/XmlExport';
+import EditeurService from '../Services/EditeurService';
 
 export class ExportButtonComponent extends Component {
 
@@ -12,9 +13,13 @@ export class ExportButtonComponent extends Component {
         this.name = 'export-btn';
 
         this.storageService = new StorageService();
+        this.editeurService = new EditeurService();
     }
 
     export(event) {
+        // save before export
+        this.editeurService.actionSave();
+        // export
         const exporter = new XmlExport();
         exporter.export(this.storageService.getReglement());
     }

@@ -60,12 +60,14 @@ export class ListTitresComponent extends Component {
 
 
     openEditor(event) {
+        // save current editor
+        this.editeurService.actionSave();
+        // open editor
         const id = event.target.getAttribute('idtitle');
-
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
 
-        this.editeurService.setContent(titre.toHtml(), { format: 'raw' });
+        this.editeurService.loadTitle(titre);
     }
 
 

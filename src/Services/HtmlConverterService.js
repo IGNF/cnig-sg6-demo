@@ -4,12 +4,14 @@ import Contenu from '../Model/Contenu';
 
 class HtmlConverterService {
 
+
     constructor() {
         if (HtmlConverterService.instance) {
             return HtmlConverterService.instance;
         }
         HtmlConverterService.instance = this;
     }
+
 
     recomposeTitre(source) {
 
@@ -72,6 +74,7 @@ class HtmlConverterService {
         return titre;
     }
 
+
     updateContent(titre, htmlString) {
         if (!titre) {
             console.error('[PluReglementSaveService] updateContent - title not found');
@@ -82,6 +85,7 @@ class HtmlConverterService {
         }
         titre.contents[titre.contents.length - 1].htmlContent += htmlString;
     }
+
 
     addChildrenTitle(parent, child) {
         if (parent === null || child.niveau === 1) {
@@ -95,6 +99,23 @@ class HtmlConverterService {
         subtitle.intitule = 'titre vide';
         parent.children.push(subtitle);
         this.addChildrenTitle(subtitle, child);
+    }
+
+
+    updateTitreNode(node, titre) {
+        const attributes = [
+            'id', 'numero', 'href',
+            'idZone', 'idPrescription', 'inseeCommune'
+        ];
+        attributes.forEach((att) => {
+            let attribute = att;
+            if (attribute !== 'id') {
+                attribute = 'data-' + attribute.toLowerCase();
+            }
+            if (titre[att]) {
+                node.setAttribute(attribute, titre[att]);
+            }
+        });
     }
 
 }

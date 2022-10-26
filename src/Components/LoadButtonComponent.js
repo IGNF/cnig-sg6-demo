@@ -2,6 +2,7 @@ import Component from '../Core/Component';
 import StorageService from '../Services/StorageService';
 
 import XmlImport from '../Import/XmlImport';
+import EditeurService from '../Services/EditeurService';
 
 export class LoadButtonComponent extends Component {
 
@@ -12,6 +13,7 @@ export class LoadButtonComponent extends Component {
         this.name = 'load-btn';
 
         this.storageService = new StorageService();
+        this.editeurService = new EditeurService();
     }
 
     loadFile(event) {
@@ -26,6 +28,8 @@ export class LoadButtonComponent extends Component {
             const loader = new XmlImport();
             const reglement = loader.load(result);
             this.storageService.save(reglement);
+
+            this.editeurService.setContent('');
         }
         reader.readAsText(event.target.files[0]);
     }

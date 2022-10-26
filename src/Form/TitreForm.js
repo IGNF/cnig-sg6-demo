@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs';
 import Component from '../Core/Component';
 import DialogService from '../Services/DialogService';
+import EditeurService from '../Services/EditeurService';
 import StorageService from '../Services/StorageService';
 
 class TitreForm extends Component {
@@ -19,6 +20,7 @@ class TitreForm extends Component {
 
         this.storageService = new StorageService();
         this.dialogService = new DialogService();
+        this.editeurService = new EditeurService();
     }
 
 
@@ -56,6 +58,8 @@ class TitreForm extends Component {
         this.onSave.next(this.titre);
 
         this.storageService.save(reglement);
+        // reload metadata attribute
+        this.editeurService.updateTitreNode(this.titre);
 
         this.close();
     }
@@ -68,14 +72,14 @@ class TitreForm extends Component {
 
     getTemplate() {
         return `
-            <h4>Modifier le titre</h4>
+            <h4>Modifier le Titre ${this.titre.niveau}</h4>
             <form>
                 <label for="id">Identifiant</label>
                 <input id="id" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">Intitulé</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}">
-                <label for="niveau">Niveau du titre</label>
-                <input id="niveau" type="number" value="${this.titre.niveau || 0}" readonly>
+                <label class="hidden" for="niveau">Niveau</label>
+                <input class="hidden" id="niveau" type="number" value="${this.titre.niveau || 0}">
                 <label for="numero">Numéro</label>
                 <input id="numero" type="number" value="${this.titre.numero || 0}">
                 <label for="href">Lien interne</label>

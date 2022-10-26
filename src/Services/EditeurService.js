@@ -35,10 +35,31 @@ class EditeurService {
         }
 
         this.storageService = new StorageService();
-        this.htmlConverterService = new HtmlConverterService();
         this.dialogService = new DialogService();
+        this.htmlConverterService = new HtmlConverterService();
 
         EditeurService.instance = this;
+    }
+
+
+    updateTitreNode(titre) {
+        const nodeSelected = this.getSelection();
+        if (!nodeSelected.tagName.match('H[1-6]')) {
+            return;
+        }
+        this.htmlConverterService.updateTitreNode(nodeSelected, titre);
+    }
+
+
+    loadTitle(title = null) {
+        if (title !== null) { this.activeTitle = title; }
+        if (this.actionTitle === null) { return; }
+        this.setContent(this.activeTitle.toHtml(), { format: 'raw' });
+    }
+
+
+    getSelection() {
+        return tinymce.activeEditor.selection.getNode();
     }
 
 
@@ -61,7 +82,7 @@ class EditeurService {
             height: 820,
             plugins: 'image link media table emoticons',
             menubar: 'edit insert format table',
-            toolbar: 'styles pluRule pluSave',
+            toolbar: 'styles pluRule',
             extended_valid_elements: this.getExtendedValidElements(),
             menu: {
                 edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
@@ -78,7 +99,6 @@ class EditeurService {
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]
         });
-
         // this.saveEvent.pipe(
         //     debounceTime(5000)
         // ).subscribe(() => {
@@ -86,7 +106,8 @@ class EditeurService {
         // });
     }
 
-    getExtendedValidElements () {
+
+    getExtendedValidElements() {
         return [
             'div[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
             'h1[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
@@ -98,11 +119,12 @@ class EditeurService {
         ].join(',');
     }
 
+
     setup(editor) {
 
         editor.ui.registry.addButton('pluRule', {
             text: 'Voir les métadonnées',
-            onAction: () => this.actionPluRule(2)
+            onAction: () => this.actionPluRule()
         });
 
         editor.ui.registry.addButton('pluSave', {
@@ -115,38 +137,39 @@ class EditeurService {
         });
     }
 
+
     actionSave() {
         tinymce.activeEditor.mode.set('readonly');
 
         setTimeout((event) => {
-            const editorContent = this.getContent();
-            const newTitre = this.htmlConverterService.recomposeTitre(editorContent);
-            if (!newTitre) {
-                tinymce.activeEditor.mode.set('design');
-                return;
-            }
-            tinymce.activeEditor.setContent(newTitre.toHtml());
-    
-            const reglement = this.storageService.getReglement();
-            reglement.replaceTitre(newTitre);
-            this.storageService.save(reglement);
-
             tinymce.activeEditor.mode.set('design');
         }, 500);
+
+        const editorContent = this.getContent();
+        const newTitre = this.htmlConverterService.recomposeTitre(editorContent);
+        if (!newTitre) {
+            tinymce.activeEditor.mode.set('design');
+            return;
+        }
+        tinymce.activeEditor.setContent(newTitre.toHtml());
+
+        const reglement = this.storageService.getReglement();
+        reglement.replaceTitre(newTitre);
+        this.storageService.save(reglement);
     }
 
 
-    actionPluRule(niveau) {
+    actionPluRule() {
         const selectedNode = tinymce.activeEditor.selection.getNode();
         let titre = null;
         if (selectedNode.tagName.match('H[1-6]')) {
+            // open form titre
             titre = this.htmlConverterService.newTitleFromSource(selectedNode);
+            const form = new TitreForm(titre);
+            this.dialogService.open(form);
         } else {
-            titre = new Titre();
+            // open form prescription
         }
-
-        const form = new TitreForm(titre);
-        this.dialogService.open(form);
     }
 
 }

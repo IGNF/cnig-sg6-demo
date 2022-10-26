@@ -130,9 +130,9 @@ class Reglement {
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
                 xmlns:plu="https://cnig.gouv.fr/reglementDU"
-                xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/reglementDU.xsd"
+                xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
-                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" >
+                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}">
                 ${content}
             </plu:ReglementDU>
         `;
@@ -140,7 +140,14 @@ class Reglement {
     };
 
     sanitizeXml(string) {
-        return string.trim().replace(/\u00a0/g, ' ').replace(/            /g, '').replace(/&nbsp;/g, '');
+        return string.trim()
+            .replace(/\u00a0/g, ' ')
+            .replace(/            /g, '')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/ data-[^=]*="[^"]*"/g, ' ')
+            .replace(/<(img|colgroup|col) ([^>\/]*)>/g, '<$1 $2/>')
+            .replace(/( )?xmlns="http:\/\/www.w3.org\/1999\/xhtml"/g, '')
+            .replace(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g, 'xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"');
     }
 
 }

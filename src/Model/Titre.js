@@ -102,7 +102,6 @@ class Titre {
     toXml() {
         const partContent = this.contents.map(contenu => contenu.toXml()).join('');
         const partChildren = this.children.map(titre => titre.toXml()).join('');
-        // TODO clean data attributes
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
                 numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"

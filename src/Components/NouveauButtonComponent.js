@@ -2,6 +2,7 @@ import Component from '../Core/Component';
 import StorageService from '../Services/StorageService';
 
 import Reglement from '../Model/Reglement';
+import EditeurService from '../Services/EditeurService';
 
 export class NouveauButtonComponent extends Component {
 
@@ -12,11 +13,14 @@ export class NouveauButtonComponent extends Component {
         this.name = 'new-btn';
 
         this.storageService = new StorageService();
+        this.editeurService = new EditeurService();
     }
 
     newReglement(event) {
         const reglement = new Reglement();
         this.storageService.save(reglement);
+
+        this.editeurService.setContent('');
     }
 
     getTemplate() {
