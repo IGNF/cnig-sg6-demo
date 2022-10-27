@@ -145,7 +145,7 @@ class Reglement {
             .replace(/            /g, '')
             .replace(/&nbsp;/g, ' ')
             .replace(/ data-[^=]*="[^"]*"/g, ' ')
-            .replace(/<(img|colgroup|col|source|hr) ([^>\/]*)>/g, '<$1 $2/>')
+            .replace(/<(img|colgroup|col|source|hr) ([^>]*[^\/])\/?>/g, '<$1 $2/>')
             .replace(/<hr>/g, '<hr/>')
             .replace(/( )?xmlns="http:\/\/www.w3.org\/1999\/xhtml"/g, '')
             .replace(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g, 'xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"');

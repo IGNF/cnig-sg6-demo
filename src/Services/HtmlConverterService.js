@@ -29,7 +29,9 @@ class HtmlConverterService {
                 pluContenuPile.push(child);
                 return;
             }
-            contentPile.push(child.outerHTML);
+            const contenu = this.newContenuFromSource(child);
+            contentPile.push(contenu);
+            // contentPile.push(child.outerHTML);
 
             if (child.tagName.match('H[1-6]')) {
                 const title = this.newTitleFromSource(child);
@@ -42,14 +44,37 @@ class HtmlConverterService {
             }
 
             const lastTitle = titlePile[titlePile.length - 1];
-            const lastContent = contentPile.pop();
-            this.updateContent(lastTitle, lastContent);
+            const lastContenu = contentPile.pop();
+            this.updateContent(lastTitle, lastContenu);
         }, null);
 
         // return root
         const newTitle = titlePile[0];
         return newTitle;
     }
+
+    // TODO recomposeContenu
+    newContenuFromSource(element) {
+        const contenu = new Contenu();
+        // from user input
+        contenu.htmlContent = element.outerHTML;
+        // from data attributes
+        const attributes = [
+            'id', 'href',
+            'idZone', 'idPrescription'
+        ];
+        attributes.forEach((att) => {
+            let attribute = att;
+            if (attribute !== 'id') {
+                attribute = 'data-' + attribute.toLowerCase();
+            }
+            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
+                contenu[att] = element.getAttribute(attribute);
+            }
+        });
+        return contenu;
+    }
+
 
 
     newTitleFromSource(element) {
@@ -75,15 +100,16 @@ class HtmlConverterService {
     }
 
 
-    updateContent(titre, htmlString) {
+    updateContent(titre, contenu) {
         if (!titre) {
             console.error('[PluReglementSaveService] updateContent - title not found');
             return false;
         }
-        if (titre.contents.length === 0) {
-            titre.contents.push(new Contenu());
-        }
-        titre.contents[titre.contents.length - 1].htmlContent += htmlString;
+        titre.contents.push(contenu);
+        // if (titre.contents.length === 0) {
+        //     titre.contents.push(new Contenu());
+        // }
+        // titre.contents[titre.contents.length - 1].htmlContent += htmlString;
     }
 
 
@@ -114,6 +140,22 @@ class HtmlConverterService {
             }
             if (titre[att]) {
                 node.setAttribute(attribute, titre[att]);
+            }
+        });
+    }
+
+    updateContenuNode(node, contenu) {
+        const attributes = [
+            'id', 'href',
+            'idZone', 'idPrescription'
+        ];
+        attributes.forEach((att) => {
+            let attribute = att;
+            if (attribute !== 'id') {
+                attribute = 'data-' + attribute.toLowerCase();
+            }
+            if (contenu[att]) {
+                node.setAttribute(attribute, contenu[att]);
             }
         });
     }

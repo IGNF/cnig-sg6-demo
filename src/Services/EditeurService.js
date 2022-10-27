@@ -22,6 +22,7 @@ import HtmlConverterService from './HtmlConverterService';
 import Titre from '../Model/Titre';
 import DialogService from './DialogService';
 import TitreForm from '../Form/TitreForm';
+import ContenuForm from '../Form/ContenuForm';
 
 class EditeurService {
 
@@ -48,6 +49,15 @@ class EditeurService {
             return;
         }
         this.htmlConverterService.updateTitreNode(nodeSelected, titre);
+    }
+
+
+    updateContenuNode(contenu) {
+        const nodeSelected = this.getSelection();
+        if (nodeSelected.tagName.match('H[1-6]')) {
+            return;
+        }
+        this.htmlConverterService.updateContenuNode(nodeSelected, contenu);
     }
 
 
@@ -161,15 +171,17 @@ class EditeurService {
 
     actionPluRule() {
         const selectedNode = tinymce.activeEditor.selection.getNode();
-        let titre = null;
         if (selectedNode.tagName.match('H[1-6]')) {
             // open form titre
-            titre = this.htmlConverterService.newTitleFromSource(selectedNode);
+            const titre = this.htmlConverterService.newTitleFromSource(selectedNode);
             const form = new TitreForm(titre);
             this.dialogService.open(form);
-        } else {
-            // open form prescription
+            return;
         }
+        // open form prescription
+        const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
+        const form = new ContenuForm(contenu);
+        this.dialogService.open(form);
     }
 
 }

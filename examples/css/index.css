@@ -161,7 +161,7 @@ button {
     transform: translate(-50%, -50%);
 }
 
-.form-reglement, .form-titre {
+.form-reglement, .form-titre, .form-contenu {
     max-width: 780px;
     width: 100%;
     background: white;
@@ -170,11 +170,11 @@ button {
     padding: 10px;
     border-radius: 4px;
 }
-.form-reglement form,.form-titre form {
+.form-reglement form,.form-titre form, .form-contenu form {
     display: flex;
     flex-wrap: wrap;
 }
-.form-reglement form > *, .form-titre form > * {
+.form-reglement form > *, .form-titre form > *, .form-contenu form > * {
     display: block;
     width: 49%;
     margin: 5px 0px;

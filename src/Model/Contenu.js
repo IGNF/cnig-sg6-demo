@@ -38,15 +38,14 @@ class Contenu {
 
 
     toHtml() {
-        const html = `
-            <div class="section plu-contenu" id="${this.id}" data-href="${this.href}" data-idZone="${this.idZone}" data-idPrescription="${this.idPrescription}"></div>
-            ${this.htmlContent}
-        `;
         const node = document.createElement('div');
-        node.innerHTML = html;
+        node.innerHTML = this.htmlContent;
         const children = Array.from(node.children);
         children.forEach((child) => {
-            child.setAttribute('data-id-contenu', this.id);
+            child.setAttribute('id', this.id);
+            child.setAttribute('data-href', this.href);
+            child.setAttribute('data-idzone', this.idZone);
+            child.setAttribute('data-idprescription', this.idPrescription);
         });
         return node.innerHTML;
     }
