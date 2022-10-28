@@ -53,7 +53,7 @@ class HtmlConverterService {
         return newTitle;
     }
 
-    // TODO recomposeContenu
+
     newContenuFromSource(element) {
         const contenu = new Contenu();
         // from user input
@@ -65,9 +65,7 @@ class HtmlConverterService {
         ];
         attributes.forEach((att) => {
             let attribute = att;
-            if (attribute !== 'id') {
-                attribute = 'data-' + attribute.toLowerCase();
-            }
+            attribute = 'data-' + attribute.toLowerCase();
             if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
                 contenu[att] = element.getAttribute(attribute);
             }
@@ -89,9 +87,7 @@ class HtmlConverterService {
         ];
         attributes.forEach((att) => {
             let attribute = att;
-            if (attribute !== 'id') {
-                attribute = 'data-' + attribute.toLowerCase();
-            }
+            attribute = 'data-' + attribute.toLowerCase();
             if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
                 titre[att] = element.getAttribute(attribute);
             }
@@ -106,10 +102,6 @@ class HtmlConverterService {
             return false;
         }
         titre.contents.push(contenu);
-        // if (titre.contents.length === 0) {
-        //     titre.contents.push(new Contenu());
-        // }
-        // titre.contents[titre.contents.length - 1].htmlContent += htmlString;
     }
 
 
@@ -135,9 +127,7 @@ class HtmlConverterService {
         ];
         attributes.forEach((att) => {
             let attribute = att;
-            if (attribute !== 'id') {
-                attribute = 'data-' + attribute.toLowerCase();
-            }
+            attribute = 'data-' + attribute.toLowerCase();
             if (titre[att]) {
                 node.setAttribute(attribute, titre[att]);
             }
@@ -151,9 +141,7 @@ class HtmlConverterService {
         ];
         attributes.forEach((att) => {
             let attribute = att;
-            if (attribute !== 'id') {
-                attribute = 'data-' + attribute.toLowerCase();
-            }
+            attribute = 'data-' + attribute.toLowerCase();
             if (contenu[att]) {
                 node.setAttribute(attribute, contenu[att]);
             }

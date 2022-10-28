@@ -29,6 +29,10 @@ class EditeurService {
 
     saveEvent = new Subject();
 
+    zoneVisibility = true;
+
+    prescriptionVisibility = true;
+
     constructor() {
         if (EditeurService.instance) {
             return EditeurService.instance;
@@ -92,7 +96,7 @@ class EditeurService {
             height: 820,
             plugins: 'image link media table emoticons',
             menubar: 'edit insert format table',
-            toolbar: 'styles pluRule',
+            toolbar: 'styles pluRule toggleZone togglePrescription',
             extended_valid_elements: this.getExtendedValidElements(),
             menu: {
                 edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
@@ -130,35 +134,73 @@ class EditeurService {
     }
 
     getContentStyle() {
-        return `
+        const style = [`
             body {
-                font-size: 0.85em;
+                font-size: 0.90em;
                 line-height: 1;
             }
             h4 {
                 background-color: lightgray;
             }
-            *[data-idzone]::before {
-                content: attr(data-idzone);
+            *[data-idzone]::before, *[data-idprescription]::after {
+                content: '';
                 position: absolute;
-                left: calc(100% - 4em);
-                color: #bd1e1e8a;
-                width: 2.7em;
+                right: 5px;
                 height: 1.5em;
-                font-size: 10px;
+                font-size: 8px;
                 text-align: center;
                 box-sizing: border-box;
                 background: white;
             }
-        `;
+            *[data-idzone]::before {
+                color: #bd1e1e8a;
+            }
+            *[data-idprescription]::after {
+                color: #1d0c7391;
+            }
+            *[data-idzone]:hover::before, *[data-idzone]:active::before, *[data-idprescription]:hover::after, *[data-idprescription]:active::after {
+                font-size: 1.0em;
+            }
+        `];
+        if (this.zoneVisibility) {
+            style.push(`
+                *[data-idzone]::before {
+                    content: attr(data-idzone);
+                }
+                *[data-idzone="porteeGenerale"]::before {
+                    content: '';
+                }
+            `);
+        }
+        if (this.prescriptionVisibility) {
+            style.push(`
+                *[data-idprescription]::after {
+                    content: attr(data-idprescription);
+                }
+                *[data-idprescription="nonConcerne"]::after {
+                    content: '';
+                }
+            `);
+        }
+        return style.join('');
     }
 
 
     setup(editor) {
 
         editor.ui.registry.addButton('pluRule', {
-            text: 'Voir les métadonnées',
+            text: 'Modifier les métadonnées',
             onAction: () => this.actionPluRule()
+        });
+
+        editor.ui.registry.addButton('toggleZone', {
+            text: 'Voir les zones',
+            onAction: () => this.actionToggleZone()
+        });
+
+        editor.ui.registry.addButton('togglePrescription', {
+            text: 'Voir les prescriptions',
+            onAction: () => this.actionTogglePrescription()
         });
 
         editor.ui.registry.addButton('pluSave', {
@@ -206,6 +248,16 @@ class EditeurService {
         const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
         const form = new ContenuForm(contenu);
         this.dialogService.open(form);
+    }
+    actionToggleZone() {
+        this.zoneVisibility = !this.zoneVisibility;
+        tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = this.getContentStyle();
+    }
+
+
+    actionTogglePrescription() {
+        this.prescriptionVisibility = !this.prescriptionVisibility;
+        tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = this.getContentStyle();
     }
 
 }

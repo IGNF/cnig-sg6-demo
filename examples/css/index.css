@@ -230,3 +230,11 @@ button {
         flex-direction: column;
     }
 }
+
+/* editeur css */
+button.tox-tbtn.tox-tbtn--select:nth-of-type(3) {
+    color: #bd1e1e8a;
+}
+button.tox-tbtn.tox-tbtn--select:nth-of-type(4) {
+    color: #1d0c7391;
+}

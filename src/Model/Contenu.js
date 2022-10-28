@@ -55,11 +55,10 @@ class Contenu {
         node.innerHTML = this.htmlContent;
         const children = Array.from(node.children);
         children.forEach((child) => {
-            child.setAttribute('id', this.id);
+            child.setAttribute('data-id', this.id);
             child.setAttribute('data-href', this.href);
             child.setAttribute('data-idzone', this.idZone);
             child.setAttribute('data-idprescription', this.idPrescription);
-            // child.setAttribute('style', '::before{ content: "UG"}');
         });
         return node.innerHTML;
     }

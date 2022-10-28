@@ -86,7 +86,7 @@ class Titre {
         node.innerHTML = html;
         const titleNode = node.querySelector(`h${this.niveau}`);
         if (titleNode) {
-            titleNode.setAttribute('id', this.id);
+            titleNode.setAttribute('data-id', this.id);
             titleNode.setAttribute('data-intitule', this.intitule);
             titleNode.setAttribute('data-niveau', this.niveau);
             titleNode.setAttribute('data-numero', this.numero);
