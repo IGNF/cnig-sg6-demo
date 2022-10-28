@@ -82,7 +82,7 @@ class TitreForm extends Component {
                 <input class="hidden" id="niveau" type="number" value="${this.titre.niveau || 0}">
                 <label for="numero">Numéro</label>
                 <input id="numero" type="number" value="${this.titre.numero || 0}">
-                <label for="href">Lien interne</label>
+                <label for="href">Référence interne</label>
                 <input id="href" type="string" value="${this.titre.href || ''}">
                 <label for="idZone">Zone (U, Ua, ect.)</label>
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}">

@@ -48,11 +48,11 @@ class ContenuForm extends Component {
             <form>
                 <label for="id">Identifiant</label>
                 <input id="id" type="string" value="${this.contenu.id}" readonly>
-                <label for="href">href</label>
+                <label for="href">Référence interne</label>
                 <input id="href" type="string" value="${this.contenu.href}">
-                <label for="idZone">idZone</label>
+                <label for="idZone">Zone (U, Ua, ...)</label>
                 <input id="idZone" type="string" value="${this.contenu.idZone}">
-                <label for="idPrescription">idPrescription</label>
+                <label for="idPrescription">rescription (05-01, ...)</label>
                 <input id="idPrescription" type="string" value="${this.contenu.idPrescription}">
             </form>
             <div class="form-action">

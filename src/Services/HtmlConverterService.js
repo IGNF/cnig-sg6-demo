@@ -31,7 +31,6 @@ class HtmlConverterService {
             }
             const contenu = this.newContenuFromSource(child);
             contentPile.push(contenu);
-            // contentPile.push(child.outerHTML);
 
             if (child.tagName.match('H[1-6]')) {
                 const title = this.newTitleFromSource(child);
@@ -72,7 +71,6 @@ class HtmlConverterService {
         });
         return contenu;
     }
-
 
 
     newTitleFromSource(element) {
@@ -133,6 +131,7 @@ class HtmlConverterService {
             }
         });
     }
+
 
     updateContenuNode(node, contenu) {
         const attributes = [

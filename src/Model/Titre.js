@@ -115,8 +115,6 @@ class Titre {
             }
             return previousValue;
         }, []).map(contenu => contenu.toXml()).join('');
-        console.log("for titre", this);
-        console.log("partContent", partContent);
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"

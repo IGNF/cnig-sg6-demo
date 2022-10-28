@@ -142,46 +142,40 @@ class EditeurService {
             h4 {
                 background-color: lightgray;
             }
-            *[data-idzone]::before, *[data-idprescription]::after {
+            *[data-idzone]::before, *[data-idprescription]::before {
                 content: '';
                 position: absolute;
                 right: 5px;
                 height: 1.5em;
-                font-size: 8px;
-                text-align: center;
+                font-size: 11px;
+                text-align: right;
                 box-sizing: border-box;
                 background: white;
+                white-space: pre-wrap;
+                z-index: 2;
             }
             *[data-idzone]::before {
                 color: #bd1e1e8a;
             }
-            *[data-idprescription]::after {
-                color: #1d0c7391;
-            }
-            *[data-idzone]:hover::before, *[data-idzone]:active::before, *[data-idprescription]:hover::after, *[data-idprescription]:active::after {
-                font-size: 1.0em;
+            *[data-idzone]:hover::before, *[data-idprescription]:hover::before,
+            *[data-idzone]:active::before, *[data-idprescription]:active::before {
+                font-size: 18px;
+                z-index: 3;
             }
         `];
+        let content = '';
         if (this.zoneVisibility) {
-            style.push(`
-                *[data-idzone]::before {
-                    content: attr(data-idzone);
-                }
-                *[data-idzone="porteeGenerale"]::before {
-                    content: '';
-                }
-            `);
+            content += 'attr(data-idzone)';
         }
+        content += ' "\\A" ';
         if (this.prescriptionVisibility) {
-            style.push(`
-                *[data-idprescription]::after {
-                    content: attr(data-idprescription);
-                }
-                *[data-idprescription="nonConcerne"]::after {
-                    content: '';
-                }
-            `);
+            content += 'attr(data-idprescription)';
         }
+        style.push(`
+            *[data-idzone]::before, *[data-idprescription]::before {
+                content: ${content}
+            }
+        `);
         return style.join('');
     }
 
@@ -249,15 +243,23 @@ class EditeurService {
         const form = new ContenuForm(contenu);
         this.dialogService.open(form);
     }
+
+
     actionToggleZone() {
         this.zoneVisibility = !this.zoneVisibility;
-        tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = this.getContentStyle();
+        const styles = Array.from(tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style'));
+        if (styles && styles.length > 1) {
+            styles[1].innerHTML = this.getContentStyle();
+        }
     }
 
 
     actionTogglePrescription() {
         this.prescriptionVisibility = !this.prescriptionVisibility;
-        tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style')[1].innerHTML = this.getContentStyle();
+        const styles = Array.from(tinymce.activeEditor.iframeElement.contentDocument.getElementsByTagName('style'));
+        if (styles && styles.length > 1) {
+            styles[1].innerHTML = this.getContentStyle();
+        }
     }
 
 }
