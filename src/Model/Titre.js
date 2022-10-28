@@ -22,7 +22,7 @@ class Titre {
     children;
 
     constructor() {
-        this.id =             `idelem${Date.now()}`;
+        this.id =             `idTitre${Date.now()}`;
         this.intitule =       '';
         this.niveau =         '';
         this.numero =         '';
@@ -100,7 +100,23 @@ class Titre {
 
 
     toXml() {
-        const partContent = this.contents.map(contenu => contenu.toXml()).join('');
+        // TODO fuse content with same attribute
+        // const partContent = this.contents.map(contenu => contenu.toXml()).join('');
+        const partContent = this.contents.reduce((previousValue, contenu) => {
+            if (previousValue.length === 0) {
+                previousValue.push(contenu);
+                return previousValue;
+            }
+            const lastOne = previousValue[previousValue.length - 1];
+            if (lastOne.isLike(contenu)) {
+                lastOne.addHtmlFromOtherContenu(contenu);
+            } else {
+                previousValue.push(contenu);
+            }
+            return previousValue;
+        }, []).map(contenu => contenu.toXml()).join('');
+        console.log("for titre", this);
+        console.log("partContent", partContent);
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"

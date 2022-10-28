@@ -121,7 +121,7 @@ export class ListTitresComponent extends Component {
                 <div class="app-card-content">
                     <p>
                         Gérer la liste des titres.
-                        Clicker sur un titre pour modifier le contenu
+                        Clicker sur un titre pour modifier le contenu.
                     </p>
                     <ul>${content}</ul>
                 </div>

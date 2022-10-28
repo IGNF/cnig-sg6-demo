@@ -15,12 +15,13 @@ class Contenu {
     htmlContent;
 
     constructor() {
-        this.id =             `idelem${Date.now()}`;
+        this.id =             `idContenu${Date.now()}`;
         this.href =           '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';
         this.htmlContent =    '';
     }
+
 
     unserialise(data) {
         this.id =             data.id;
@@ -29,6 +30,18 @@ class Contenu {
         this.idPrescription = data.idPrescription;
         this.htmlContent =    data.htmlContent;
         return this;
+    }
+
+
+    isLike(contenu) {
+        return this.href === contenu.href &&
+            this.idZone === contenu.idZone &&
+            this.idPrescription === contenu.idPrescription;
+    }
+
+
+    addHtmlFromOtherContenu(contenu) {
+        this.htmlContent += contenu.htmlContent;
     }
 
 
@@ -46,6 +59,7 @@ class Contenu {
             child.setAttribute('data-href', this.href);
             child.setAttribute('data-idzone', this.idZone);
             child.setAttribute('data-idprescription', this.idPrescription);
+            // child.setAttribute('style', '::before{ content: "UG"}');
         });
         return node.innerHTML;
     }

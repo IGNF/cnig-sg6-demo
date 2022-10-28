@@ -111,7 +111,7 @@ button {
     box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
     margin-bottom: 10px;
 }
-.load-btn, .export-btn, .new-btn {
+.load-btn, .export-btn, .new-btn, .save-btn {
     margin-top: 24px;
     margin-right: 24px;
 }

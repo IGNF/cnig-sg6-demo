@@ -20,7 +20,7 @@ class Reglement {
     htmlContent;
 
     constructor() {
-        this.id = `idreglementdu${Date.now()}`;
+        this.id = `idReglementDu${Date.now()}`;
         this.nom = 'Modifiez la fiche';
         this.lien = '';
         this.idUrba = '';

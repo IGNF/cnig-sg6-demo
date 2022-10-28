@@ -19,7 +19,6 @@ import 'tinymce/plugins/emoticons';
 
 import StorageService from './StorageService';
 import HtmlConverterService from './HtmlConverterService';
-import Titre from '../Model/Titre';
 import DialogService from './DialogService';
 import TitreForm from '../Form/TitreForm';
 import ContenuForm from '../Form/ContenuForm';
@@ -87,6 +86,7 @@ class EditeurService {
         tinymce.init({
             selector: `textarea#${id}`,
             setup: (editor) => { return this.setup(editor); },
+            content_style: this.getContentStyle(),
             language: 'fr_FR',
             theme: 'silver',
             height: 820,
@@ -109,11 +109,11 @@ class EditeurService {
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]
         });
-        // this.saveEvent.pipe(
-        //     debounceTime(5000)
-        // ).subscribe(() => {
-        //     this.actionSave();
-        // });
+        this.saveEvent.pipe(
+            debounceTime(60 * 1000)
+        ).subscribe(() => {
+            this.actionSave();
+        });
     }
 
 
@@ -127,6 +127,30 @@ class EditeurService {
             'h5[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
             'h6[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]'
         ].join(',');
+    }
+
+    getContentStyle() {
+        return `
+            body {
+                font-size: 0.85em;
+                line-height: 1;
+            }
+            h4 {
+                background-color: lightgray;
+            }
+            *[data-idzone]::before {
+                content: attr(data-idzone);
+                position: absolute;
+                left: calc(100% - 4em);
+                color: #bd1e1e8a;
+                width: 2.7em;
+                height: 1.5em;
+                font-size: 10px;
+                text-align: center;
+                box-sizing: border-box;
+                background: white;
+            }
+        `;
     }
 
 

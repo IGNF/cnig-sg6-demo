@@ -1,0 +1,36 @@
+import Component from '../Core/Component';
+
+import EditeurService from '../Services/EditeurService';
+
+export class SaveButtonComponent extends Component {
+
+    storageService;
+
+    constructor() {
+        super();
+        this.name = 'save-btn';
+
+        this.editeurService = new EditeurService();
+    }
+
+    save(event) {
+        // save current editor
+        this.editeurService.actionSave();
+    }
+
+    getTemplate() {
+        return `
+            <button>Sauvegarder</button>
+        `;
+    }
+
+    registerEvents() {
+        super.registerEvents();
+
+        const selector = `.${this.name} button`;
+        document.querySelector(selector).addEventListener('click', event => this.save(event));
+    }
+
+}
+
+export default SaveButtonComponent;

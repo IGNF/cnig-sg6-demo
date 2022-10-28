@@ -8,6 +8,7 @@ import ExportButtonComponent from '../Components/ExportButtonComponent';
 import StorageService from '../Services/StorageService';
 import NouveauButtonComponent from '../Components/NouveauButtonComponent';
 import DialogService from '../Services/DialogService';
+import SaveButtonComponent from '../Components/SaveButtonComponent';
 
 export class HomePage extends Component {
 
@@ -34,6 +35,7 @@ export class HomePage extends Component {
             new DetailPluComponent(reglement),
             new ListTitresComponent(reglement),
             new NouveauButtonComponent(),
+            new SaveButtonComponent(),
             new LoadButtonComponent(),
             new ExportButtonComponent()
         ];
@@ -68,11 +70,17 @@ export class HomePage extends Component {
         return `
             <div class="toolbar">
                 <div class="toolbar-title">
-                    <h1>Plu:ReglementDU</h1>
-                    <p>Outils d'export de réglement d'urbanisme au format CNIG/XML</p>
+                    <h1>
+                        Plu:ReglementDU.
+                        <a href="https://github.com/cboucheIGN/sg6-demo" target="_blank">
+                            Readme
+                        </a>
+                    </h1>
+                    <p>Outils d'export de réglement d'urbanisme au format CNIG/XML.</p>
                 </div>
                 <div class="separator"></div>
                 ${this.components.find(c => c.name === 'new-btn')?.getElement().outerHTML}
+                ${this.components.find(c => c.name === 'save-btn')?.getElement().outerHTML}
                 ${this.components.find(c => c.name === 'load-btn')?.getElement().outerHTML}
                 ${this.components.find(c => c.name === 'export-btn')?.getElement().outerHTML}
             </div>
