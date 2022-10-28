@@ -124,11 +124,8 @@ class Reglement {
     toXml() {
         const content = this.titres.map(titre => titre.toXml()).join('');
         const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
-            <plu:ReglementDU
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
+            <plu:ReglementDU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
                 xmlns:plu="https://cnig.gouv.fr/reglementDU"
                 xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
@@ -136,19 +133,38 @@ class Reglement {
                 ${content}
             </plu:ReglementDU>
         `;
-        return this.sanitizeXml(xmlString);
+        return this.prettifyXml(this.sanitizeXml(xmlString));
     };
+
 
     sanitizeXml(string) {
         return string.trim()
             .replace(/\u00a0/g, ' ')
             .replace(/            /g, '')
             .replace(/&nbsp;/g, ' ')
-            .replace(/ data-[^=]*="[^"]*"/g, ' ')
+            .replace(/ data-[^=]*="[^"]*"/g, '')
             .replace(/<(img|colgroup|col|source|hr) ([^>]*[^\/])\/?>/g, '<$1 $2/>')
             .replace(/<hr>/g, '<hr/>')
             .replace(/( )?xmlns="http:\/\/www.w3.org\/1999\/xhtml"/g, '')
-            .replace(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g, 'xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"');
+            .replace(/xmlns:xsi="http:\/\/www.w3.org\/2001\/XMLSchema-instance"/g, 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.w3.org/1999/xhtml"');
+    }
+
+
+    prettifyXml(xml, tab = null) {
+        // tab = optional indent value, default is tab (\t)
+        let formatted = '';
+        let indent = '';
+        tab = tab || '\t';
+        xml.split(/>\s*</).forEach(function (node) {
+            if (node.match(/^\/\w/)) {
+                indent = indent.substring(tab.length);
+            }
+            formatted += indent + '<' + node + '>\r\n';
+            if (node.match(/^<?\w[^>]*[^\/]$/)) {
+                indent += tab;
+            }
+        });
+        return formatted.substring(1, formatted.length - 3);
     }
 
 }

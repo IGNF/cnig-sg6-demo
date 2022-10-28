@@ -160,6 +160,7 @@ class EditeurService {
             *[data-idzone]:hover::before, *[data-idprescription]:hover::before,
             *[data-idzone]:active::before, *[data-idprescription]:active::before {
                 font-size: 18px;
+                height: 2.5em;
                 z-index: 3;
             }
         `];
