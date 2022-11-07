@@ -46,6 +46,26 @@ class EditeurService {
     }
 
 
+    getSelection() {
+        return tinymce.activeEditor.selection.getNode();
+    }
+
+
+    getContent() {
+        return tinymce.activeEditor.getContent();
+    }
+
+
+    setContent(content, options) {
+        return tinymce.activeEditor.setContent(content, options);
+    }
+
+
+    toggleEditorMode(mode = 'readonly') {
+        tinymce.activeEditor.mode.set(mode);
+    }
+
+
     updateTitreNode(titre) {
         const nodeSelected = this.getSelection();
         if (!nodeSelected.tagName.match('H[1-6]')) {
@@ -68,21 +88,6 @@ class EditeurService {
         if (title !== null) { this.activeTitle = title; }
         if (this.actionTitle === null) { return; }
         this.setContent(this.activeTitle.toHtml(), { format: 'raw' });
-    }
-
-
-    getSelection() {
-        return tinymce.activeEditor.selection.getNode();
-    }
-
-
-    getContent() {
-        return tinymce.activeEditor.getContent();
-    }
-
-
-    setContent(content, options) {
-        return tinymce.activeEditor.setContent(content, options);
     }
 
 
@@ -183,6 +188,9 @@ class EditeurService {
 
     setup(editor) {
 
+        // start with readonly mode
+        editor.mode.set('readonly');
+
         editor.ui.registry.addButton('pluRule', {
             text: 'Modifier les métadonnées',
             onAction: () => this.actionPluRule()
@@ -240,6 +248,7 @@ class EditeurService {
             return;
         }
         // open form prescription
+        // TODO get last titre 
         const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
         const form = new ContenuForm(contenu);
         this.dialogService.open(form);

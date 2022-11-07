@@ -30,6 +30,7 @@ export class LoadButtonComponent extends Component {
             this.storageService.save(reglement);
 
             this.editeurService.setContent('');
+            this.editeurService.toggleEditorMode();
         }
         reader.readAsText(event.target.files[0]);
     }

@@ -21,6 +21,7 @@ export class NouveauButtonComponent extends Component {
         this.storageService.save(reglement);
 
         this.editeurService.setContent('');
+        this.editeurService.toggleEditorMode();
     }
 
     getTemplate() {
