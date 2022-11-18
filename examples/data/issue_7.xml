@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plu:ReglementDU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
+    xmlns:plu="https://cnig.gouv.fr/reglementDU"
+    xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd"
+    id="idReglementDu1667901292749" nom="Règlement de Ancenis" lien="https://wxs-gpu.mongeoportail.ign.fr/externe/documents/DU_44003/b5a41ee6f67e46ff2bdda06b2b51caf6/44003_reglement_20200224.pdf"
+    idUrba="44003_PLU_20200224" typeDoc="PLU">
+    <plu:Titre id="idTitre1667901779799" intitule="titre ii - dispositions applicables aux zones urbaines" niveau="1"
+        numero="2" href="1" idZone="porteeGenerale"
+        idPrescription="nonConcerne" inseeCommune="44003">
+        <plu:Contenu id="idTitre1667901779799" href="1" idZone="porteeGenerale" idPrescription="nonConcerne">
+            <h1 class="plu-title">TITRE II - DISPOSITIONS APPLICABLES AUX ZONES URBAINES</h1>
+        </plu:Contenu>
+        <plu:Contenu id="idContenu1667903284806" href="" idZone="" idPrescription="nonConcerne">
+            <p>
+                La zone urbaine est constituée de 11 secteurs :
+                <br>
+                    -  le secteur Ua,
+                    <br>
+                        -  le secteur Ua-i,
+                        <br>
+                            -  le secteur Ub,
+                            <br>
+                                -  le secteur Uc,
+                                <br>
+                                    -  le secteur Uc-i,
+                                    <br>
+                                        -  le secteur Ue,
+                                        <br>
+                                            -  le secteur Uh,
+                                            <br>
+                                                -  le secteur U L ,
+                                                <br>
+                                                    -  le secteur Ur,
+                                                    <br>
+                                                        -  le secteur Uz1,
+                                                        <br>-  le secteur Uz2.
+            </p>
+            <hr />
+        </plu:Contenu>
+        <plu:Titre id="idTitre1667903284807" intitule="secteur ua" niveau="2"
+            numero="2" href="" idZone="Ua"
+            idPrescription="nonConcerne" inseeCommune="44003">
+            <plu:Contenu id="idTitre1667903284807" href="" idZone="Ua" idPrescription="nonConcerne">
+                <h2 class="plu-paragraph">SECTEUR Ua</h2>
+            </plu:Contenu>
+            <plu:Titre id="idTitre1667903284807" intitule="caractere du secteur ua" niveau="3"
+                numero="3" href="" idZone="Ua"
+                idPrescription="nonConcerne" inseeCommune="44003">
+                <plu:Contenu id="idTitre1667903284807" href="" idZone="Ua" idPrescription="nonConcerne">
+                    <h3 class="plu-paragraph">CARACTERE DU SECTEUR Ua</h3>
+                </plu:Contenu>
+                <plu:Contenu id="idContenu1667903284807" href="" idZone="" idPrescription="nonConcerne">
+                    <p class="plu-paragraph">
+                        Le secteur Ua correspond au tissu urbain ancien de la commune.
+                        <br>
+                            C'est un secteur déjà urbanisé, à caractère central d'habitat dense, de services et d'activités urbaines où les constructions sont
+                            <br>généralement édifiées en ordre continu. Les équipements publics existent ou sont en cours de réalisation
+                    </p>
+                </plu:Contenu>
+            </plu:Titre>
+            <plu:Titre id="idTitre1667903284807" intitule="ua - article 1 - occupations et utilisations du sol interdite" niveau="3"
+                numero="3" href="1" idZone="Ua"
+                idPrescription="nonConcerne" inseeCommune="44003">
+                <plu:Contenu id="idTitre1667903284807" href="1" idZone="Ua" idPrescription="nonConcerne">
+                    <h3 class="plu-paragraph">Ua - ARTICLE 1 - OCCUPATIONS ET UTILISATIONS DU SOL INTERDITE</h3>
+                </plu:Contenu>
+                <plu:Contenu id="idContenu1667903284807" href="" idZone="" idPrescription="nonConcerne">
+                    <p class="plu-paragraph">
+                        Sont interdites les occupations et utilisations du sol suivantes :
+                        <br>
+                            -  les constructions destinées à l’industrie,
+                            <br>
+                                -  les nouvelles constructions destinées exclusivement à la fonction d’entrepôt,
+                                <br>
+                                    -  les constructions destinées à l’exploitation forestière,
+                                    <br>
+                                        -  les nouvelles constructions destinées à l’exploitation agricole,
+                                        <br>
+                                            -  les garages collectifs de caravanes ou de résidences mobiles de loisirs,
+                                            <br>
+                                                -  le stationnement de caravanes isolées quelle qu’en soit la durée, sauf sur l’unité foncière ou dans les bâtiments et
+                                                <br>
+                                                    remises où est implantée la construction constituant la résidence de l'utilisateur,
+                                                    <br>
+                                                        -  les Parcs Résidentiels de Loisirs,
+                                                        <br>
+                                                            -  l’aménagement de terrains de camping,
+                                                            <br>
+                                                                -  les parcs d'attraction,
+                                                                <br>
+                                                                    -  les dépôts de véhicules à l’exception de ceux liés à une occupation ou utilisation du sol autorisée,
+                                                                    <br>
+                                                                        -  les dépôts de ferrailles, déchets, matériaux divers,
+                                                                        <br>
+                                                                            -  les affouillements et exhaussements du sol à l’exception de ceux directement liés ou nécessaires à une occupation ou
+                                                                            <br>
+                                                                                utilisation admise,
+                                                                                <br>
+                                                                                    -  l’ouverture et l’exploitation de carrières,
+                                                                                    <br>-  les installations nouvelles classées soumises à autorisation préalable ou enregistrement.
+                    </p>
+                    <p class="plu-paragraph">
+                        Sur les linéaires de protection des vitrines, situées en RdC et repérés aux documents graphiques (légendés vert), les
+                        <br>
+                            changements de destination des locaux situés au RdC vers l'habitation sont interdits.
+                            <br>
+                                Les éléments de patrimoine identifiés en vertu de l’article L.123-1-5,7 ème du code de l’urbanisme sont soumis à un ensemble
+                                <br>
+                                    de dispositions, dont le permis de démolir ; voir à ce propos l’article 11 des Dispositions Générales.
+                                    <br>
+                                        Les zones humides, repérées aux documents graphiques par une trame spécifique, sont soumises à un ensemble de
+                                        <br>dispositions ; voir à ce propos l’article 14 des Dispositions Générales.
+                    </p>
+                </plu:Contenu>
+            </plu:Titre>
+            <plu:Titre id="idTitre1667903284807" intitule="ua - article 2 - occupations et utilisations du sol soumises a conditions particulieres" niveau="3"
+                numero="3" href="2" idZone="Ua"
+                idPrescription="nonConcerne" inseeCommune="44003">
+                <plu:Contenu id="idTitre1667903284807" href="2" idZone="Ua" idPrescription="nonConcerne">
+                    <h3 class="plu-paragraph">Ua - ARTICLE 2 - OCCUPATIONS ET UTILISATIONS DU SOL SOUMISES A CONDITIONS PARTICULIERES</h3>
+                </plu:Contenu>
+                <plu:Contenu id="idContenu1667903451445" href="" idZone="" idPrescription="nonConcerne">
+                    <p>Sont admises sous conditions les occupations et utilisations du sol suivantes :</p>
+                </plu:Contenu>
+                <plu:Titre id="idContenu1667903451445" intitule="2.1. conditions relatives a des risques ou des nuisances" niveau="4"
+                    numero="4" href="2.1" idZone="Ua"
+                    idPrescription="nonConcerne" inseeCommune="44003">
+                    <plu:Contenu id="idContenu1667903451445" href="2.1" idZone="Ua" idPrescription="nonConcerne">
+                        <h4>2.1. CONDITIONS RELATIVES A DES RISQUES OU DES NUISANCES</h4>
+                    </plu:Contenu>
+                    <plu:Contenu id="idContenu1667903451445" href="" idZone="" idPrescription="nonConcerne">
+                        <p>
+                            Sont autorisés :
+                            <br>
+                                -  les constructions destinées à l'artisanat à condition que soient mises en œuvre toutes les dispositions utiles pour les
+                                <br>
+                                    rendre compatibles avec le milieu environnant et permettre d’éviter les nuisances et les dangers éventuels ;
+                                    <br>
+                                        -  les entrepôts à condition qu’ils soient nécessaires au fonctionnement d’une activité de vente déjà en place,
+                                        <br>
+                                            -  les installations classées soumises à déclaration aux conditions cumulatives suivantes :
+                                            <br>
+                                                que leur importance (volume, emprise, ...) ne modifie pas le caractère du secteur,
+                                                <br>
+                                                    que soient mises en œuvre toutes les dispositions utiles pour les rendre compatibles avec les milieux environnants et
+                                                    <br>
+                                                        permettre d’éviter les nuisances éventuelles,
+                                                        <br>
+                                                            dans le cas d’extension d’installations classées pour la protection de l’environnement existantes soumises à
+                                                            <br>
+                                                                déclaration, que celles-ci soient maintenues dans leur classe initiale ;
+                                                                <br>
+                                                                    -  les dépôts de véhicules à condition qu’ils soient liés à une activité de garage existante à proximité immédiate et de faire
+                                                                    <br>preuve d’une bonne intégration paysagère dans le site.
+                        </p>
+                    </plu:Contenu>
+                </plu:Titre>
+                <plu:Titre id="idContenu1667903451445" intitule="2.2. conditions relatives a la creation de logements sociaux" niveau="4"
+                    numero="4" href="2.2" idZone="ua"
+                    idPrescription="nonConcerne" inseeCommune="44003">
+                    <plu:Contenu id="idContenu1667903451445" href="2.2" idZone="ua" idPrescription="nonConcerne">
+                        <h4>2.2. CONDITIONS RELATIVES A LA CREATION DE LOGEMENTS SOCIAUX</h4>
+                    </plu:Contenu>
+                    <plu:Contenu id="idContenu1667903451445" href="" idZone="" idPrescription="nonConcerne">
+                        <p>
+                            Pour tout programme de logements comportant
+                            <br>
+                                -  soit 10 logements ou plus ;
+                                <br>
+                                    -  soit représentant une surface de plancher supérieure à 1 000 m² ;
+                                    <br>
+                                        -  soit portant sur une unité foncière de 4 000 m² minimum avant division à la date du PLU approuvé (28 avril 2014) ;
+                                        <br>
+                                            il doit être réalisé au minimum 30 % de logements aidés bénéficiant du concours de l’Etat.
+                                            <br>
+                                                Dans les ZAC et les projets d’ensemble, le taux s'applique également, mais de façon globale à l'échelle de l'opération et non
+                                                <br>
+                                                    par constructeur.
+                                                    <br>
+                                                        Dans les ZAC dont le dossier de création est antérieur à l'adoption du PLH, une part de PLS pourra être prise en compte au
+                                                        <br>titre des logements aidés, dans la limite des agréments attribués par l'Etat.
+                        </p>
+                    </plu:Contenu>
+                </plu:Titre>
+                <plu:Titre id="idContenu1667903451445" intitule="2.3. conditions relatives aux orientations d’amenagement et de programmation" niveau="4"
+                    numero="4" href="2.3" idZone="Ua"
+                    idPrescription="nonConcerne" inseeCommune="44003">
+                    <plu:Contenu id="idContenu1667903451445" href="2.3" idZone="Ua" idPrescription="nonConcerne">
+                        <h4>2.3. CONDITIONS RELATIVES AUX ORIENTATIONS D’AMENAGEMENT ET DE PROGRAMMATION</h4>
+                    </plu:Contenu>
+                    <plu:Contenu id="idContenu1667903451445" href="" idZone="" idPrescription="nonConcerne">
+                        <p>
+                            Les occupations et utilisations du sol autorisées doivent être compatibles avec les principes indiqués dans les Orientations
+                            <br>d’Aménagement et de Programmation (pièce n°3).
+                        </p>
+                    </plu:Contenu>
+                </plu:Titre>
+                <plu:Titre id="idContenu1667903451445" intitule="2.4. conditions relatives aux vitrines :" niveau="4"
+                    numero="4" href="2.4" idZone="Ua"
+                    idPrescription="nonConcerne" inseeCommune="44003">
+                    <plu:Contenu id="idContenu1667903451445" href="2.4" idZone="Ua" idPrescription="nonConcerne">
+                        <h4>2.4. CONDITIONS RELATIVES AUX VITRINES :</h4>
+                    </plu:Contenu>
+                    <plu:Contenu id="idContenu1667903451445" href="" idZone="" idPrescription="nonConcerne">
+                        <p>
+                            Sur les linéaires de protection des vitrines (légendés vert) situées en RdC et repérés aux documents graphiques, les vitrines
+                            <br>
+                                doivent être préservées.
+                                <br>
+                                    Pour les travaux de modifications des vitrines sans changement de destination, et les travaux de modifications des vitrines liés
+                                    <br>
+                                        aux changements de destination admis, ceux-ci sont autorisés à condition que l’aménagement des locaux permette un retour
+                                        <br>
+                                            ultérieur aisé à une destination commerciale. A cet effet, il sera tenu compte de la disposition des accès (accès direct au local
+                                            <br>
+                                                depuis la rue), de l'organisation de la distribution intérieure, des éléments structurels de l'immeuble (murs porteurs), et de
+                                                <br>
+                                                    l'implantation des coffrets techniques. Ces dispositions s'appliquent sur les linéaires de protection des vitrines repérées aux
+                                                    <br>
+                                                        documents graphiques (légendés vert), et sur les linéaires propices aux activités urbaines repérées aux documents graphiques
+                                                        <br>
+                                                            (légendés violet).
+                                                            <br>
+                                                                En cas d'opération de renouvellement urbain (démolition / reconstruction), une vitrine devra être prévue en RdC de la nouvelle
+                                                                <br>construction sur un linéaire au moins équivalent à la vitrine pré existante
+                        </p>
+                        <p>
+                            <img src="https://drive.google.com/file/d/1OgTLDKuADUOfnBaPFP8kglahiByOyDtN/view?usp=share_link" alt="Image Test" width="500" height="100" />
+                        </p>
+                        <p class="plu-paragraph"></p>
+                        <p class="plu-paragraph"></p>
+                        <p class="plu-paragraph"></p>
+                        <p class="plu-paragraph"></p>
+                        <p class="plu-paragraph"></p>
+                    </plu:Contenu>
+                </plu:Titre>
+            </plu:Titre>
+        </plu:Titre>
+    </plu:Titre>
+    <plu:Titre id="idContenu1667903451445" intitule="2.3. conditions relatives aux orientations d’amenagement et de programmation" niveau="4"
+        numero="4" href="2.3" idZone="Ua"
+        idPrescription="nonConcerne" inseeCommune="44003">
+        <plu:Contenu id="idContenu1667910706503" href="" idZone="" idPrescription="nonConcerne">
+            <h1>2.1. conditions relatives a des risques ou des nuisances</h1>
+        </plu:Contenu>
+    </plu:Titre>
+</plu:ReglementDU>

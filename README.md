@@ -2,18 +2,33 @@
 
 ## Lien vers la demo
 
-https://cboucheign.github.io/sg6-demo/examples/
+https://ignf.github.io/cnig-sg6-demo/examples/
 
-## Fichier de test
+## Fichiers de tests
 
-https://cboucheign.github.io/sg6-demo/examples/data/15079_reglement_20190128.xml
+Fichiers fonctionnels :
 
-## Modele
+* [examples/data/15079_reglement_20190128.xml](examples/data/15079_reglement_20190128.xml)
 
-1. UML description
+Fichier non valide généré à corriger :
+
+* [examples/data/issue_7.xml](examples/data/issue_7.xml)
+
+## Modèle
+
+### Schéma UML
+
+![MCD structuration-reglement-urbanisme](https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/220830_MCD%20SRU.png)
 
 https://github.com/cnigfr/structuration-reglement-urbanisme/blob/master/schemas/220830_MCD%20SRU.png
 
-2. XSD description
+### Schéma XSD
 
-https://github.com/cnigfr/structuration-reglement-urbanisme/blob/master/schemas/reglementPLU.xsd
+* https://github.com/cnigfr/structuration-reglement-urbanisme/blob/master/schemas/reglementPLU.xsd (**en attente de correction**)
+* https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd (**utilisé par l'exemple, convention de nommage définitive non respectée**)
+
+### Validation des XML
+
+Il convient d'utiliser des fichiers XML valide. L'outil [www.freeformatter.com - XML Validator - XSD (XML Schema)](https://www.freeformatter.com/xml-validator-xsd.html) pourra aider.
+
+
