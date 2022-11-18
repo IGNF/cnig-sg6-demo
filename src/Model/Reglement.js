@@ -1,5 +1,5 @@
-import Contenu from "./Contenu";
-import Titre from "./Titre";
+import Contenu from "./Contenu.js";
+import Titre from "./Titre.js";
 
 class Reglement {
 

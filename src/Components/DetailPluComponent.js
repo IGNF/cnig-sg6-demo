@@ -1,7 +1,7 @@
-import Component from '../Core/Component';
-import ReglementForm from '../Form/ReglementForm';
+import Component from '../Core/Component.js';
+import ReglementForm from '../Form/ReglementForm.js';
 
-import DialogService from '../Services/DialogService';
+import DialogService from '../Services/DialogService.js';
 
 export class DetailPluComponent extends Component {
 

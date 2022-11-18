@@ -1,8 +1,8 @@
-import Component from '../Core/Component';
-import StorageService from '../Services/StorageService';
+import Component from '../Core/Component.js';
+import StorageService from '../Services/StorageService.js';
 
-import XmlExport from '../Export/XmlExport';
-import EditeurService from '../Services/EditeurService';
+import XmlExport from '../Export/XmlExport.js';
+import EditeurService from '../Services/EditeurService.js';
 
 export class ExportButtonComponent extends Component {
 

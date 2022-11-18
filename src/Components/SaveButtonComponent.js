@@ -1,6 +1,6 @@
-import Component from '../Core/Component';
+import Component from '../Core/Component.js';
 
-import EditeurService from '../Services/EditeurService';
+import EditeurService from '../Services/EditeurService.js';
 
 export class SaveButtonComponent extends Component {
 

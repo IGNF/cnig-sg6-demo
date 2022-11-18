@@ -1,6 +1,6 @@
-import HomePage from './Pages/HomePage';
+import HomePage from './Pages/HomePage.js';
 
-import StorageService from './Services/StorageService';
+import StorageService from './Services/StorageService.js';
 
 import { map } from 'rxjs';
 

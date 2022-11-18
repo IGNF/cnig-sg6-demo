@@ -1,5 +1,5 @@
-import Titre from '../Model/Titre';
-import Contenu from '../Model/Contenu';
+import Titre from '../Model/Titre.js';
+import Contenu from '../Model/Contenu.js';
 
 
 class HtmlConverterService {

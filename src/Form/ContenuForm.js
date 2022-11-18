@@ -1,7 +1,7 @@
-import Component from '../Core/Component';
-import DialogService from '../Services/DialogService';
-import EditeurService from '../Services/EditeurService';
-import StorageService from '../Services/StorageService';
+import Component from '../Core/Component.js';
+import DialogService from '../Services/DialogService.js';
+import EditeurService from '../Services/EditeurService.js';
+import StorageService from '../Services/StorageService.js';
 
 class ContenuForm extends Component {
 
