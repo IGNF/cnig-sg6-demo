@@ -12,7 +12,7 @@ Fichiers fonctionnels :
 
 Fichier non valide généré à corriger :
 
-* [examples/data/issue_7.xml](examples/data/issue_7.xml)
+* [examples/data/issue_7.xml](examples/data/issue_7.xml) (`<br>` => `<br />`)
 
 ## Modèle
 
