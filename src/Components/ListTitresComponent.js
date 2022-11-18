@@ -1,11 +1,11 @@
-import Component from '../Core/Component';
-import TitreForm from '../Form/TitreForm';
+import Component from '../Core/Component.js';
+import TitreForm from '../Form/TitreForm.js';
 
-import Titre from '../Model/Titre';
+import Titre from '../Model/Titre.js';
 
-import StorageService from '../Services/StorageService';
-import DialogService from '../Services/DialogService';
-import EditeurService from '../Services/EditeurService';
+import StorageService from '../Services/StorageService.js';
+import DialogService from '../Services/DialogService.js';
+import EditeurService from '../Services/EditeurService.js';
 
 export class ListTitresComponent extends Component {
 

@@ -1,4 +1,4 @@
-import Contenu from './Contenu';
+import Contenu from './Contenu.js';
 
 class Titre {
 

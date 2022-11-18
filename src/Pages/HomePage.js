@@ -1,14 +1,14 @@
-import Component from '../Core/Component';
+import Component from '../Core/Component.js';
 
-import DetailPluComponent from '../Components/DetailPluComponent';
-import ListTitresComponent from '../Components/ListTitresComponent';
-import LoadButtonComponent from '../Components/LoadButtonComponent';
-import ExportButtonComponent from '../Components/ExportButtonComponent';
+import DetailPluComponent from '../Components/DetailPluComponent.js';
+import ListTitresComponent from '../Components/ListTitresComponent.js';
+import LoadButtonComponent from '../Components/LoadButtonComponent.js';
+import ExportButtonComponent from '../Components/ExportButtonComponent.js';
 
-import StorageService from '../Services/StorageService';
-import NouveauButtonComponent from '../Components/NouveauButtonComponent';
-import DialogService from '../Services/DialogService';
-import SaveButtonComponent from '../Components/SaveButtonComponent';
+import StorageService from '../Services/StorageService.js';
+import NouveauButtonComponent from '../Components/NouveauButtonComponent.js';
+import DialogService from '../Services/DialogService.js';
+import SaveButtonComponent from '../Components/SaveButtonComponent.js';
 
 export class HomePage extends Component {
 

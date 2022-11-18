@@ -2,26 +2,26 @@ import { debounceTime, Subject } from 'rxjs';
 
 // load tinymce icon, theme, skin, plugin
 import tinymce from 'tinymce';
-import 'tinymce/models/dom';
-import 'tinymce/icons/default';
-import 'tinymce/themes/silver';
+import 'tinymce/models/dom/index.js';
+import 'tinymce/icons/default/index.js';
+import 'tinymce/themes/silver/index.js';
 import 'tinymce/skins/ui/oxide/skin.css';
-import 'tinymce/plugins/advlist';
-import 'tinymce/plugins/code';
-import 'tinymce/plugins/emoticons';
-import 'tinymce/plugins/emoticons/js/emojis';
-import 'tinymce/plugins/image';
-import 'tinymce/plugins/media';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/lists';
-import 'tinymce/plugins/table';
-import 'tinymce/plugins/emoticons';
+import 'tinymce/plugins/advlist/index.js';
+import 'tinymce/plugins/code/index.js';
+import 'tinymce/plugins/emoticons/index.js';
+import 'tinymce/plugins/emoticons/js/emojis.js';
+import 'tinymce/plugins/image/index.js';
+import 'tinymce/plugins/media/index.js';
+import 'tinymce/plugins/link/index.js';
+import 'tinymce/plugins/lists/index.js';
+import 'tinymce/plugins/table/index.js';
+import 'tinymce/plugins/emoticons/index.js';
 
-import StorageService from './StorageService';
-import HtmlConverterService from './HtmlConverterService';
-import DialogService from './DialogService';
-import TitreForm from '../Form/TitreForm';
-import ContenuForm from '../Form/ContenuForm';
+import StorageService from './StorageService.js';
+import HtmlConverterService from './HtmlConverterService.js';
+import DialogService from './DialogService.js';
+import TitreForm from '../Form/TitreForm.js';
+import ContenuForm from '../Form/ContenuForm.js';
 
 class EditeurService {
 

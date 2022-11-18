@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import Reglement from '../Model/Reglement';
+import Reglement from '../Model/Reglement.js';
 
 class StorageService {
 

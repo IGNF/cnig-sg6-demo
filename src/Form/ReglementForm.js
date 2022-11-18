@@ -1,6 +1,6 @@
-import Component from '../Core/Component';
-import DialogService from '../Services/DialogService';
-import StorageService from '../Services/StorageService';
+import Component from '../Core/Component.js';
+import DialogService from '../Services/DialogService.js';
+import StorageService from '../Services/StorageService.js';
 
 class ReglementForm extends Component {
 

@@ -1,8 +1,8 @@
-import Component from '../Core/Component';
-import StorageService from '../Services/StorageService';
+import Component from '../Core/Component.js';
+import StorageService from '../Services/StorageService.js';
 
-import XmlImport from '../Import/XmlImport';
-import EditeurService from '../Services/EditeurService';
+import XmlImport from '../Import/XmlImport.js';
+import EditeurService from '../Services/EditeurService.js';
 
 export class LoadButtonComponent extends Component {
 

@@ -1,8 +1,8 @@
-import Component from '../Core/Component';
-import StorageService from '../Services/StorageService';
+import Component from '../Core/Component.js';
+import StorageService from '../Services/StorageService.js';
 
-import Reglement from '../Model/Reglement';
-import EditeurService from '../Services/EditeurService';
+import Reglement from '../Model/Reglement.js';
+import EditeurService from '../Services/EditeurService.js';
 
 export class NouveauButtonComponent extends Component {
 

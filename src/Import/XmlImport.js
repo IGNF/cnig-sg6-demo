@@ -1,7 +1,16 @@
-import Reglement from '../Model/Reglement';
-import Titre from '../Model/Titre';
-import Contenu from '../Model/Contenu';
+import Reglement from '../Model/Reglement.js';
+import Titre from '../Model/Titre.js';
+import Contenu from '../Model/Contenu.js';
 
+import { DOMParser as DOMParser2 } from 'xmldom';
+/*
+ * TODO https://github.com/IGNF/cnig-sg6-demo/issues/7 - blinder les tests pour
+ * supprimer ce code et utiliser le parser 'xmldom'
+ * (différence de comportement entre DOMParser de xmldom et celui de firefox => risque d'avoir le même problème)
+ */
+if ( typeof window !== 'undefined' && typeof window.DOMParser !== 'undefined' ){
+    DOMParser2 = window.DOMParser;
+}
 
 class XmlImport {
 
@@ -14,7 +23,7 @@ class XmlImport {
 
 
     load(xmlString) {
-        const parser = new DOMParser();
+        const parser = new DOMParser2();
         // const xmlReglement = parser.parseFromString(xmlString, 'text/html');
         const xmlReglement = parser.parseFromString(xmlString, 'application/xml');
 		this.xmlReglement = xmlReglement;
