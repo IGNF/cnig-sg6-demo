@@ -10,7 +10,6 @@ import { DOMParser as DOMParser2 } from 'xmldom';
  */
 if ( typeof window !== 'undefined' && typeof window.DOMParser !== 'undefined' ){
     DOMParser2 = window.DOMParser;
-}
 
 class XmlImport {
 
@@ -24,19 +23,18 @@ class XmlImport {
 
     load(xmlString) {
         const parser = new DOMParser2();
-        // const xmlReglement = parser.parseFromString(xmlString, 'text/html');
+
         const xmlReglement = parser.parseFromString(xmlString, 'application/xml');
 		this.xmlReglement = xmlReglement;
 
         const reglement = new Reglement();
-
         const reglementElement = xmlReglement.getElementsByTagName('plu:ReglementDU')[0];
+
         reglement.id =      reglementElement.getAttribute('id');
         reglement.lien =    reglementElement.getAttribute('lien');
         reglement.nom =     reglementElement.getAttribute('nom');
         reglement.idUrba =  reglementElement.getAttribute('idUrba');
         reglement.typeDoc = reglementElement.getAttribute('typeDoc');
-
         reglement.titres = Array.from(xmlReglement.getElementsByTagName('plu:Titre'))
             .filter(element => element.getAttribute('niveau') == 1)
             .map((element) => {
@@ -47,8 +45,8 @@ class XmlImport {
     }
 
     loadTitre(element) {
+        
         const titre = new Titre();
-
         titre.id = element.getAttribute('id');
         titre.intitule = element.getAttribute('intitule')?.toLowerCase();
         titre.niveau = parseInt(element.getAttribute('niveau'));
@@ -59,17 +57,23 @@ class XmlImport {
         titre.idPrescription = element.getAttribute('idPrescription');
         titre.inseeCommune = element.getAttribute('inseeCommune');
 
+        var cb = function(element, titre) {            
+            if(element.parentNode.id == titre.id && element.parentNode.attributes.niveau.value == titre.niveau) {
+                return true;
+            }
+            return false; 
+        }
+
         titre.contents = Array.from(this.xmlReglement.getElementById(titre.id).getElementsByTagName('plu:Contenu'))
-			.filter(element => element.parentNode.id == titre.id)
+			.filter(element => cb(element, titre))
             .map(subtitle => this.loadContenu(subtitle));
 
         titre.children = Array.from(this.xmlReglement.getElementById(titre.id).getElementsByTagName('plu:Titre'))
-            .filter(element => element.parentNode.id == titre.id)
+            .filter(element =>cb(element, titre))
             .map(subtitle => this.loadTitre(subtitle));
 
 		return titre;
     }
-
 
     lameCheckHTML(htmlString) {
         const doc = document.createAttribute('div');
@@ -79,7 +83,7 @@ class XmlImport {
 
     loadContenu(element) {
         const contenu = new Contenu();
-
+        
         contenu.id = element.getAttribute('id');
         contenu.href = element.getAttribute('href');
         contenu.idZone = element.getAttribute('idZone');

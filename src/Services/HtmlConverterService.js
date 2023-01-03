@@ -65,7 +65,7 @@ class HtmlConverterService {
         attributes.forEach((att) => {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
-            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
+            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null' && element.getAttribute(attribute).match("Contenu")) {
                 contenu[att] = element.getAttribute(attribute);
             }
         });
@@ -86,7 +86,7 @@ class HtmlConverterService {
         attributes.forEach((att) => {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
-            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
+            if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null' && element.getAttribute(attribute).match("Titre")) {
                 titre[att] = element.getAttribute(attribute);
             }
         });

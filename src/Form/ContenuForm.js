@@ -24,7 +24,6 @@ class ContenuForm extends Component {
     valid(event) {
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
-
         this.contenu.id = form.id.value;
         this.contenu.href = form.href.value;
         this.contenu.idZone = form.idZone.value;
@@ -52,7 +51,7 @@ class ContenuForm extends Component {
                 <input id="href" type="string" value="${this.contenu.href}">
                 <label for="idZone">Zone (U, Ua, ...)</label>
                 <input id="idZone" type="string" value="${this.contenu.idZone}">
-                <label for="idPrescription">rescription (05-01, ...)</label>
+                <label for="idPrescription">Prescription (05-01, ...)</label>
                 <input id="idPrescription" type="string" value="${this.contenu.idPrescription}">
             </form>
             <div class="form-action">
