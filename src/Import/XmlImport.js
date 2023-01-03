@@ -10,6 +10,7 @@ import { DOMParser as DOMParser2 } from 'xmldom';
  */
 if ( typeof window !== 'undefined' && typeof window.DOMParser !== 'undefined' ){
     DOMParser2 = window.DOMParser;
+}
 
 class XmlImport {
 
@@ -57,7 +58,8 @@ class XmlImport {
         titre.idPrescription = element.getAttribute('idPrescription');
         titre.inseeCommune = element.getAttribute('inseeCommune');
 
-        var cb = function(element, titre) {            
+        var cb = function(element, titre) {
+            
             if(element.parentNode.id == titre.id && element.parentNode.attributes.niveau.value == titre.niveau) {
                 return true;
             }
@@ -75,6 +77,7 @@ class XmlImport {
 		return titre;
     }
 
+
     lameCheckHTML(htmlString) {
         const doc = document.createAttribute('div');
         doc.innerHTML = htmlString;
@@ -83,7 +86,7 @@ class XmlImport {
 
     loadContenu(element) {
         const contenu = new Contenu();
-        
+
         contenu.id = element.getAttribute('id');
         contenu.href = element.getAttribute('href');
         contenu.idZone = element.getAttribute('idZone');
