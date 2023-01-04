@@ -42,6 +42,7 @@ class Contenu {
 
     addHtmlFromOtherContenu(contenu) {
         this.htmlContent += contenu.htmlContent;
+        contenu.htmlContent = "";
     }
 
 
@@ -61,7 +62,7 @@ class Contenu {
             child.setAttribute('data-idprescription', this.idPrescription);
         });
         return node.innerHTML;
-    }
+    };
 
 
     toXml() {

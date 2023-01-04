@@ -66,7 +66,6 @@ export class ListTitresComponent extends Component {
         const id = event.target.getAttribute('idtitle');
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
-
         this.editeurService.loadTitle(titre);
     }
 
@@ -121,7 +120,7 @@ export class ListTitresComponent extends Component {
                 <div class="app-card-content">
                     <p>
                         Gérer la liste des titres.
-                        Clicker sur un titre pour modifier le contenu.
+                        Cliquer sur un titre pour modifier le contenu.
                     </p>
                     <ul>${content}</ul>
                 </div>
