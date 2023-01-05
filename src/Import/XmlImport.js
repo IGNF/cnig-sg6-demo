@@ -29,7 +29,7 @@ class XmlImport {
 		this.xmlReglement = xmlReglement;
 
         const reglement = new Reglement();
-        const reglementElement = xmlReglement.getElementsByTagName('plu:ReglementDU')[0];
+        const reglementElement = xmlReglement.getElementsByTagName('plu:ReglementPLU')[0];
 
         reglement.id =      reglementElement.getAttribute('id');
         reglement.lien =    reglementElement.getAttribute('lien');

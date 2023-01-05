@@ -20,7 +20,7 @@ class Reglement {
     htmlContent;
 
     constructor() {
-        this.id = `idReglementDu${Date.now()}`;
+        this.id = `idReglementPlu${Date.now()}`;
         this.nom = 'Modifiez la fiche';
         this.lien = '';
         this.idUrba = '';
@@ -124,14 +124,14 @@ class Reglement {
     toXml() {
         const content = this.titres.map(titre => titre.toXml()).join('');
         const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
-            <plu:ReglementDU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            <plu:ReglementPLU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
                 xmlns:plu="https://cnig.gouv.fr/reglementDU"
                 xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
                 idUrba="${this.idUrba}" typeDoc="${this.typeDoc}">
                 ${content}
-            </plu:ReglementDU>
+            </plu:ReglementPLU>
         `;
         return this.prettifyXml(this.sanitizeXml(xmlString));
     };
@@ -139,7 +139,7 @@ class Reglement {
 
     sanitizeXml(string) {
         return string.trim()
-            .replace(/[^ -~]+/g, "")
+            .replace(/\p{C}/gu, '')
             .replace(/\u00a0/g, ' ')
             .replace(/            /g, '')
             .replace(/&nbsp;/g, ' ')

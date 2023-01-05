@@ -71,7 +71,7 @@ export class HomePage extends Component {
             <div class="toolbar">
                 <div class="toolbar-title">
                     <h1>
-                        Plu:ReglementDU.
+                        Plu:ReglementPLU.
                         <a href="https://github.com/cboucheIGN/sg6-demo" target="_blank">
                             Readme
                         </a>
