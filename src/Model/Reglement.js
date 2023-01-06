@@ -127,7 +127,7 @@ class Reglement {
             <plu:ReglementPLU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
                 xmlns:plu="https://cnig.gouv.fr/reglementDU"
-                xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd"
+                xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
                 idUrba="${this.idUrba}" typeDoc="${this.typeDoc}">
                 ${content}
