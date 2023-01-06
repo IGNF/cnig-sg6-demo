@@ -26,7 +26,7 @@ https://github.com/cnigfr/structuration-reglement-urbanisme/blob/master/schemas/
 
 * https://github.com/cnigfr/structuration-reglement-urbanisme/blob/master/schemas/reglementPLU.xsd (**en attente de correction**)
 * https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/old/reglementDU.xsd (**utilisé par l'exemple, convention de nommage définitive non respectée**)
-* [examples/data/reglementDU.XSD](examples/data/reglementDU.XSD) (**le dernier schema fourni**)
+* [examples/data/reglementPLU.XSD](examples/data/reglementPLU.XSD) (**le dernier schema fourni**)
 
 ### Validation des XML
 
