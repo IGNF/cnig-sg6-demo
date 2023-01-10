@@ -59,7 +59,7 @@ export class ListTitresComponent extends Component {
     }
 
 
-    openEditor(event) {
+    openEditor(event) {        
         // save current editor
         this.editeurService.actionSave();
         // open editor
