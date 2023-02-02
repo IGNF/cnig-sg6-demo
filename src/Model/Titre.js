@@ -12,8 +12,6 @@ class Titre {
     // gpu attributes
     idZone;
     idPrescription;
-    // un ou plusieurs commune (cf PLUi)
-    inseeCommune;
 
     // Liste de contenu
     // export content before children
@@ -29,7 +27,6 @@ class Titre {
         this.href =           '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';
-        this.inseeCommune =   '';
         this.contents = [];
         this.children = [];
     }
@@ -42,7 +39,6 @@ class Titre {
         this.href =           data.href;
         this.idZone =         data.idZone;
         this.idPrescription = data.idPrescription;
-        this.inseeCommune =   data.inseeCommune;
         // TODO manage order
         this.contents =       data.contents.map(contentData => new Contenu().unserialise(contentData));
         this.children =       data.children.map(titreData => new Titre().unserialise(titreData));
@@ -93,7 +89,6 @@ class Titre {
             titleNode.setAttribute('data-href', this.href);
             titleNode.setAttribute('data-idzone', this.idZone);
             titleNode.setAttribute('data-idprescription', this.idPrescription);
-            titleNode.setAttribute('data-inseecommune', this.inseeCommune);
         }
         return node.innerHTML;
     };
@@ -119,7 +114,7 @@ class Titre {
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
                 numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
-                idPrescription="${this.idPrescription}" inseeCommune="${this.inseeCommune}">
+                idPrescription="${this.idPrescription}">
                 ${partContent}
                 ${partChildren}
             </plu:Titre>

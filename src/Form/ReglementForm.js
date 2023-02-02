@@ -28,6 +28,7 @@ class ReglementForm extends Component {
         this.reglement.lien = form.lien.value;
         this.reglement.idUrba = form.idUrba.value;
         this.reglement.typeDoc = form.typeDoc.value;
+        this.reglement.inseeCommune = form.inseeCommune.value;
 
         this.storageService.save(this.reglement);
         this.dialogService.close();
@@ -53,6 +54,8 @@ class ReglementForm extends Component {
                 <input type="string" value="${this.reglement.idUrba}" id="idUrba">
                 <label for="typeDoc">Type de document</label>
                 <input type="string" value="${this.reglement.typeDoc}" id="typeDoc">
+                <label for="inseeCommune">Code INSEE des communes concernées</label>
+                <input type="string" value="${this.reglement.inseeCommune}" id="inseeCommune">
             </form>
             <div class="form-action">
                 <div class="separator"></div>

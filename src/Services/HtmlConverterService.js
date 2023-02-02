@@ -23,7 +23,11 @@ class HtmlConverterService {
         let titlePile = [];
         let contentPile = [];
         let pluContenuPile = [];
+
         children.reduce((previous, child, index) => {
+            titlePile.push(this.newTitleFromSource(child));
+            this.updateContent(titlePile[0], this.newContenuFromSource(child))
+            return;
             // pass 'section plu-titre' && 'section plu-contenu'
             if (child.classList.contains('plu-contenu')) {
                 pluContenuPile.push(child);
@@ -79,11 +83,11 @@ class HtmlConverterService {
         const titre = new Titre();
         // from user input
         titre.niveau = parseInt(element.tagName.substring(1));
-        titre.intitule = element.innerText.toLowerCase();
+        titre.intitule = element.innerText;
         // from data attributes
         const attributes = [
             'id', 'numero', 'href',
-            'idZone', 'idPrescription', 'inseeCommune'
+            'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
             let attribute = att;
@@ -125,7 +129,7 @@ class HtmlConverterService {
     updateTitreNode(node, titre) {
         const attributes = [
             'id', 'numero', 'href',
-            'idZone', 'idPrescription', 'inseeCommune'
+            'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
             let attribute = att;

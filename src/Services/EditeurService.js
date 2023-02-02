@@ -128,13 +128,13 @@ class EditeurService {
 
     getExtendedValidElements() {
         return [
-            'div[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h1[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h2[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h3[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h4[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h5[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]',
-            'h6[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero,data-inseecommune]'
+            'div[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h1[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h2[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h3[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h4[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h5[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]',
+            'h6[class,id,data-href,data-idzone,data-idprescription,data-intitule,data-niveau,data-numero]'
         ].join(',');
     }
 

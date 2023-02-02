@@ -27,9 +27,14 @@ class TitreForm extends Component {
     valid(event) {
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
-
+        
         if (form.niveau.value === '') {
             alert("Le niveau du titre doit être renseigné");
+            return;
+        }
+
+        if (form.niveau.value < 1 || form.niveau.value > 4) {
+            alert("Le niveau du titre doit être compris entre 1 et 4");
             return;
         }
 
@@ -40,7 +45,6 @@ class TitreForm extends Component {
         this.titre.href =           form.href.value;
         this.titre.idZone =         form.idZone.value;
         this.titre.idPrescription = form.idPrescription.value;
-        this.titre.inseeCommune =   form.inseeCommune.value;
 
         // save titre dans reglement
         const reglement = this.storageService.getReglement();
@@ -62,6 +66,14 @@ class TitreForm extends Component {
         this.editeurService.updateTitreNode(this.titre);
 
         this.close();
+
+        for(var i=0; i<document.getElementById("title-list").children.length-1; i++){
+            if(document.getElementById("title-list").children[i+1].getAttribute("niveau") <= document.getElementById("title-list").children[i].getAttribute("niveau")) {
+                document.getElementById("title-list").children[i].children[1].classList.add("hidden");
+            } else{
+                document.getElementById("title-list").children[i].children[1].classList.remove("hidden");
+            }
+        }
     }
 
 
@@ -78,8 +90,8 @@ class TitreForm extends Component {
                 <input id="id" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">Intitulé</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}">
-                <label class="hidden" for="niveau">Niveau</label>
-                <input class="hidden" id="niveau" type="number" value="${this.titre.niveau || 0}">
+                <label for="niveau">Niveau</label>
+                <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 0}">
                 <label for="numero">Numéro</label>
                 <input id="numero" type="number" value="${this.titre.numero || 0}">
                 <label for="href">Référence interne</label>
@@ -88,8 +100,6 @@ class TitreForm extends Component {
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}">
                 <label for="idPrescription">Identifiant de prescription si nécessaire</label>
                 <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">
-                <label for="inseeCommune">Code INSEE des communes concernées</label>
-                <input id="inseeCommune" type="string" value="${this.titre.inseeCommune || ''}">
             </form>
             <div class="form-action">
                 <div class="separator"></div>

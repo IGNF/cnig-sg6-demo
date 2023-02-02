@@ -129,6 +129,9 @@ button {
     flex-wrap: wrap;
     padding: 2px;
 }
+.list-titres ul li.hidden1, .list-titres ul li.hidden2, .list-titres ul li.hidden3 {
+    display: none;
+}
 .list-titres ul li:hover {
     background-color: rgba(0, 0, 0, 0.185);
     cursor: pointer;
@@ -140,6 +143,28 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.list-titres ul li p{
+    margin-top: 9px;
+}
+.list-titres ul li[niveau="2"] p {
+    margin-left: 15px;
+}
+.list-titres ul li[niveau="3"] p {
+    margin-left: 30px;
+}
+.list-titres ul li[niveau="4"] p {
+    margin-left: 45px;
+}
+.list-titres ul li .btn-display.hidden{
+    visibility: hidden;
+    display: block;
+}
+.list-titres ul li .chevron-up {
+    margin-top: 10px;
+}
+.list-titres ul li .chevron-down {
+    margin-top: 5px;
 }
 
 

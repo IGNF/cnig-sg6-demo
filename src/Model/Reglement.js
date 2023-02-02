@@ -11,6 +11,8 @@ class Reglement {
     // gpu attributes
     idUrba;
     typeDoc;
+    // une ou plusieurs commune (cf PLUi)
+    inseeCommune;
 
     // liste de Zone
     titres;
@@ -25,6 +27,7 @@ class Reglement {
         this.lien = '';
         this.idUrba = '';
         this.typeDoc = '';
+        this.inseeCommune = '';
         this.titres = [];
     }
 
@@ -41,6 +44,7 @@ class Reglement {
         this.lien = data.lien;
         this.idUrba = data.idUrba;
         this.typeDoc = data.typeDoc;
+        this.inseeCommune = data.inseeCommune
         this.titres = data.titres.map(titreData => new Titre().unserialise(titreData));
         this.htmlContent = data.htmlContent;
         return this;
@@ -88,14 +92,14 @@ class Reglement {
         existing.href = formData.href;
         existing.idZone = formData.idZone;
         existing.idPrescription = formData.idPrescription;
-        existing.inseeCommune = formData.inseeCommune;
+        //existing.inseeCommune = formData.inseeCommune;
         return;
     }
 
     addTitre(titre) {
         const contenu = new Contenu();
         contenu.htmlContent = `
-            <h1>${titre.intitule}</h1>
+            <h${titre.niveau}>${titre.intitule}</h${titre.niveau}>
         `;
         titre.contents.push(contenu);
         this.titres.push(titre);
@@ -114,7 +118,7 @@ class Reglement {
         const content = this.titres.map(titre => titre.toHtml()).join('');
         return `
             <div id="${this.id}" nom="${this.nom}" lien="${this.lien}"
-                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" >
+                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" inseeCommune="${this.inseeCommune}" >
                 ${content}
             </div>
         `;
@@ -129,7 +133,7 @@ class Reglement {
                 xmlns:plu="https://cnig.gouv.fr/reglementDU"
                 xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
-                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}">
+                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" inseeCommune="${this.inseeCommune}">
                 ${content}
             </plu:ReglementPLU>
         `;

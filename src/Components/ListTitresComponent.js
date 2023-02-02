@@ -31,6 +31,36 @@ export class ListTitresComponent extends Component {
         this.reglement = reglement;
     }
 
+    display(event) {
+        if(event.originalTarget.classList.contains("chevron-up")) {
+            event.originalTarget.classList.replace("chevron-up", "chevron-down");
+            event.originalTarget.innerHTML = "&#8964;";
+        } else {
+            event.originalTarget.classList.replace("chevron-down", "chevron-up");
+            event.originalTarget.innerHTML= "&#8963;";
+        }
+
+        var id = event.originalTarget.parentElement.getAttribute("id");
+        var niveau = event.originalTarget.parentElement.getAttribute("niveau");
+        var liste =  event.originalTarget.parentElement.parentElement.children;
+
+        var test = false;
+        for(var i in liste) {
+            if(!liste[i].getAttribute) {
+                return;
+            }
+            if(test && liste[i].getAttribute("niveau") <= niveau) {
+                test = false;
+            }
+            if(test && liste[i].getAttribute("niveau") > niveau) {
+                liste[i].classList.toggle("hidden" + niveau);
+            }
+            if(liste[i].getAttribute("id") == id){
+                test = true;
+            } 
+        }
+    }
+
 
     add(event) {
         const newTitre = new Titre();
@@ -59,7 +89,7 @@ export class ListTitresComponent extends Component {
     }
 
 
-    openEditor(event) {        
+    openEditor(event) { 
         // save current editor
         this.editeurService.actionSave();
         // open editor
@@ -86,9 +116,6 @@ export class ListTitresComponent extends Component {
             return '';
         }
         function listFromTitle(title) {
-            if (title.niveau > 1) {
-                return '';
-            }
             let sublist = '';
             if (title.children && title.children.length > 0) {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
@@ -97,12 +124,15 @@ export class ListTitresComponent extends Component {
                 <button idtitle="${title.id}" class="btn-update">Modifier</button>
                 <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
             `;
+
+            var chevron = `<div class="btn-display chevron-up hidden">&#8963;</div>`;
+
             return `
                 <li id="${title.id}"
                     niveau="${title.niveau}"
                     class="list-item">
                     <p class="separator" idtitle="${title.id}">${title.intitule}</p>
-                    ${title.niveau == 1 ? buttonPart : ''}
+                    ${chevron}${buttonPart}
                     <ul>${sublist}</ul>
                 </li>
             `;
@@ -122,7 +152,7 @@ export class ListTitresComponent extends Component {
                         Gérer la liste des titres.
                         Cliquer sur un titre pour modifier le contenu.
                     </p>
-                    <ul>${content}</ul>
+                    <ul id="title-list">${content}</ul>
                 </div>
             </div>
         `;
@@ -133,6 +163,16 @@ export class ListTitresComponent extends Component {
     registerEvents() {
         super.registerEvents();
 
+        if(document.getElementById("title-list")) {
+            for(var i=0; i<document.getElementById("title-list").children.length-1; i++){
+                if(document.getElementById("title-list").children[i+1].getAttribute("niveau") <= document.getElementById("title-list").children[i].getAttribute("niveau")) {
+                    document.getElementById("title-list").children[i].children[1].classList.add("hidden");
+                } else{
+                    document.getElementById("title-list").children[i].children[1].classList.remove("hidden");
+                }
+            } 
+        }
+
         // add Editor
         this.editeurService.init('app-tinymce');
         
@@ -140,6 +180,12 @@ export class ListTitresComponent extends Component {
         const listItem = Array.from(document.querySelectorAll(clickSelector));
         listItem.forEach((item) => {
             item.addEventListener('click', event => this.openEditor(event));
+        });
+
+        const displaySelector = `.${this.name} .list-item .btn-display`;
+        const displayButtons = Array.from(document.querySelectorAll(displaySelector));
+        displayButtons.forEach((item) => {
+            item.addEventListener('click', event => this.display(event));
         });
 
         const updateSelector = `.${this.name} .list-item .btn-update`;

@@ -56,7 +56,6 @@ class XmlImport {
 
         titre.idZone = element.getAttribute('idZone');
         titre.idPrescription = element.getAttribute('idPrescription');
-        titre.inseeCommune = element.getAttribute('inseeCommune');
 
         var cb = function(element, titre) {
             
