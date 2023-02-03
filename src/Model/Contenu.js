@@ -67,7 +67,7 @@ class Contenu {
 
     toXml() {
         return `
-            <plu:Contenu id="${this.id}" href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+            <plu:Contenu id="${this.id}" xlink:href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
                 ${this.htmlContent}
             </plu:Contenu>
         `.trim();

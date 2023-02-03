@@ -130,8 +130,8 @@ class Reglement {
         const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
             <plu:ReglementPLU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-                xmlns:plu="https://cnig.gouv.fr/reglementDU"
-                xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
+                xmlns:plu="https://cnig.gouv.fr/reglementPLU"
+                xsi:schemaLocation="https://cnig.gouv.fr/reglementPLU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
                 idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" inseeCommune="${this.inseeCommune}">
                 ${content}

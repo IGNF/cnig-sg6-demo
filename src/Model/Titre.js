@@ -113,7 +113,7 @@ class Titre {
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
-                numero="${this.numero}" href="${this.href}" idZone="${this.idZone}"
+                numero="${this.numero}" xlink:href="${this.href}" idZone="${this.idZone}"
                 idPrescription="${this.idPrescription}">
                 ${partContent}
                 ${partChildren}
