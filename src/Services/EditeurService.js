@@ -110,10 +110,6 @@ class EditeurService {
                 table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' }
             },
             style_formats: [
-                { title: 'Titre', block: 'h1', classes: 'plu-title' },
-                { title: 'Titre niveau 2', block: 'h2' },
-                { title: 'Titre niveau 3', block: 'h3' },
-                { title: 'Titre niveau 4', block: 'h4' },
                 { title: 'Article', block: 'div', classes: 'plu-article' },
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]
@@ -239,6 +235,7 @@ class EditeurService {
 
 
     actionPluRule() {
+
         const selectedNode = tinymce.activeEditor.selection.getNode();
         if (selectedNode.tagName.match('H[1-6]')) {
             // open form titre
@@ -250,6 +247,7 @@ class EditeurService {
         // open form prescription
         // TODO get last titre 
         const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
+ 
         const form = new ContenuForm(contenu);
         this.dialogService.open(form);
     }

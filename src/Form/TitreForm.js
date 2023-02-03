@@ -2,6 +2,7 @@ import { Subject } from 'rxjs';
 import Component from '../Core/Component.js';
 import DialogService from '../Services/DialogService.js';
 import EditeurService from '../Services/EditeurService.js';
+import HtmlConverterService from '../Services/HtmlConverterService.js';
 import StorageService from '../Services/StorageService.js';
 
 class TitreForm extends Component {
@@ -65,6 +66,8 @@ class TitreForm extends Component {
         // reload metadata attribute
         this.editeurService.updateTitreNode(this.titre);
 
+        this.editeurService.setContent(this.getUpdatedContent());
+
         this.close();
 
         for(var i=0; i<document.getElementById("title-list").children.length-1; i++){
@@ -116,6 +119,28 @@ class TitreForm extends Component {
 
         const closeSelector = `.${this.name} .btn-close`;
         document.querySelector(closeSelector).addEventListener('click', event => this.close(event));
+    }
+
+    getUpdatedContent() {
+        var html = this.editeurService.getContent();
+        var ind1 = html.search(/\<h[0-9]/) + 2;
+        var niveauActuel = html.substring(ind1, ind1+1);
+        
+
+        if(ind1 != 1 && this.titre.niveau.toString() != niveauActuel) {
+            html = html.replace(/<h[0-9]/, "<h" + this.titre.niveau.toString());
+        }
+
+        var m = html.match(/\<h.*\<\/h/);
+        if(m) {
+            var ind2 = m[0].search(/\>/)+1;
+            var intituleActuel = m[0].substring(ind2, m[0].length-3);
+
+            if(this.titre.intitule != intituleActuel) {
+                html = html.replace(m[0], m[0].replace(intituleActuel + "</h", this.titre.intitule + "</h"));
+            }
+        }
+        return html;
     }
 
 }

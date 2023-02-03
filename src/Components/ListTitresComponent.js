@@ -191,7 +191,11 @@ export class ListTitresComponent extends Component {
         const updateSelector = `.${this.name} .list-item .btn-update`;
         const updateButtons = Array.from(document.querySelectorAll(updateSelector));
         updateButtons.forEach((item) => {
-            item.addEventListener('click', event => this.update(event));
+            var fct = function(elem, event){
+                item.parentElement.childNodes[1].click();
+                elem.update(event);
+            }
+            item.addEventListener('click', event => fct(this, event));
         });
 
         const deleteSelector = `.${this.name} .list-item .btn-delete`;
