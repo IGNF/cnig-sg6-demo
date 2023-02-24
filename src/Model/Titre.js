@@ -20,7 +20,7 @@ class Titre {
     children;
 
     constructor() {
-        this.id =             `idTitre${Date.now()}`;
+        this.id =             `idTitre${Math.floor(Math.random()*Date.now())}`;
         this.intitule =       '';
         this.niveau =         '';
         this.numero =         '';

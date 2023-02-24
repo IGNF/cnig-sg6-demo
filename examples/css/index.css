@@ -145,7 +145,7 @@ button {
     white-space: nowrap;
 }
 .list-titres ul li p{
-    margin-top: 9px;
+    padding-top: 9px;
 }
 .list-titres ul li[niveau="2"] p {
     margin-left: 15px;

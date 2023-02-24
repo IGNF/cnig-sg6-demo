@@ -22,7 +22,7 @@ class Reglement {
     htmlContent;
 
     constructor() {
-        this.id = `idReglementPlu${Date.now()}`;
+        this.id = `idReglementPlu${Math.floor(Math.random()*Date.now())}`;
         this.nom = 'Modifiez la fiche';
         this.lien = '';
         this.idUrba = '';

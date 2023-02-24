@@ -15,7 +15,7 @@ class Contenu {
     htmlContent;
 
     constructor() {
-        this.id =             `idContenu${Date.now()}`;
+        this.id =             `idContenu${Math.floor(Math.random()*Date.now())}`;
         this.href =           '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';

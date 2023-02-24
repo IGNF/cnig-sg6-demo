@@ -63,6 +63,7 @@ export class ListTitresComponent extends Component {
 
 
     add(event) {
+        this.editeurService.setContent("");
         const newTitre = new Titre();
         newTitre.niveau = 1;
         const form = new TitreForm(newTitre);
