@@ -295,7 +295,7 @@ class EditeurService {
 
         var rng = tinymce.activeEditor.selection.getRng();
         if(selectedNodes.length) {
-            rng.setEnd(selectedNodes[selectedNodes.length-1], selectedNodes[selectedNodes.length-1].innerText.length);
+            rng.setEnd(selectedNodes[selectedNodes.length-1], 1);
             rng.setStart(selectedNodes[0], 0);
         }
         
