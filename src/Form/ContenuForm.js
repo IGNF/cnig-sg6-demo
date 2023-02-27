@@ -24,13 +24,21 @@ class ContenuForm extends Component {
     valid(event) {
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
-        this.contenu.id = form.id.value;
-        this.contenu.href = form.href.value;
-        this.contenu.idZone = form.idZone.value;
-        this.contenu.idPrescription = form.idPrescription.value;
+        for(var i in this.contenu) {
+            this.contenu[i].href = form.href.value;
+            this.contenu[i].idZone = form.idZone.value;
+            this.contenu[i].idPrescription = form.idPrescription.value;
+        }
+        // this.contenu.id = form.id.value;
+        // this.contenu.href = form.href.value;
+        // this.contenu.idZone = form.idZone.value;
+        // this.contenu.idPrescription = form.idPrescription.value;
 
         // reload metadata attribute
-        this.editeurService.updateContenuNode(this.contenu);
+        for(var i in this.contenu) {
+            console.log(this.contenu[i]);
+            this.editeurService.updateContenuNode(this.contenu[i]);
+        }
         
         this.dialogService.close();
     }
@@ -42,17 +50,33 @@ class ContenuForm extends Component {
 
 
     getTemplate() {
+        var id = "";
+        for(var i in this.contenu) {
+            id += this.contenu[i].id + " ; ";
+        }
+        id = id.replace(/; $/,"");
+
+        var href = "";
+        var idZone = "";
+        var idPrescription = "";
+
+        if(this.contenu.length == 1) {
+            href = this.contenu[0].href;
+            idZone = this.contenu[0].idZone;
+            idPrescription = this.contenu[0].idPrescription;
+        }
+
         return `
             <h4>Modifier le contenu</h4>
             <form>
                 <label for="id">Identifiant</label>
-                <input id="id" type="string" value="${this.contenu.id}" readonly>
+                <input id="id" type="string" value="${id}" readonly>
                 <label for="href">Référence interne</label>
-                <input id="href" type="string" value="${this.contenu.href}">
+                <input id="href" type="string" value="${href}">
                 <label for="idZone">Zone (U, Ua, ...)</label>
-                <input id="idZone" type="string" value="${this.contenu.idZone}">
+                <input id="idZone" type="string" value="${idZone}">
                 <label for="idPrescription">Prescription (05-01, ...)</label>
-                <input id="idPrescription" type="string" value="${this.contenu.idPrescription}">
+                <input id="idPrescription" type="string" value="${idPrescription}">
             </form>
             <div class="form-action">
                 <div class="separator"></div>

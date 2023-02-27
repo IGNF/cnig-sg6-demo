@@ -50,6 +50,10 @@ class EditeurService {
         return tinymce.activeEditor.selection.getNode();
     }
 
+    getSelectedBlocks() {
+        return tinymce.activeEditor.selection.getSelectedBlocks();
+    }
+
 
     getContent() {
         return tinymce.activeEditor.getContent();
@@ -77,9 +81,21 @@ class EditeurService {
 
     updateContenuNode(contenu) {
         const nodeSelected = this.getSelection();
+
         if (nodeSelected.tagName.match('H[1-6]')) {
             return;
         }
+
+        if(nodeSelected.getAttribute("id")) {
+            for(var i in this.getSelectedBlocks()) {
+                if(this.getSelectedBlocks()[i].getAttribute("data-id") == contenu.id) {
+                    this.htmlConverterService.updateContenuNode(this.getSelectedBlocks()[i], contenu);
+                    break;
+                }
+            }
+            return;
+        }
+        
         this.htmlConverterService.updateContenuNode(nodeSelected, contenu);
     }
 
@@ -231,25 +247,70 @@ class EditeurService {
         const reglement = this.storageService.getReglement();
         reglement.replaceTitre(newTitre);
         this.storageService.save(reglement);
+        
     }
 
 
-    actionPluRule() {
+    actionPluRule() { 
+        // const selectedNode = tinymce.activeEditor.selection.getNode();
+        // if (selectedNode.tagName.match('H[1-6]')) {
+        //     // open form titre
+        //     const titre = this.htmlConverterService.newTitleFromSource(selectedNode);
+        //     const form = new TitreForm(titre);
+        //     this.dialogService.open(form);
+        //     return;
+        // }
+        // // open form prescription
+        // // TODO get last titre 
+        // const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
+ 
+        // const form = new ContenuForm(contenu);
+        // this.dialogService.open(form);
+        var nodeSelectedChildIndex = [];
+        var node = tinymce.activeEditor.selection.getNode();
 
-        const selectedNode = tinymce.activeEditor.selection.getNode();
-        if (selectedNode.tagName.match('H[1-6]')) {
-            // open form titre
-            const titre = this.htmlConverterService.newTitleFromSource(selectedNode);
-            const form = new TitreForm(titre);
-            this.dialogService.open(form);
+        if(node == tinymce.activeEditor.selection.getSelectedBlocks()[0]) {
+            node = node.parentElement;
+        }
+
+        for(var i in node.childNodes) {
+            for(var j in tinymce.activeEditor.selection.getSelectedBlocks()) {
+                if(node.childNodes[i] == tinymce.activeEditor.selection.getSelectedBlocks()[j]) {
+                    nodeSelectedChildIndex.push(i);
+                }
+            }
+        }
+  
+        this.actionSave();
+
+        const selectedNodes = [];
+        for(var i in nodeSelectedChildIndex) {
+            selectedNodes.push(node.childNodes[nodeSelectedChildIndex[i]]);
+        }
+
+        if(!selectedNodes.length) {
+            alert("Aucun élément sélectionné");
             return;
         }
-        // open form prescription
-        // TODO get last titre 
-        const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
- 
-        const form = new ContenuForm(contenu);
-        this.dialogService.open(form);
+
+        var rng = tinymce.activeEditor.selection.getRng();
+        if(selectedNodes.length) {
+            rng.setEnd(selectedNodes[selectedNodes.length-1], selectedNodes[selectedNodes.length-1].innerText.length);
+            rng.setStart(selectedNodes[0], 0);
+        }
+        
+        if(selectedNodes[0].getAttribute("data-id").match("Contenu")) {
+            var contenus = [];
+            for(var i in selectedNodes) {
+                contenus.push(this.htmlConverterService.newContenuFromSource(selectedNodes[i]))
+            }
+            const form = new ContenuForm(contenus);
+            this.dialogService.open(form);
+        } else {
+            const titre = this.htmlConverterService.newTitleFromSource(tinymce.activeEditor.selection.getNode());
+            const form = new TitreForm(titre);
+            this.dialogService.open(form);
+        }
     }
 
 
