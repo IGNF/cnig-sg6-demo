@@ -29,14 +29,9 @@ class ContenuForm extends Component {
             this.contenu[i].idZone = form.idZone.value;
             this.contenu[i].idPrescription = form.idPrescription.value;
         }
-        // this.contenu.id = form.id.value;
-        // this.contenu.href = form.href.value;
-        // this.contenu.idZone = form.idZone.value;
-        // this.contenu.idPrescription = form.idPrescription.value;
 
         // reload metadata attribute
         for(var i in this.contenu) {
-            console.log(this.contenu[i]);
             this.editeurService.updateContenuNode(this.contenu[i]);
         }
         
