@@ -100,14 +100,19 @@ export class ListTitresComponent extends Component {
         var c = this.editeurService.getContent();
         
         if(c){
-            var niveau = titre.niveau;
             if(c.match(/^<div/)) {
-                c = c.replace(/^<div/, "<h" + niveau);
-                c = c.replace(/<\/div/, "</h" + niveau);
+                c = c.replace(/^<div/, "<h" + titre.niveau);
+                c = c.replace(/<\/div/, "</h" + titre.niveau);
             }
             if(c.match(/^<p/)) {
-                c = c.replace(/^<p/, "<h" + niveau);
-                c = c.replace(/<\/p/, "</h" + niveau);
+                c = c.replace(/^<p/, "<h" + titre.niveau);
+                c = c.replace(/<\/p/, "</h" + titre.niveau);
+            }
+            console.log(c);
+            console.log(titre);
+            if(!c.match("data-id")) {
+                c = c.replace(/<h[0-9]/, '<h' + titre.niveau + ' data-id="' + titre.id + '" data-href="' + titre.href + '" data-idzone="' + titre.idZone + '" data-idprescription="'
+                                              + titre.idPrescription + '" data-intitule="' + titre.intitule + '" data-niveau="' + titre.niveau + '" data-numero="' + titre.numero + '"');
             }
             if(!c.match(id)) {
                 c = c.replace(c.match(/idContenu[0-9]+/)[0], id);
