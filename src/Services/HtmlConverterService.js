@@ -14,12 +14,10 @@ class HtmlConverterService {
 
 
     recomposeTitre(source) {
-
         const node = document.createElement('div');
         node.innerHTML = source;
 
         const children = Array.from(node.children);
-
         let titlePile = [];
         let contentPile = [];
         let pluContenuPile = [];
@@ -27,28 +25,6 @@ class HtmlConverterService {
         children.reduce((previous, child, index) => {
             titlePile.push(this.newTitleFromSource(child));
             this.updateContent(titlePile[0], this.newContenuFromSource(child))
-            //return;
-            // // pass 'section plu-titre' && 'section plu-contenu'
-            // if (child.classList.contains('plu-contenu')) {
-            //     pluContenuPile.push(child);
-            //     return;
-            // }
-            // const contenu = this.newContenuFromSource(child);
-            // contentPile.push(contenu);
-
-            // if (child.tagName.match('H[1-6]')) {
-            //     const title = this.newTitleFromSource(child);
-            //     // parent is the last upper level title
-            //     const parents = titlePile.filter(t => t.niveau < title.niveau);
-            //     if (parents.length > 0) {
-            //         this.addChildrenTitle(parents[parents.length - 1], title);
-            //     }
-            //     titlePile.push(title);
-            // }
-
-            // const lastTitle = titlePile[titlePile.length - 1];
-            // const lastContenu = contentPile.pop();
-            // this.updateContent(lastTitle, lastContenu);
         }, null);
 
         // return root

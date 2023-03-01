@@ -252,20 +252,6 @@ class EditeurService {
 
 
     actionPluRule() { 
-        // const selectedNode = tinymce.activeEditor.selection.getNode();
-        // if (selectedNode.tagName.match('H[1-6]')) {
-        //     // open form titre
-        //     const titre = this.htmlConverterService.newTitleFromSource(selectedNode);
-        //     const form = new TitreForm(titre);
-        //     this.dialogService.open(form);
-        //     return;
-        // }
-        // // open form prescription
-        // // TODO get last titre 
-        // const contenu = this.htmlConverterService.newContenuFromSource(selectedNode);
- 
-        // const form = new ContenuForm(contenu);
-        // this.dialogService.open(form);
         var nodeSelectedChildIndex = [];
         var node = tinymce.activeEditor.selection.getNode();
 

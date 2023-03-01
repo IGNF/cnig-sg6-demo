@@ -92,13 +92,32 @@ export class ListTitresComponent extends Component {
 
 
     openEditor(event) { 
-        // save current editor
-        this.editeurService.actionSave();
-        // open editor
+
         const id = event.target.getAttribute('idtitle');
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
-        this.editeurService.loadTitle(titre);
+
+        var c = this.editeurService.getContent();
+        
+        if(c){
+            var niveau = titre.niveau;
+            if(c.match(/^<div/)) {
+                c = c.replace(/^<div/, "<h" + niveau);
+                c = c.replace(/<\/div/, "</h" + niveau);
+            }
+            if(c.match(/^<p/)) {
+                c = c.replace(/^<p/, "<h" + niveau);
+                c = c.replace(/<\/p/, "</h" + niveau);
+            }
+            if(!c.match(id)) {
+                c = c.replace(c.match(/idContenu[0-9]+/)[0], id);
+            }
+            this.editeurService.setContent(c);
+        }
+        this.editeurService.actionSave();
+        // open editor
+        const newTitre = reglement.getTitreById(id);
+        this.editeurService.loadTitle(newTitre);
     }
 
 
