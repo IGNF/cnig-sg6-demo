@@ -38,7 +38,7 @@ class TitreForm extends Component {
             alert("Le niveau du titre doit être compris entre 1 et 4");
             return;
         }
-
+        
         this.titre.id =             form.id.value;
         this.titre.intitule =       form.intitule.value;
         this.titre.niveau =         parseInt(form.niveau.value);
@@ -65,8 +65,9 @@ class TitreForm extends Component {
         this.storageService.save(reglement);
         // reload metadata attribute
         this.editeurService.updateTitreNode(this.titre);
-
+        
         this.editeurService.setContent(this.getUpdatedContent());
+
 
         this.close();
 

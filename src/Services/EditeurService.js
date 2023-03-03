@@ -71,9 +71,13 @@ class EditeurService {
 
 
     updateTitreNode(titre) {
-        const nodeSelected = this.getSelection();
+        var nodeSelected = this.getSelection();
         if (!nodeSelected.tagName.match('H[1-6]')) {
-            return;
+            if(!nodeSelected.children.length || !nodeSelected.children[0].tagName.match('H[1-6]')) {
+                return;
+            } else {
+                nodeSelected = nodeSelected.children[0];
+            }
         }
         this.htmlConverterService.updateTitreNode(nodeSelected, titre);
     }

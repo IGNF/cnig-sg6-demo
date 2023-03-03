@@ -108,8 +108,6 @@ export class ListTitresComponent extends Component {
                 c = c.replace(/^<p/, "<h" + titre.niveau);
                 c = c.replace(/<\/p/, "</h" + titre.niveau);
             }
-            console.log(c);
-            console.log(titre);
             if(!c.match("data-id")) {
                 c = c.replace(/<h[0-9]/, '<h' + titre.niveau + ' data-id="' + titre.id + '" data-href="' + titre.href + '" data-idzone="' + titre.idZone + '" data-idprescription="'
                                               + titre.idPrescription + '" data-intitule="' + titre.intitule + '" data-niveau="' + titre.niveau + '" data-numero="' + titre.numero + '"');
