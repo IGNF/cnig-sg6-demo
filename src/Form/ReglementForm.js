@@ -27,8 +27,8 @@ class ReglementForm extends Component {
         this.reglement.nom = form.nom.value;
         this.reglement.lien = form.lien.value;
         this.reglement.idUrba = form.idUrba.value;
-        this.reglement.typeDoc = form.typeDoc.value;
         this.reglement.inseeCommune = form.inseeCommune.value;
+        this.reglement.sirenIntercomm = form.sirenIntercomm.value;
 
         this.storageService.save(this.reglement);
         this.dialogService.close();
@@ -41,25 +41,29 @@ class ReglementForm extends Component {
 
 
     getTemplate() {
+        var nom = this.reglement.nom;
+        if(nom == "Renseignez la fiche") {
+            nom = "";
+        }
         return `
             <h4>Modifier le reglement</h4>
             <form>
-                <label for="id">Identifiant</label>
-                <input type="string" value="${this.reglement.id}" id="id">
+                <label for="id" class="hidden">Identifiant</label>
+                <input type="string" value="${this.reglement.id}" id="id" class="hidden">
                 <label for="nom">Nom du réglement</label>
-                <input type="string" value="${this.reglement.nom}" id="nom">
+                <input type="string" value="${nom}" id="nom" placeholder="PLU Ancenis">
                 <label for="lien">Lien, ressource web ou GPU</label>
-                <input type="string" value="${this.reglement.lien}" id="lien">
+                <input type="string" value="${this.reglement.lien}" id="lien" placeholder="https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html">
                 <label for="idUrba">Identifiant d'urbanisme</label>
-                <input type="string" value="${this.reglement.idUrba}" id="idUrba">
-                <label for="typeDoc">Type de document</label>
-                <input type="string" value="${this.reglement.typeDoc}" id="typeDoc">
+                <input type="string" value="${this.reglement.idUrba}" id="idUrba" placeholder="44003_PLU_20200224">
                 <label for="inseeCommune">Code INSEE des communes concernées</label>
-                <input type="string" value="${this.reglement.inseeCommune}" id="inseeCommune">
+                <input type="string" value="${this.reglement.inseeCommune}" id="inseeCommune" placeholder="44003">
+                <label for="sirenIntercomm">Code SIREN de l'intercommunalité</label>
+                <input type="string" value="${this.reglement.sirenIntercomm}" id="sirenIntercomm">
             </form>
             <div class="form-action">
                 <div class="separator"></div>
-                <button class="btn-valid">Modifier</button>
+                <button class="btn-valid">Valider</button>
                 <button class="btn-close">Annuler</button>
             </div>
         `;

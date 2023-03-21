@@ -17,6 +17,15 @@ export class NouveauButtonComponent extends Component {
     }
 
     newReglement(event) {
+        // if(confirm("Attention, si vous n'avez pas exporté votre travail, celui-ci va être perdu. Êtes-vous sûr de vouloir continuer ?")) {
+        //     const reglement = new Reglement();
+        //     this.storageService.save(reglement);
+
+        //     this.editeurService.setContent('');
+        //     this.editeurService.toggleEditorMode();
+        // } else {
+        //     return;
+        // }
         const reglement = new Reglement();
         this.storageService.save(reglement);
 
@@ -26,7 +35,7 @@ export class NouveauButtonComponent extends Component {
 
     getTemplate() {
         return `
-            <button>Nouveau</button>
+            <button title="Créer un nouveau règlement d'urbanisme">Nouveau</button>
         `;
     }
 

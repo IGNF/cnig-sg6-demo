@@ -20,7 +20,7 @@ export class SaveButtonComponent extends Component {
 
     getTemplate() {
         return `
-            <button>Sauvegarder</button>
+            <button title="Sauvegarder le travail en cours">Sauvegarder</button>
         `;
     }
 

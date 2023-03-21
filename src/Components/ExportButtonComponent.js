@@ -27,7 +27,7 @@ export class ExportButtonComponent extends Component {
 
     getTemplate() {
         return `
-            <button>Exporter</button>
+            <button title="Exporter un fichier .xml">Exporter</button>
         `;
     }
 

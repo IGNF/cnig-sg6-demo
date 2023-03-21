@@ -288,7 +288,7 @@ class EditeurService {
             rng.setEnd(selectedNodes[selectedNodes.length-1], 1);
             rng.setStart(selectedNodes[0], 0);
         }
-        
+
         if(selectedNodes[0].getAttribute("data-id").match("Contenu")) {
             var contenus = [];
             for(var i in selectedNodes) {
@@ -297,7 +297,11 @@ class EditeurService {
             const form = new ContenuForm(contenus);
             this.dialogService.open(form);
         } else {
-            const titre = this.htmlConverterService.newTitleFromSource(tinymce.activeEditor.selection.getNode());
+            var node = tinymce.activeEditor.selection.getNode();
+            if(node.tagName == "body") {
+                node = node.children[0];
+            }
+            const titre = this.htmlConverterService.newTitleFromSource(node);
             const form = new TitreForm(titre);
             this.dialogService.open(form);
         }

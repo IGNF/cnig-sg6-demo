@@ -37,7 +37,7 @@ export class LoadButtonComponent extends Component {
 
     getTemplate() {
         return `
-            <button>Charger</button>
+            <button title="Importer un fichier .xml">Importer</button>
             <form class="load-form" style="display: none;">
                 <input type="file" id="input" accept=".xml"/>
             </form>

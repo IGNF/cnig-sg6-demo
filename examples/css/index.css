@@ -211,6 +211,15 @@ button {
     margin: 0px 5px;
 }
 
+.form-reglement form .hidden,.form-titre form .hidden, .form-contenu form .hidden {
+    display: none;
+}
+
+.form-titre form .grey {
+    color: grey;
+    background-color: lightgray;
+}
+
 /* tinymce Editor */
 
 

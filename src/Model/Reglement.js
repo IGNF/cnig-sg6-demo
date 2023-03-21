@@ -10,9 +10,10 @@ class Reglement {
 
     // gpu attributes
     idUrba;
-    typeDoc;
     // une ou plusieurs commune (cf PLUi)
     inseeCommune;
+
+    sirenIntercomm;
 
     // liste de Zone
     titres;
@@ -21,13 +22,16 @@ class Reglement {
     // html pour comparer (?)
     htmlContent;
 
+    //id du titre actuellement affiché dans l'éditeur
+    idTitreActuel
+
     constructor() {
         this.id = `idReglementPlu${Math.floor(Math.random()*Date.now())}`;
-        this.nom = 'Modifiez la fiche';
+        this.nom = 'Renseignez la fiche';
         this.lien = '';
         this.idUrba = '';
-        this.typeDoc = '';
         this.inseeCommune = '';
+        this.sirenIntercomm = '';
         this.titres = [];
     }
 
@@ -43,8 +47,8 @@ class Reglement {
         this.nom = data.nom;
         this.lien = data.lien;
         this.idUrba = data.idUrba;
-        this.typeDoc = data.typeDoc;
         this.inseeCommune = data.inseeCommune
+        this.sirenIntercomm = data.sirenIntercomm
         this.titres = data.titres.map(titreData => new Titre().unserialise(titreData));
         this.htmlContent = data.htmlContent;
         return this;
@@ -92,7 +96,6 @@ class Reglement {
         existing.href = formData.href;
         existing.idZone = formData.idZone;
         existing.idPrescription = formData.idPrescription;
-        //existing.inseeCommune = formData.inseeCommune;
         return;
     }
 
@@ -118,7 +121,7 @@ class Reglement {
         const content = this.titres.map(titre => titre.toHtml()).join('');
         return `
             <div id="${this.id}" nom="${this.nom}" lien="${this.lien}"
-                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" inseeCommune="${this.inseeCommune}" >
+                idUrba="${this.idUrba}" inseeCommune="${this.inseeCommune}" sirenIntercomm="${this.sirenIntercomm}" >
                 ${content}
             </div>
         `;
@@ -133,7 +136,7 @@ class Reglement {
                 xmlns:plu="https://cnig.gouv.fr/reglementPLU"
                 xsi:schemaLocation="https://cnig.gouv.fr/reglementPLU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
                 id="${this.id}" nom="${this.nom}" lien="${this.lien}"
-                idUrba="${this.idUrba}" typeDoc="${this.typeDoc}" inseeCommune="${this.inseeCommune}">
+                idUrba="${this.idUrba}" inseeCommune="${this.inseeCommune}" sirenIntercomm="${this.sirenIntercomm}">
                 ${content}
             </plu:ReglementPLU>
         `;

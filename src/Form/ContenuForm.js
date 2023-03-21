@@ -64,18 +64,18 @@ class ContenuForm extends Component {
         return `
             <h4>Modifier le contenu</h4>
             <form>
-                <label for="id">Identifiant</label>
-                <input id="id" type="string" value="${id}" readonly>
+                <label for="id" class="hidden">Identifiant</label>
+                <input id="id" class="hidden" type="string" value="${id}" readonly>
                 <label for="href">Référence interne</label>
-                <input id="href" type="string" value="${href}">
+                <input id="href" type="string" value="${href}" placeholder="I">
                 <label for="idZone">Zone (U, Ua, ...)</label>
-                <input id="idZone" type="string" value="${idZone}">
+                <input id="idZone" type="string" value="${idZone}" placeholder="U">
                 <label for="idPrescription">Prescription (05-01, ...)</label>
                 <input id="idPrescription" type="string" value="${idPrescription}">
             </form>
             <div class="form-action">
                 <div class="separator"></div>
-                <button class="btn-valid">Modifier</button>
+                <button class="btn-valid">Valider</button>
                 <button class="btn-close">Annuler</button>
             </div>
         `;

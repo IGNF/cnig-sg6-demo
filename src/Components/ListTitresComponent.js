@@ -65,6 +65,7 @@ export class ListTitresComponent extends Component {
     add(event) {
         this.editeurService.actionSave();
         this.editeurService.setContent("");
+        this.reglement.idTitreAtuel = "";
         const newTitre = new Titre();
         newTitre.niveau = 1;
         const form = new TitreForm(newTitre);
@@ -91,36 +92,36 @@ export class ListTitresComponent extends Component {
     }
 
 
-    openEditor(event) { 
+    openEditor(event, ancienId) { 
+        this.reglement.idTitreActuel = event.target.getAttribute('idtitle');
 
-        const id = event.target.getAttribute('idtitle');
         const reglement = this.storageService.getReglement();
-        const titre = reglement.getTitreById(id);
 
         var c = this.editeurService.getContent();
+        var ancienTitre = reglement.getTitreById(ancienId);
         
         if(c){
             if(c.match(/^<div/)) {
-                c = c.replace(/^<div/, "<h" + titre.niveau);
-                c = c.replace(/<\/div/, "</h" + titre.niveau);
+                c = c.replace(/^<div/, "<h" + ancienTitre.niveau);
+                c = c.replace(/<\/div/, "</h" + ancienTitre.niveau);
             }
             if(c.match(/^<p/)) {
-                c = c.replace(/^<p/, "<h" + titre.niveau);
-                c = c.replace(/<\/p/, "</h" + titre.niveau);
+                c = c.replace(/^<p/, "<h" + ancienTitre.niveau);
+                c = c.replace(/<\/p/, "</h" + ancienTitre.niveau);
             }
             if(!c.match("data-id")) {
-                c = c.replace(/<h[0-9]/, '<h' + titre.niveau + ' data-id="' + titre.id + '" data-href="' + titre.href + '" data-idzone="' + titre.idZone + '" data-idprescription="'
-                                              + titre.idPrescription + '" data-intitule="' + titre.intitule + '" data-niveau="' + titre.niveau + '" data-numero="' + titre.numero + '"');
+                c = c.replace(/<h[0-9]/, '<h' + ancienTitre.niveau + ' data-id="' + ancienTitre.id + '" data-href="' + ancienTitre.href + '" data-idzone="' + ancienTitre.idZone + '" data-idprescription="'
+                                              + ancienTitre.idPrescription + '" data-intitule="' + ancienTitre.intitule + '" data-niveau="' + ancienTitre.niveau + '" data-numero="' + ancienTitre.numero + '"');
             }
-            if(!c.match(id)) {
-                c = c.replace(c.match(/idContenu[0-9]+/)[0], id);
+            if(!c.match(ancienId)) {
+                c = c.replace(c.match(/idContenu[0-9]+/)[0], ancienId);
             }
             this.editeurService.setContent(c);
         }
         this.editeurService.actionSave();
         // open editor
-        const newTitre = reglement.getTitreById(id);
-        this.editeurService.loadTitle(newTitre);
+        const titre = reglement.getTitreById(event.target.getAttribute('idtitle'));
+        this.editeurService.loadTitle(titre);
     }
 
 
@@ -203,7 +204,7 @@ export class ListTitresComponent extends Component {
         const clickSelector = `.${this.name} .list-item p`;
         const listItem = Array.from(document.querySelectorAll(clickSelector));
         listItem.forEach((item) => {
-            item.addEventListener('click', event => this.openEditor(event));
+            item.addEventListener('click', event => this.openEditor(event, this.reglement.idTitreActuel));
         });
 
         const displaySelector = `.${this.name} .list-item .btn-display`;

@@ -35,7 +35,6 @@ class XmlImport {
         reglement.lien =    reglementElement.getAttribute('lien');
         reglement.nom =     reglementElement.getAttribute('nom');
         reglement.idUrba =  reglementElement.getAttribute('idUrba');
-        reglement.typeDoc = reglementElement.getAttribute('typeDoc');
         reglement.titres = Array.from(xmlReglement.getElementsByTagName('plu:Titre'))
             .filter(element => element.getAttribute('niveau') == 1)
             .map((element) => {

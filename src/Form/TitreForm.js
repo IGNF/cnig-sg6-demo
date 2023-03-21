@@ -63,6 +63,9 @@ class TitreForm extends Component {
         this.onSave.next(this.titre);
 
         this.storageService.save(reglement);
+
+        this.setZone();
+
         // reload metadata attribute
         this.editeurService.updateTitreNode(this.titre);
         
@@ -85,23 +88,65 @@ class TitreForm extends Component {
         this.dialogService.close();
     }
 
+    setZone() {
+        var zone = false;
+        var reglement = this.storageService.getReglement();
+        var titres = reglement.titres;
+        for(var i in titres) {
+            if(titres[i].niveau == 1) {
+                zone = titres[i].idZone;
+            } else if(zone){
+                titres[i].idZone = zone;
+                reglement.updateTitre(titres[i]);
+            }
+        }
+        this.storageService.save(reglement);
+    }
+
+    checkZoneInput(event) {
+
+        var titres = this.storageService.getReglement().titres;
+
+        var elem = document.getElementById("idZone");
+        var niveau = document.getElementById("niveau").value;
+
+        if(niveau != "1" && !document.getElementById("idZone").attributes.disabled) {
+            elem.setAttribute("disabled", "");
+            elem.classList.toggle("grey");
+            elem.labels[0].classList.toggle("grey");
+            var zone;
+            for(var i=titres.length-1; i >- 1; i--) {
+                if(titres[i].niveau == 1) {
+                    zone = titres[i].idZone;
+                    break;
+                }
+            }
+            elem.value = zone;
+            
+        } else if(niveau == "1" && document.getElementById("idZone").attributes.disabled) {
+            elem.removeAttribute("disabled");
+            elem.value = "";
+            elem.classList.toggle("grey");
+            elem.labels[0].classList.toggle("grey");
+        }
+    }
 
     getTemplate() {
         return `
             <h4>Modifier le Titre ${this.titre.niveau}</h4>
             <form>
-                <label for="id">Identifiant</label>
-                <input id="id" type="string" value="${this.titre.id || ''}" readonly>
+                <label for="id" class="hidden">Identifiant</label>
+                <input id="id" class="hidden" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">Intitulé</label>
-                <input id="intitule" type="string" value="${this.titre.intitule || ''}">
+                <input id="intitule" type="string" value="${this.titre.intitule || ''}" placeholder="Titre I : disposition générales">
                 <label for="niveau">Niveau</label>
-                <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 0}">
+                <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 1}">
                 <label for="numero">Numéro</label>
-                <input id="numero" type="number" value="${this.titre.numero || 0}">
+                <input id="numero" type="number" value="${this.titre.numero || 1}">
                 <label for="href">Référence interne</label>
-                <input id="href" type="string" value="${this.titre.href || ''}">
+                <input id="href" type="string" value="${this.titre.href || ''}" placeholder="I">
                 <label for="idZone">Zone (U, Ua, ect.)</label>
-                <input id="idZone" type="string" value="${this.titre.idZone || ''}">
+                <input id="idZone" type="string" value="${this.titre.idZone || ''}" placeholder="U">
                 <label for="idPrescription">Identifiant de prescription si nécessaire</label>
                 <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">
             </form>
@@ -115,6 +160,8 @@ class TitreForm extends Component {
 
 
     registerEvents() {
+        document.getElementById("niveau").addEventListener('change', event => this.checkZoneInput(event));
+
         const validSelector = `.${this.name} .btn-valid`;
         document.querySelector(validSelector).addEventListener('click', event => this.valid(event));
 

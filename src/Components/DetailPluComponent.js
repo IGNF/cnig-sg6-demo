@@ -50,14 +50,13 @@ export class DetailPluComponent extends Component {
                 <div class="app-card-header">
                     <h2>${this.reglement.nom}</h2>
                     <div class="separator"></div>
-                    <button class="btn-update">Modifier</button>
+                    <button class="btn-update">Renseigner</button>
                     <button class="btn-reduce">Reduire</buttton>
                 </div>
                 <div class="app-card-content">
-                    <p>${this.reglement.typeDoc}</p>
                     <p>${this.reglement.idUrba}</p>
                     <p class="${this.reglement.lien != '' ? '' : 'hidden'}">
-                        Consultez la <a href="${this.reglement.lien}" target="_blanck">fiche document</a> sur géoportail de l'urbanisme
+                        Consultez le <a href="${this.reglement.lien}" target="_blanck">règlement</a> sur le Géoportail de l'Urbanisme
                     </p>
                 </div>
             </div>
