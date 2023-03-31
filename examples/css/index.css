@@ -99,6 +99,7 @@ button {
     padding: 10px;
 }
 .app-home-content {
+    width: 98%;
     padding: 0 15px;
 }
 
@@ -124,6 +125,11 @@ button {
 
 
 /* List-Titre */
+.list-titres ul {
+    height: 90%;
+    overflow-y: auto;
+}
+
 .list-titres ul li {
     display: flex;
     flex-wrap: wrap;
@@ -139,22 +145,26 @@ button {
 .list-titres ul li > * {
     margin: 0px 5px;
     user-select: none;
-    max-width: 351px;
+    max-width: 348px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: 5px;
 }
 .list-titres ul li p{
     padding-top: 9px;
 }
 .list-titres ul li[niveau="2"] p {
     margin-left: 15px;
+    max-width: 338px;
 }
 .list-titres ul li[niveau="3"] p {
     margin-left: 30px;
+    max-width: 323px;
 }
 .list-titres ul li[niveau="4"] p {
     margin-left: 45px;
+    max-width: 308px;
 }
 .list-titres ul li .btn-display.hidden{
     visibility: hidden;

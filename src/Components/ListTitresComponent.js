@@ -32,17 +32,17 @@ export class ListTitresComponent extends Component {
     }
 
     display(event) {
-        if(event.originalTarget.classList.contains("chevron-up")) {
-            event.originalTarget.classList.replace("chevron-up", "chevron-down");
-            event.originalTarget.innerHTML = "&#8964;";
+        if(event.target.classList.contains("chevron-up")) {
+            event.target.classList.replace("chevron-up", "chevron-down");
+            event.target.innerHTML = "&#8964;";
         } else {
-            event.originalTarget.classList.replace("chevron-down", "chevron-up");
-            event.originalTarget.innerHTML= "&#8963;";
+            event.target.classList.replace("chevron-down", "chevron-up");
+            event.target.innerHTML= "&#8963;";
         }
 
-        var id = event.originalTarget.parentElement.getAttribute("id");
-        var niveau = event.originalTarget.parentElement.getAttribute("niveau");
-        var liste =  event.originalTarget.parentElement.parentElement.children;
+        var id = event.target.parentElement.getAttribute("id");
+        var niveau = event.target.parentElement.getAttribute("niveau");
+        var liste =  event.target.parentElement.parentElement.children;
 
         var test = false;
         for(var i in liste) {
@@ -88,6 +88,7 @@ export class ListTitresComponent extends Component {
         const reglement = this.storageService.getReglement();
 
         reglement.removeTitre(id);
+        this.editeurService.setContent("");
         this.storageService.save(reglement);
     }
 

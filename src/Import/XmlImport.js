@@ -36,7 +36,7 @@ class XmlImport {
         reglement.nom =     reglementElement.getAttribute('nom');
         reglement.idUrba =  reglementElement.getAttribute('idUrba');
         reglement.titres = Array.from(xmlReglement.getElementsByTagName('plu:Titre'))
-            .filter(element => element.getAttribute('niveau') == 1)
+            .filter(element => element.getAttribute('niveau'))
             .map((element) => {
                 return this.loadTitre(element);
             });
@@ -48,7 +48,7 @@ class XmlImport {
         
         const titre = new Titre();
         titre.id = element.getAttribute('id');
-        titre.intitule = element.getAttribute('intitule')?.toLowerCase();
+        titre.intitule = element.getAttribute('intitule');
         titre.niveau = parseInt(element.getAttribute('niveau'));
         titre.numero = element.getAttribute('numero');
         titre.href = element.getAttribute('href');

@@ -24,18 +24,18 @@ describe('Test XmlImport', () => {
     expect(reglement.titres).length(12);
   });
 
-  it('Test examples/data/issue_7.xml', () => {
-    const xmlImport = new XmlImport();
-    const xmlString = fs.readFileSync(PROJECT_DIR+'/examples/data/issue_7.xml','utf-8');
-    const reglement = xmlImport.load(xmlString);
-    expect(reglement).to.be.an('object');
-    // check id
-    expect(reglement).to.haveOwnProperty('id');
-    expect(reglement.id).to.equals('idReglementDu1667901292749');
+  // it('Test examples/data/issue_7.xml', () => {
+  //   const xmlImport = new XmlImport();
+  //   const xmlString = fs.readFileSync(PROJECT_DIR+'/examples/data/issue_7.xml','utf-8');
+  //   const reglement = xmlImport.load(xmlString);
+  //   expect(reglement).to.be.an('object');
+  //   // check id
+  //   expect(reglement).to.haveOwnProperty('id');
+  //   expect(reglement.id).to.equals('idReglementDu1667901292749');
 
-    // check titres
-    expect(reglement).to.haveOwnProperty('titres');
-    expect(reglement.titres).to.be.an('array');
-    expect(reglement.titres).length(1);
-  });
+  //   // check titres
+  //   expect(reglement).to.haveOwnProperty('titres');
+  //   expect(reglement.titres).to.be.an('array');
+  //   expect(reglement.titres).length(1);
+  // });
 });

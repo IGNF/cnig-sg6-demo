@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plu:ReglementDU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:plu="https://cnig.gouv.fr/reglementDU" xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/reglementDU.xsd" id="https://www.geoportail-urbanisme.gouv.fr/document/by-id/cd22628fc5f7f6f8fa21ea49ceb4cc8d" nom="Règlement du PLU Jaleyrac" lien="https://www.geoportail-urbanisme.gouv.fr/document/by-id/cd22628fc5f7f6f8fa21ea49ceb4cc8d" idUrba="15079_PLU_20190128" typeDoc="PLU">
+<plu:ReglementPLU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:plu="https://cnig.gouv.fr/reglementDU" xsi:schemaLocation="https://cnig.gouv.fr/reglementDU https://raw.githubusercontent.com/cnigfr/structuration-reglement-urbanisme/master/schemas/reglementDU.xsd" id="https://www.geoportail-urbanisme.gouv.fr/document/by-id/cd22628fc5f7f6f8fa21ea49ceb4cc8d" nom="Règlement du PLU Jaleyrac" lien="https://www.geoportail-urbanisme.gouv.fr/document/by-id/cd22628fc5f7f6f8fa21ea49ceb4cc8d" idUrba="15079_PLU_20190128" typeDoc="PLU">
 	<plu:Titre id="idelem3x1061" intitule="Plan Local d’Urbanisme" niveau="1" idZone="porteeGenerale" idPrescription="nonConcerne" inseeCommune="15079">
 		<plu:Contenu id="idelem16777218x3" idZone="porteeGenerale" idPrescription="nonConcerne">
 			<h1>Plan Local d’Urbanisme</h1>
@@ -1129,4 +1129,4 @@
 				<strong>Unité foncière :</strong> ensemble d’un seul tenant composé d’une ou plusieurs parcelles appartenant à un même propriétaire ou à la même indivision.</div>
 		</plu:Contenu>
 	</plu:Titre>
-</plu:ReglementDU>
+</plu:ReglementPLU>
