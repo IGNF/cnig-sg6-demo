@@ -7,7 +7,6 @@ class Titre {
     intitule;
     niveau;
     numero;
-    href;
 
     // gpu attributes
     idZone;
@@ -24,7 +23,6 @@ class Titre {
         this.intitule =       '';
         this.niveau =         '';
         this.numero =         '';
-        this.href =           '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';
         this.contents = [];
@@ -36,7 +34,6 @@ class Titre {
         this.intitule =       data.intitule;
         this.niveau =         data.niveau;
         this.numero =         data.numero;
-        this.href =           data.href;
         this.idZone =         data.idZone;
         this.idPrescription = data.idPrescription;
         // TODO manage order
@@ -86,7 +83,6 @@ class Titre {
             titleNode.setAttribute('data-intitule', this.intitule);
             titleNode.setAttribute('data-niveau', this.niveau);
             titleNode.setAttribute('data-numero', this.numero);
-            titleNode.setAttribute('data-href', this.href);
             titleNode.setAttribute('data-idzone', this.idZone);
             titleNode.setAttribute('data-idprescription', this.idPrescription);
         }
@@ -113,7 +109,7 @@ class Titre {
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
             <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
-                numero="${this.numero}" xlink:href="${this.href}" idZone="${this.idZone}"
+                numero="${this.numero}" idZone="${this.idZone}"
                 idPrescription="${this.idPrescription}">
                 ${partContent}
                 ${partChildren}

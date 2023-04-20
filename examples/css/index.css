@@ -99,7 +99,7 @@ button {
     padding: 10px;
 }
 .app-home-content {
-    width: 98%;
+    width: 97%;
     padding: 0 15px;
 }
 
@@ -133,7 +133,11 @@ button {
 .list-titres ul li {
     display: flex;
     flex-wrap: wrap;
-    padding: 2px;
+    padding: 1px;
+}
+.list-titres ul li.selected {
+    /*background-color: rgba(0, 0, 0, 0.185);*/
+    border: 1px black solid;
 }
 .list-titres ul li.hidden1, .list-titres ul li.hidden2, .list-titres ul li.hidden3 {
     display: none;
@@ -143,38 +147,76 @@ button {
     cursor: pointer;
 }
 .list-titres ul li > * {
-    margin: 0px 5px;
+    margin: 2px 5px;
     user-select: none;
-    max-width: 348px;
+    max-width: 320px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 5px;
+}
+.list-titres ul li button {
+    padding: 0px 10px
+}
+.list-titres ul li[niveau="1"]::before {
+    content: "I";
+    font-size: 12px;
+    margin-top: 16px;
+    color: green;
+}
+.list-titres ul li[niveau="2"]::before {
+    content: "II";
+    font-size: 12px;
+    margin-top: 16px;
+    color: green;
+}
+.list-titres ul li[niveau="3"]::before {
+    content: "III";
+    font-size: 12px;
+    margin-top: 16px;
+    color: green;
+}
+.list-titres ul li[niveau="4"]::before {
+    content: "IV";
+    font-size: 12px;
+    margin-top: 16px;
+    color: green;
 }
 .list-titres ul li p{
     padding-top: 9px;
 }
+.list-titres ul li[niveau="1"] p {
+    margin-left: /*15*/14px;
+}
 .list-titres ul li[niveau="2"] p {
-    margin-left: 15px;
-    max-width: 338px;
+    margin-left: /*15*/20px;
+    max-width: 310px;
 }
 .list-titres ul li[niveau="3"] p {
-    margin-left: 30px;
-    max-width: 323px;
+    margin-left: /*30*/31px;
+    max-width: 294px;
 }
 .list-titres ul li[niveau="4"] p {
-    margin-left: 45px;
-    max-width: 308px;
+    margin-left: /*45*/45px;
+    max-width: 279px;
 }
 .list-titres ul li .btn-display.hidden{
     visibility: hidden;
     display: block;
 }
 .list-titres ul li .chevron-up {
-    margin-top: 10px;
+    margin-top: 7px;
 }
 .list-titres ul li .chevron-down {
-    margin-top: 5px;
+    margin-top: 2px;
+}
+.list-titres ul li .btn-insert, .list-titres .btn-add {
+    min-width: unset;
+    width: 25px;
+    font-size: 20px;
+    padding: 0;
+}
+.list-titres .btn-add.hidden {
+   display: none;
 }
 
 
@@ -197,7 +239,7 @@ button {
 }
 
 .form-reglement, .form-titre, .form-contenu {
-    max-width: 780px;
+    max-width: 850px;
     width: 100%;
     background: white;
     transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -211,8 +253,15 @@ button {
 }
 .form-reglement form > *, .form-titre form > *, .form-contenu form > * {
     display: block;
-    width: 49%;
+    width: 48.5%;
     margin: 5px 0px;
+    margin-right: 8px;
+}
+.form-reglement form label {
+    width: 44%;
+}
+.form-reglement form input {
+    width: 54%;
 }
 .form-action {
     display: flex;

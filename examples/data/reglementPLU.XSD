@@ -17,8 +17,8 @@
 			<xs:attribute name="nom" type="xs:string" use="required"/>
 			<xs:attribute name="lien" type="xs:anyURI" use="required"/>
 			<xs:attribute name="idUrba" type="xs:string" use="required"/>
-			<xs:attribute name="typeDoc" type="plu:typeDocEnum" use="required"/>
 			<xs:attribute name="inseeCommune" type="xs:string" use="required"/>
+			<xs:attribute name="sirenIntercomm" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Titre" type="plu:TitreType"/>
@@ -50,7 +50,6 @@
 		<xs:attribute name="intitule" type="xs:string"/>
 		<xs:attribute name="niveau" type="xs:string"/>
 		<xs:attribute name="numero" type="xs:string"/>
-		<xs:attribute ref="xlink:href"/>
 		<xs:attribute name="idZone" type="xs:string"/>
 		<xs:attribute name="idPrescription" type="xs:string"/>
 		
@@ -60,7 +59,6 @@
 			<xs:group ref="plu:Html" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" type="xs:anyURI" use="required"/>
-		<xs:attribute ref="xlink:href"/>
 		<xs:attribute name="idZone" type="xs:string" use="required"/>
 		<xs:attribute name="idPrescription" type="xs:string" use="required"/>
 	</xs:complexType>

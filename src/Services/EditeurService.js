@@ -84,10 +84,14 @@ class EditeurService {
 
 
     updateContenuNode(contenu) {
-        const nodeSelected = this.getSelection();
+        let nodeSelected = this.getSelection();
 
         if (nodeSelected.tagName.match('H[1-6]')) {
             return;
+        }
+
+        if(nodeSelected.tagName == "A" || nodeSelected.tagName == "IMG" || nodeSelected.tagName == "BR" || nodeSelected.tagName == "COLGROUP") {
+            nodeSelected = nodeSelected.parentElement;
         }
 
         if(nodeSelected.getAttribute("id")) {
@@ -99,7 +103,7 @@ class EditeurService {
             }
             return;
         }
-        
+
         this.htmlConverterService.updateContenuNode(nodeSelected, contenu);
     }
 
@@ -258,21 +262,31 @@ class EditeurService {
     actionPluRule() { 
         var nodeSelectedChildIndex = [];
         var node = tinymce.activeEditor.selection.getNode();
-
         if(node == tinymce.activeEditor.selection.getSelectedBlocks()[0]) {
             node = node.parentElement;
         }
 
+        if(node.tagName == "A" || node.tagName == "IMG" || node.tagName == "BR") {
+            node = node.parentElement.parentElement;
+        } else if (node.tagName == "TR") {
+            node = node.parentElement.parentElement.parentElement
+        }
+
         for(var i in node.childNodes) {
+            var elem;
             for(var j in tinymce.activeEditor.selection.getSelectedBlocks()) {
-                if(node.childNodes[i] == tinymce.activeEditor.selection.getSelectedBlocks()[j]) {
+                if(tinymce.activeEditor.selection.getSelectedBlocks()[j].tagName == "TD") {
+                    elem = tinymce.activeEditor.selection.getSelectedBlocks()[j].parentElement.parentElement.parentElement;
+                } else {
+                    elem = tinymce.activeEditor.selection.getSelectedBlocks()[j];
+                }
+                if(node.childNodes[i] == elem) {
                     nodeSelectedChildIndex.push(i);
                 }
             }
         }
-  
+        
         this.actionSave();
-
         const selectedNodes = [];
         for(var i in nodeSelectedChildIndex) {
             selectedNodes.push(node.childNodes[nodeSelectedChildIndex[i]]);
@@ -284,8 +298,12 @@ class EditeurService {
         }
 
         var rng = tinymce.activeEditor.selection.getRng();
+        let end = 1;
         if(selectedNodes.length) {
-            rng.setEnd(selectedNodes[selectedNodes.length-1], 1);
+            if(selectedNodes[selectedNodes.length-1].tagName == "HR") {
+                end = 0;
+            }
+            rng.setEnd(selectedNodes[selectedNodes.length-1], end);
             rng.setStart(selectedNodes[0], 0);
         }
 

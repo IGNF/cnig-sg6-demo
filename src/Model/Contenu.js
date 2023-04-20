@@ -3,7 +3,6 @@ class Contenu {
 
     // attributes (form)
     id;
-    href;
 
     // gpu attributes
     // par default même que Zone.idZone
@@ -16,7 +15,6 @@ class Contenu {
 
     constructor() {
         this.id =             `idContenu${Math.floor(Math.random()*Date.now())}`;
-        this.href =           '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';
         this.htmlContent =    '';
@@ -25,7 +23,6 @@ class Contenu {
 
     unserialise(data) {
         this.id =             data.id;
-        this.href =           data.href;
         this.idZone =         data.idZone;
         this.idPrescription = data.idPrescription;
         this.htmlContent =    data.htmlContent;
@@ -34,8 +31,7 @@ class Contenu {
 
 
     isLike(contenu) {
-        return this.href === contenu.href &&
-            this.idZone === contenu.idZone &&
+        return this.idZone === contenu.idZone &&
             this.idPrescription === contenu.idPrescription;
     }
 
@@ -57,7 +53,6 @@ class Contenu {
         const children = Array.from(node.children);
         children.forEach((child) => {
             child.setAttribute('data-id', this.id);
-            child.setAttribute('data-href', this.href);
             child.setAttribute('data-idzone', this.idZone);
             child.setAttribute('data-idprescription', this.idPrescription);
         });
@@ -67,7 +62,7 @@ class Contenu {
 
     toXml() {
         return `
-            <plu:Contenu id="${this.id}" xlink:href="${this.href}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+            <plu:Contenu id="${this.id}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
                 ${this.htmlContent}
             </plu:Contenu>
         `.trim();

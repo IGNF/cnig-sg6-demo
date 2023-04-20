@@ -51,7 +51,7 @@ export class DetailPluComponent extends Component {
                     <h2>${this.reglement.nom}</h2>
                     <div class="separator"></div>
                     <button class="btn-update">Renseigner</button>
-                    <button class="btn-reduce">Reduire</buttton>
+                    <button class="btn-reduce">Réduire</buttton>
                 </div>
                 <div class="app-card-content">
                     <p>${this.reglement.idUrba}</p>

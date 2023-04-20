@@ -27,7 +27,7 @@ class Reglement {
 
     constructor() {
         this.id = `idReglementPlu${Math.floor(Math.random()*Date.now())}`;
-        this.nom = 'Renseignez la fiche';
+        this.nom = 'Renseignez le Document d\'Urbanisme';
         this.lien = '';
         this.idUrba = '';
         this.inseeCommune = '';
@@ -99,15 +99,25 @@ class Reglement {
         return;
     }
 
-    addTitre(titre) {
+    insertTitre(titre, previousId) {
         const contenu = new Contenu();
         contenu.htmlContent = `
             <h${titre.niveau}>${titre.intitule}</h${titre.niveau}>
         `;
         titre.contents.push(contenu);
-        this.titres.push(titre);
-    }
 
+        if(!previousId) {
+            this.titres.push(titre);
+            return;
+        }
+
+        for(let i in this.titres) {
+            if(this.titres[i].id == previousId) {
+                this.titres.splice(Number(i)+1, 0, titre);
+                break;                
+            }
+        }
+    }
 
     toSimpleContent() {
         const content = this.titres.map(titre => titre.toSimpleContent()).join('');

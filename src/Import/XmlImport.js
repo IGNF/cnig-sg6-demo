@@ -51,7 +51,6 @@ class XmlImport {
         titre.intitule = element.getAttribute('intitule');
         titre.niveau = parseInt(element.getAttribute('niveau'));
         titre.numero = element.getAttribute('numero');
-        titre.href = element.getAttribute('href');
 
         titre.idZone = element.getAttribute('idZone');
         titre.idPrescription = element.getAttribute('idPrescription');
@@ -86,7 +85,6 @@ class XmlImport {
         const contenu = new Contenu();
 
         contenu.id = element.getAttribute('id');
-        contenu.href = element.getAttribute('href');
         contenu.idZone = element.getAttribute('idZone');
         contenu.idPrescription = element.getAttribute('idPrescription');
         if (!this.lameCheckHTML(element.innerHTML)) {

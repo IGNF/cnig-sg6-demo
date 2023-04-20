@@ -78,7 +78,7 @@ export class ListTitresComponent extends Component {
         const reglement = this.storageService.getReglement();
         const titre = reglement.getTitreById(id);
 
-        const form = new TitreForm(titre);
+        const form = new TitreForm(titre, event.target.getAttribute("idtitle"));
         this.dialogService.open(form);
     }
 
@@ -90,10 +90,28 @@ export class ListTitresComponent extends Component {
         reglement.removeTitre(id);
         this.editeurService.setContent("");
         this.storageService.save(reglement);
+        if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
+            document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
+        }
     }
 
 
-    openEditor(event, ancienId) { 
+    insert(event) {
+        let scrollTop = document.getElementById("title-list").scrollTop;
+        this.editeurService.actionSave();
+        this.editeurService.setContent("");
+        this.reglement.idTitreAtuel = "";
+        const newTitre = new Titre();
+        newTitre.niveau = 1;
+        const form = new TitreForm(newTitre, event.target.getAttribute("idtitle"));
+        this.dialogService.open(form);
+        document.getElementById("title-list").scrollTo(0, scrollTop);
+    }
+
+
+    openEditor(event, ancienId) {
+        let scrollTop = document.getElementById("title-list").scrollTop;
+        let isBtnHidden = false;
         this.reglement.idTitreActuel = event.target.getAttribute('idtitle');
 
         const reglement = this.storageService.getReglement();
@@ -111,17 +129,21 @@ export class ListTitresComponent extends Component {
                 c = c.replace(/<\/p/, "</h" + ancienTitre.niveau);
             }
             if(!c.match("data-id")) {
-                c = c.replace(/<h[0-9]/, '<h' + ancienTitre.niveau + ' data-id="' + ancienTitre.id + '" data-href="' + ancienTitre.href + '" data-idzone="' + ancienTitre.idZone + '" data-idprescription="'
+                c = c.replace(/<h[0-9]/, '<h' + ancienTitre.niveau + ' data-id="' + ancienTitre.id + '" data-idzone="' + ancienTitre.idZone + '" data-idprescription="'
                                               + ancienTitre.idPrescription + '" data-intitule="' + ancienTitre.intitule + '" data-niveau="' + ancienTitre.niveau + '" data-numero="' + ancienTitre.numero + '"');
             }
             if(!c.match(ancienId)) {
                 c = c.replace(c.match(/idContenu[0-9]+/)[0], ancienId);
             }
+
             this.editeurService.setContent(c);
         }
         this.editeurService.actionSave();
+
         // open editor
         const titre = reglement.getTitreById(event.target.getAttribute('idtitle'));
+        document.getElementById(event.target.getAttribute('idtitle')).classList.toggle("selected");
+        document.getElementById("title-list").scrollTo(0, scrollTop);
         this.editeurService.loadTitle(titre);
     }
 
@@ -149,6 +171,7 @@ export class ListTitresComponent extends Component {
             const buttonPart = `
                 <button idtitle="${title.id}" class="btn-update">Modifier</button>
                 <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
+                <button idtitle="${title.id}" class="btn-insert">+</button> 
             `;
 
             var chevron = `<div class="btn-display chevron-up hidden">&#8963;</div>`;
@@ -165,19 +188,23 @@ export class ListTitresComponent extends Component {
         }
         const content = this.reglement.titres.map(title => listFromTitle(title)).join('');
 
+        let hidden = "";
+        if(this.reglement.titres.length) {
+            hidden = "hidden"
+        }
+
         const template = `
             <div class="app-card">
                 <div class="app-card-header">
                     <h2>Sommaire</h2>
                     <div class="separator"></div>
-                    <button class="btn-add">Ajouter</button>
-                    <button class="btn-reduce">Reduire</buttton>
                 </div>
                 <div class="app-card-content">
                     <p>
                         Gérer la liste des titres.
                         Cliquer sur un titre pour modifier le contenu.
                     </p>
+                    <button class="btn-add ${hidden}">+</button>
                     <ul id="title-list">${content}</ul>
                 </div>
             </div>
@@ -228,6 +255,12 @@ export class ListTitresComponent extends Component {
         const deleteButtons = Array.from(document.querySelectorAll(deleteSelector));
         deleteButtons.forEach((item) => {
             item.addEventListener('click', event => this.delete(event));
+        });
+
+        const insertSelector = `.${this.name} .list-item .btn-insert`;
+        const insertButtons = Array.from(document.querySelectorAll(insertSelector));
+        insertButtons.forEach((item) => {
+            item.addEventListener('click', event => this.insert(event));
         });
 
         const addSelector = `.${this.name} .btn-add`;

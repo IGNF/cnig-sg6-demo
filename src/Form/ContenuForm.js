@@ -25,11 +25,9 @@ class ContenuForm extends Component {
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
         for(var i in this.contenu) {
-            this.contenu[i].href = form.href.value;
             this.contenu[i].idZone = form.idZone.value;
             this.contenu[i].idPrescription = form.idPrescription.value;
         }
-
         // reload metadata attribute
         for(var i in this.contenu) {
             this.editeurService.updateContenuNode(this.contenu[i]);
@@ -51,12 +49,10 @@ class ContenuForm extends Component {
         }
         id = id.replace(/; $/,"");
 
-        var href = "";
         var idZone = "";
         var idPrescription = "";
 
         if(this.contenu.length == 1) {
-            href = this.contenu[0].href;
             idZone = this.contenu[0].idZone;
             idPrescription = this.contenu[0].idPrescription;
         }
@@ -66,9 +62,7 @@ class ContenuForm extends Component {
             <form>
                 <label for="id" class="hidden">Identifiant</label>
                 <input id="id" class="hidden" type="string" value="${id}" readonly>
-                <label for="href">Référence interne</label>
-                <input id="href" type="string" value="${href}" placeholder="I">
-                <label for="idZone">Zone (U, Ua, ...)</label>
+                <label for="idZone">Zone (ex : U, Ua, etc.) ou la mention porteeGenerale si toutes les zones sont concernées</label>
                 <input id="idZone" type="string" value="${idZone}" placeholder="U">
                 <label for="idPrescription">Prescription (05-01, ...)</label>
                 <input id="idPrescription" type="string" value="${idPrescription}">

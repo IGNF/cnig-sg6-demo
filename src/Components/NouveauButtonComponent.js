@@ -3,7 +3,6 @@ import StorageService from '../Services/StorageService.js';
 
 import Reglement from '../Model/Reglement.js';
 import EditeurService from '../Services/EditeurService.js';
-
 export class NouveauButtonComponent extends Component {
 
     storageService;
@@ -17,20 +16,22 @@ export class NouveauButtonComponent extends Component {
     }
 
     newReglement(event) {
-        // if(confirm("Attention, si vous n'avez pas exporté votre travail, celui-ci va être perdu. Êtes-vous sûr de vouloir continuer ?")) {
-        //     const reglement = new Reglement();
-        //     this.storageService.save(reglement);
+        if(confirm("Attention, si vous n'avez pas exporté votre travail, celui-ci va être perdu. Êtes-vous sûr de vouloir continuer ?")) {
+            const reglement = new Reglement();
+            this.storageService.save(reglement);
 
-        //     this.editeurService.setContent('');
-        //     this.editeurService.toggleEditorMode();
-        // } else {
-        //     return;
-        // }
-        const reglement = new Reglement();
-        this.storageService.save(reglement);
+            this.editeurService.setContent('');
+            this.editeurService.toggleEditorMode();
+            document.getElementsByClassName("btn-update")[0].click();
+            
+        } else {
+            return;
+        }
+        // const reglement = new Reglement();
+        // this.storageService.save(reglement);
 
-        this.editeurService.setContent('');
-        this.editeurService.toggleEditorMode();
+        // this.editeurService.setContent('');
+        // this.editeurService.toggleEditorMode();
     }
 
     getTemplate() {

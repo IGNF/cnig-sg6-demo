@@ -27,8 +27,21 @@ class ReglementForm extends Component {
         this.reglement.nom = form.nom.value;
         this.reglement.lien = form.lien.value;
         this.reglement.idUrba = form.idUrba.value;
-        this.reglement.inseeCommune = form.inseeCommune.value;
-        this.reglement.sirenIntercomm = form.sirenIntercomm.value;
+
+        
+
+        this.reglement.inseeCommune = "";
+        this.reglement.sirenIntercomm = "";
+
+        var num = this.reglement.idUrba.match(/^[0-9]+/);
+        
+        if(num) {
+            if(num[0].length == 5) {
+                this.reglement.inseeCommune = num[0];
+            } else {
+                this.reglement.sirenIntercomm = num[0];
+            }
+        }
 
         this.storageService.save(this.reglement);
         this.dialogService.close();
@@ -42,7 +55,7 @@ class ReglementForm extends Component {
 
     getTemplate() {
         var nom = this.reglement.nom;
-        if(nom == "Renseignez la fiche") {
+        if(nom == "Renseignez le Document d'Urbanisme") {
             nom = "";
         }
         return `
@@ -53,13 +66,9 @@ class ReglementForm extends Component {
                 <label for="nom">Nom du réglement</label>
                 <input type="string" value="${nom}" id="nom" placeholder="PLU Ancenis">
                 <label for="lien">Lien, ressource web ou GPU</label>
-                <input type="string" value="${this.reglement.lien}" id="lien" placeholder="https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html">
+                <input type="string" value="${this.reglement.lien}" id="lien" placeholder="Coller dans ce champ le lien url du GPU qui renvoie vers le règlement pdf">
                 <label for="idUrba">Identifiant d'urbanisme</label>
                 <input type="string" value="${this.reglement.idUrba}" id="idUrba" placeholder="44003_PLU_20200224">
-                <label for="inseeCommune">Code INSEE des communes concernées</label>
-                <input type="string" value="${this.reglement.inseeCommune}" id="inseeCommune" placeholder="44003">
-                <label for="sirenIntercomm">Code SIREN de l'intercommunalité</label>
-                <input type="string" value="${this.reglement.sirenIntercomm}" id="sirenIntercomm">
             </form>
             <div class="form-action">
                 <div class="separator"></div>

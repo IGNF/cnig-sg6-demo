@@ -21,7 +21,7 @@ describe('Test XmlImport', () => {
     // check titres
     expect(reglement).to.haveOwnProperty('titres');
     expect(reglement.titres).to.be.an('array');
-    expect(reglement.titres).length(12);
+    expect(reglement.titres).length(102);
   });
 
   // it('Test examples/data/issue_7.xml', () => {

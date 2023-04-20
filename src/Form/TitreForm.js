@@ -2,7 +2,6 @@ import { Subject } from 'rxjs';
 import Component from '../Core/Component.js';
 import DialogService from '../Services/DialogService.js';
 import EditeurService from '../Services/EditeurService.js';
-import HtmlConverterService from '../Services/HtmlConverterService.js';
 import StorageService from '../Services/StorageService.js';
 
 class TitreForm extends Component {
@@ -13,9 +12,11 @@ class TitreForm extends Component {
 
     onSave = new Subject();
 
-    constructor(titre) {
+    constructor(titre, previousId) {
         super();
         this.name = 'form-titre';
+        //identifiant du titre après lequel il faut ajouter le nouveau titre
+        this.previousId = previousId;
 
         this.titre = titre;
 
@@ -26,6 +27,8 @@ class TitreForm extends Component {
 
 
     valid(event) {
+        let scrollTop = document.getElementById("title-list").scrollTop;
+
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
         
@@ -43,7 +46,6 @@ class TitreForm extends Component {
         this.titre.intitule =       form.intitule.value;
         this.titre.niveau =         parseInt(form.niveau.value);
         this.titre.numero =         parseInt(form.numero.value);
-        this.titre.href =           form.href.value;
         this.titre.idZone =         form.idZone.value;
         this.titre.idPrescription = form.idPrescription.value;
 
@@ -55,16 +57,13 @@ class TitreForm extends Component {
             // on en touche pas au children / contents
             reglement.updateTitre(this.titre);
         } else {
-            // cas mise à jour pour les titre de niveau 1
-            // les titres de niveau 2+ sont creer au parsing du document
-            reglement.addTitre(this.titre);
+            reglement.insertTitre(this.titre, this.previousId);
+            scrollTop += 50;
         }
         
         this.onSave.next(this.titre);
 
         this.storageService.save(reglement);
-
-        this.setZone();
 
         // reload metadata attribute
         this.editeurService.updateTitreNode(this.titre);
@@ -81,6 +80,13 @@ class TitreForm extends Component {
                 document.getElementById("title-list").children[i].children[1].classList.remove("hidden");
             }
         }
+
+        if(!document.getElementsByClassName("btn-add")[0].classList.contains("hidden") ) {
+            document.getElementsByClassName("btn-add")[0].classList.add("hidden");
+        }
+
+        document.getElementById("title-list").scrollTo(0, scrollTop);
+        document.getElementById(this.titre.id).children[0].click();
     }
 
 
@@ -88,64 +94,42 @@ class TitreForm extends Component {
         this.dialogService.close();
     }
 
-    setZone() {
-        var zone = false;
-        var reglement = this.storageService.getReglement();
-        var titres = reglement.titres;
-        for(var i in titres) {
-            if(titres[i].niveau == 1) {
-                zone = titres[i].idZone;
-            } else if(zone){
-                titres[i].idZone = zone;
-                reglement.updateTitre(titres[i]);
-            }
-        }
-        this.storageService.save(reglement);
-    }
-
     checkZoneInput(event) {
-
-        var titres = this.storageService.getReglement().titres;
-
         var elem = document.getElementById("idZone");
         var niveau = document.getElementById("niveau").value;
 
-        if(niveau != "1" && !document.getElementById("idZone").attributes.disabled) {
-            elem.setAttribute("disabled", "");
-            elem.classList.toggle("grey");
-            elem.labels[0].classList.toggle("grey");
-            var zone;
-            for(var i=titres.length-1; i >- 1; i--) {
-                if(titres[i].niveau == 1) {
-                    zone = titres[i].idZone;
-                    break;
+        if(niveau != "1") {
+            let titres = this.storageService.getReglement().titres;
+            let check = false;
+            for(let i = titres.length-1; i>-1; i--) {
+                if(titres[i].id == this.previousId) {
+                    check = true;
                 }
-            }
-            elem.value = zone;
-            
-        } else if(niveau == "1" && document.getElementById("idZone").attributes.disabled) {
-            elem.removeAttribute("disabled");
+                if(check) {
+                    if(titres[i].niveau < Number(niveau)) {
+                        elem.value = titres[i].idZone;
+                        break;
+                    }
+                }
+            }       
+        } else {
             elem.value = "";
-            elem.classList.toggle("grey");
-            elem.labels[0].classList.toggle("grey");
         }
     }
 
     getTemplate() {
         return `
-            <h4>Modifier le Titre ${this.titre.niveau}</h4>
+            <h4>Renseigner le titre</h4>
             <form>
                 <label for="id" class="hidden">Identifiant</label>
                 <input id="id" class="hidden" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">Intitulé</label>
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}" placeholder="Titre I : disposition générales">
-                <label for="niveau">Niveau</label>
+                <label for="niveau">Niveau du titre dans la hiérarchie (Ex : 1, 2, 3, etc.)</label>
                 <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 1}">
-                <label for="numero">Numéro</label>
+                <label for="numero">Numéro du titre dans l’arborescence du règlement (Ex : I.1.4.2)</label>
                 <input id="numero" type="number" value="${this.titre.numero || 1}">
-                <label for="href">Référence interne</label>
-                <input id="href" type="string" value="${this.titre.href || ''}" placeholder="I">
-                <label for="idZone">Zone (U, Ua, ect.)</label>
+                <label for="idZone">Zone (ex : U, Ua, etc.) ou la mention porteeGenerale si toutes les zones sont concernées</label>
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}" placeholder="U">
                 <label for="idPrescription">Identifiant de prescription si nécessaire</label>
                 <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">

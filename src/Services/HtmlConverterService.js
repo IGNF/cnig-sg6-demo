@@ -39,7 +39,7 @@ class HtmlConverterService {
         contenu.htmlContent = element.outerHTML;
         // from data attributes
         const attributes = [
-            'id', 'href',
+            'id',
             'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
@@ -62,7 +62,7 @@ class HtmlConverterService {
         titre.intitule = element.innerText;
         // from data attributes
         const attributes = [
-            'id', 'numero', 'href',
+            'id', 'numero',
             'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
@@ -104,30 +104,26 @@ class HtmlConverterService {
 
     updateTitreNode(node, titre) {
         const attributes = [
-            'id', 'numero', 'href',
+            'id', 'numero',
             'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
-            if (titre[att]) {
-                node.setAttribute(attribute, titre[att]);
-            }
+            node.setAttribute(attribute, titre[att]);
         });
     }
 
 
     updateContenuNode(node, contenu) {
         const attributes = [
-            'id', 'href',
+            'id',
             'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
-            if (contenu[att]) {
-                node.setAttribute(attribute, contenu[att]);
-            }
+            node.setAttribute(attribute, contenu[att]);
         });
     }
 
