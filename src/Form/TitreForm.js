@@ -45,7 +45,7 @@ class TitreForm extends Component {
         this.titre.id =             form.id.value;
         this.titre.intitule =       form.intitule.value;
         this.titre.niveau =         parseInt(form.niveau.value);
-        this.titre.numero =         parseInt(form.numero.value);
+        this.titre.numero =         form.numero.value;
         this.titre.idZone =         form.idZone.value;
         this.titre.idPrescription = form.idPrescription.value;
 
@@ -127,8 +127,8 @@ class TitreForm extends Component {
                 <input id="intitule" type="string" value="${this.titre.intitule || ''}" placeholder="Titre I : disposition générales">
                 <label for="niveau">Niveau du titre dans la hiérarchie (Ex : 1, 2, 3, etc.)</label>
                 <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 1}">
-                <label for="numero">Numéro du titre dans l’arborescence du règlement (Ex : I.1.4.2)</label>
-                <input id="numero" type="number" value="${this.titre.numero || 1}">
+                <label for="numero">Numéro</label>
+                <input id="numero" type="string" value="${this.titre.numero || ''}" placeholder="Numéro du titre dans l’arborescence du règlement (Ex : I.1.4.2)">
                 <label for="idZone">Zone (ex : U, Ua, etc.) ou la mention porteeGenerale si toutes les zones sont concernées</label>
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}" placeholder="U">
                 <label for="idPrescription">Identifiant de prescription si nécessaire</label>
