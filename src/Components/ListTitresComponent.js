@@ -202,6 +202,7 @@ export class ListTitresComponent extends Component {
             if (title.children && title.children.length > 0) {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
             }
+            console.log("test");
 
             let btnUpClass = "";
             let btnDownClass = "";
