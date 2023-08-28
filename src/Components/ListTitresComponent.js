@@ -32,21 +32,37 @@ export class ListTitresComponent extends Component {
     }
 
     display(event) {
+        var id = event.target.parentElement.getAttribute("id");
+        const reglement = this.storageService.getReglement();
+        const titre = reglement.getTitreById(id);
+
         if(event.target.classList.contains("chevron-up")) {
             event.target.classList.replace("chevron-up", "chevron-down");
             event.target.innerHTML = "&#8964;";
+            titre.displayChildren = false;
         } else {
             event.target.classList.replace("chevron-down", "chevron-up");
             event.target.innerHTML= "&#8963;";
+            titre.displayChildren = true;
         }
 
-        var id = event.target.parentElement.getAttribute("id");
+        let childrenId = reglement.getTitreChildrenId(id);
+        for(var i in childrenId) {
+            let t = reglement.getTitreById(childrenId[i]);
+            if(t.niveau == titre.niveau + 1) {
+                t.hidden = !titre.displayChildren;
+            }
+        }
+
+        //this.storageService.save(reglement);
+        
         var niveau = event.target.parentElement.getAttribute("niveau");
         var liste =  event.target.parentElement.parentElement.children;
 
         var test = false;
         for(var i in liste) {
             if(!liste[i].getAttribute) {
+                this.storageService.save(reglement);
                 return;
             }
             if(test && liste[i].getAttribute("niveau") <= niveau) {
@@ -54,11 +70,19 @@ export class ListTitresComponent extends Component {
             }
             if(test && liste[i].getAttribute("niveau") > niveau) {
                 liste[i].classList.toggle("hidden" + niveau);
+                let t =  reglement.getTitreById(liste[i].getAttribute("id"));
+                t.hiddenClass = [];
+                for(var j in liste[i].classList) {
+                    if(typeof liste[i].classList[j] == "string" && liste[i].classList[j].match("hidden")) {
+                        t.hiddenClass.push(liste[i].classList[j]);
+                    }
+                }
             }
             if(liste[i].getAttribute("id") == id){
                 test = true;
             } 
         }
+        this.storageService.save(reglement);
     }
 
 
@@ -86,12 +110,29 @@ export class ListTitresComponent extends Component {
     delete(event) {
         const id = event.target.getAttribute('idtitle');
         const reglement = this.storageService.getReglement();
+;
+        let childrenId = reglement.getTitreChildrenId(id);
 
         reglement.removeTitre(id);
         this.editeurService.setContent("");
         this.storageService.save(reglement);
         if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
             document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
+        }
+
+        if(childrenId.length) {
+            if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau supérieur qui lui étaient associés ?")) {
+                for(let i in childrenId) {
+                    reglement.removeTitre(childrenId[i]);
+                }
+                this.editeurService.setContent("");
+                this.storageService.save(reglement);
+                if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
+                document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
+                }   
+            } else {
+                return;
+            }
         }
     }
 
@@ -109,41 +150,34 @@ export class ListTitresComponent extends Component {
     }
 
 
-    openEditor(event, ancienId) {
+    up(event) {
+        const id = event.target.getAttribute('idtitle');
+        const reglement = this.storageService.getReglement();
+        reglement.moveUpTitre(id);
+        this.storageService.save(reglement);
+        console.log(document.getElementById(event.target.getAttribute('idtitle')).classList);
+        this.openEditor(event);
+    }
+
+
+    down(event) {
+        const id = event.target.getAttribute('idtitle');
+        const reglement = this.storageService.getReglement();
+        reglement.moveDownTitre(id);
+        this.storageService.save(reglement);
+        this.openEditor(event);
+    }
+
+
+    openEditor(event) {
         let scrollTop = document.getElementById("title-list").scrollTop;
-        let isBtnHidden = false;
-        this.reglement.idTitreActuel = event.target.getAttribute('idtitle');
 
         const reglement = this.storageService.getReglement();
-
-        var c = this.editeurService.getContent();
-        var ancienTitre = reglement.getTitreById(ancienId);
-        
-        if(c){
-            if(c.match(/^<div/)) {
-                c = c.replace(/^<div/, "<h" + ancienTitre.niveau);
-                c = c.replace(/<\/div/, "</h" + ancienTitre.niveau);
-            }
-            if(c.match(/^<p/)) {
-                c = c.replace(/^<p/, "<h" + ancienTitre.niveau);
-                c = c.replace(/<\/p/, "</h" + ancienTitre.niveau);
-            }
-            if(!c.match("data-id")) {
-                c = c.replace(/<h[0-9]/, '<h' + ancienTitre.niveau + ' data-id="' + ancienTitre.id + '" data-idzone="' + ancienTitre.idZone + '" data-idprescription="'
-                                              + ancienTitre.idPrescription + '" data-intitule="' + ancienTitre.intitule + '" data-niveau="' + ancienTitre.niveau + '" data-numero="' + ancienTitre.numero + '"');
-            }
-            if(!c.match(ancienId)) {
-                c = c.replace(c.match(/idContenu[0-9]+/)[0], ancienId);
-            }
-
-            this.editeurService.setContent(c);
-        }
         this.editeurService.actionSave();
-
         // open editor
         const titre = reglement.getTitreById(event.target.getAttribute('idtitle'));
         document.getElementById(event.target.getAttribute('idtitle')).classList.toggle("selected");
-        document.getElementById("title-list").scrollTo(0, scrollTop);
+        document.getElementById("title-list").scrollTo(0, scrollTop)
         this.editeurService.loadTitle(titre);
     }
 
@@ -163,30 +197,56 @@ export class ListTitresComponent extends Component {
         if (!this.reglement) {
             return '';
         }
-        function listFromTitle(title) {
+        function listFromTitle(reglement, title) {
             let sublist = '';
             if (title.children && title.children.length > 0) {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
             }
+
+            let btnUpClass = "";
+            let btnDownClass = "";
+
+            if(!reglement.isMovableUp(title.id)) {
+                btnUpClass = "hidden";
+            }
+            if(!reglement.isMovableDown(title.id)) {
+                btnDownClass = "hidden";
+            }
+
             const buttonPart = `
                 <button idtitle="${title.id}" class="btn-update">Modifier</button>
                 <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
                 <button idtitle="${title.id}" class="btn-insert">+</button> 
+                <div id="orderBtn">
+                    <button idtitle="${title.id}" class="btn-up ${btnUpClass}">↑</button> 
+                    <button idtitle="${title.id}" class="btn-down ${btnDownClass}">↓</button> 
+                </div> 
+                
             `;
 
-            var chevron = `<div class="btn-display chevron-up hidden">&#8963;</div>`;
+            let chevron;
+            if(title.displayChildren) {
+                chevron = `<div class="btn-display chevron-up hidden">&#8963;</div>`;
+            } else {
+                chevron = `<div class="btn-display chevron-down hidden">&#8964;</div>`;
+            }
+
+            let hiddenClass = "";
+            for(var i in title.hiddenClass) {
+                hiddenClass += title.hiddenClass[i];
+            }
 
             return `
                 <li id="${title.id}"
                     niveau="${title.niveau}"
-                    class="list-item">
+                    class="list-item ${hiddenClass}">
                     <p class="separator" idtitle="${title.id}">${title.intitule}</p>
                     ${chevron}${buttonPart}
                     <ul>${sublist}</ul>
                 </li>
             `;
         }
-        const content = this.reglement.titres.map(title => listFromTitle(title)).join('');
+        const content = this.reglement.titres.map(title => listFromTitle(this.reglement, title)).join('');
 
         let hidden = "";
         if(this.reglement.titres.length) {
@@ -232,7 +292,7 @@ export class ListTitresComponent extends Component {
         const clickSelector = `.${this.name} .list-item p`;
         const listItem = Array.from(document.querySelectorAll(clickSelector));
         listItem.forEach((item) => {
-            item.addEventListener('click', event => this.openEditor(event, this.reglement.idTitreActuel));
+            item.addEventListener('click', event => this.openEditor(event));
         });
 
         const displaySelector = `.${this.name} .list-item .btn-display`;
@@ -261,6 +321,18 @@ export class ListTitresComponent extends Component {
         const insertButtons = Array.from(document.querySelectorAll(insertSelector));
         insertButtons.forEach((item) => {
             item.addEventListener('click', event => this.insert(event));
+        });
+
+        const upSelector = `.${this.name} .list-item .btn-up`;
+        const upButtons = Array.from(document.querySelectorAll(upSelector));
+        upButtons.forEach((item) => {
+            item.addEventListener('click', event => this.up(event));
+        });
+
+        const downSelector = `.${this.name} .list-item .btn-down`;
+        const downButtons = Array.from(document.querySelectorAll(downSelector));
+        downButtons.forEach((item) => {
+            item.addEventListener('click', event => this.down(event));
         });
 
         const addSelector = `.${this.name} .btn-add`;

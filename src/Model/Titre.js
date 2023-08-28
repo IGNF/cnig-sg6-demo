@@ -17,6 +17,8 @@ class Titre {
     contents;
     // Liste de Zone enfants
     children;
+    displayChildren;
+    hiddenClass;
 
     constructor() {
         this.id =             `idTitre${Math.floor(Math.random()*Date.now())}`;
@@ -27,6 +29,8 @@ class Titre {
         this.idPrescription = 'nonConcerne';
         this.contents = [];
         this.children = [];
+        this.displayChildren = true;
+        this.hiddenClass = [];
     }
 
     unserialise(data) {
@@ -71,6 +75,7 @@ class Titre {
     toHtml() {
         const partContent = this.contents.map(contenu => contenu.toHtml()).join('');
         const partChildren = this.children.map(titre => titre.toHtml()).join('');
+
         const html = `
             ${partContent}
             ${partChildren}
@@ -115,11 +120,11 @@ class Titre {
                 ${partChildren}
             </plu:Titre>
         `;
-        return this.sanitizeXml(xmlString);
+        return this.sanitizeXml(xmlString.replace(/style="display: none;"/g, ""));
     };
 
     sanitizeXml(string) {
-        return string.trim().replace(/\u00a0/g, ' ')
+        return string.trim().replace(/\u00a0/g, ' ');
     }
 
 }

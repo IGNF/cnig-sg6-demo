@@ -19,9 +19,6 @@ class HtmlConverterService {
 
         const children = Array.from(node.children);
         let titlePile = [];
-        let contentPile = [];
-        let pluContenuPile = [];
-
         children.reduce((previous, child, index) => {
             titlePile.push(this.newTitleFromSource(child));
             this.updateContent(titlePile[0], this.newContenuFromSource(child))

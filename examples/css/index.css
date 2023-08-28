@@ -149,7 +149,7 @@ button {
 .list-titres ul li > * {
     margin: 2px 5px;
     user-select: none;
-    max-width: 320px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -157,47 +157,39 @@ button {
 .list-titres ul li button {
     padding: 0px 10px
 }
-.list-titres ul li[niveau="1"]::before {
-    content: "I";
+.list-titres ul li::before {
     font-size: 12px;
-    margin-top: 16px;
+    margin-top: 14px;
     color: green;
+}
+.list-titres ul li[niveau="1"]::before {
+    content: "Niv 1";
 }
 .list-titres ul li[niveau="2"]::before {
-    content: "II";
-    font-size: 12px;
-    margin-top: 16px;
-    color: green;
+    content: "Niv 2";
+    margin-left: 15px;
 }
 .list-titres ul li[niveau="3"]::before {
-    content: "III";
-    font-size: 12px;
-    margin-top: 16px;
-    color: green;
+    content: "Niv 3";
+    margin-left: 30px;
 }
 .list-titres ul li[niveau="4"]::before {
-    content: "IV";
-    font-size: 12px;
-    margin-top: 16px;
-    color: green;
+    content: "Niv 4";
+    margin-left: 45px;
 }
-.list-titres ul li p{
+.list-titres ul li p {
     padding-top: 9px;
-}
-.list-titres ul li[niveau="1"] p {
-    margin-left: /*15*/14px;
+    margin-left: 5px;
+    width: 100%;
 }
 .list-titres ul li[niveau="2"] p {
-    margin-left: /*15*/20px;
-    max-width: 310px;
+    max-width: 285px;
 }
 .list-titres ul li[niveau="3"] p {
-    margin-left: /*30*/31px;
-    max-width: 294px;
+    max-width: 270px;
 }
 .list-titres ul li[niveau="4"] p {
-    margin-left: /*45*/45px;
-    max-width: 279px;
+    max-width: 255px;
 }
 .list-titres ul li .btn-display.hidden{
     visibility: hidden;
@@ -217,6 +209,20 @@ button {
 }
 .list-titres .btn-add.hidden {
    display: none;
+}
+
+.list-titres #orderBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-titres .btn-up, .list-titres .btn-down {
+    height: 15px;
+    line-height: 1px;
+    padding: 0;
+    min-width: unset;
+    width: 20px;
 }
 
 
@@ -316,6 +322,42 @@ button {
 }
 .app-content-editor {
     grid-area: editor;
+}
+.tox-anchorbar {
+    height: 50px!important;
+    border-top: 1px solid lightgrey !important;
+}
+.tox-anchorbar h1 {
+    margin-left: 1rem !important;
+    font-size: 1.8em !important;
+    font-weight: bold !important;
+    line-height: 50px !important;
+    color: black !important;
+}
+.tox-anchorbar h2 {
+    margin-left: 1rem !important;
+    font-size: 1.3em !important;
+    font-weight: bold !important;
+    line-height: 50px !important;
+    color: black !important;
+}
+.tox-anchorbar h3 {
+    margin-left: 1rem !important;
+    font-size: 1.05em !important;
+    font-weight: bold !important;
+    line-height: 50px !important;
+    color: black !important;
+}
+.tox-anchorbar h4 {
+    margin-left: 1rem !important;
+    font-size: 0.9em !important;
+    background-color: lightgray !important;
+    font-weight: bold !important;
+    margin-top: 20px !important;
+    line-height: 14px !important;
+    height: 14px !important;
+    width: 100% !important;
+    color: black !important;
 }
 @media only screen and (max-width: 650px) {
     .home-page {

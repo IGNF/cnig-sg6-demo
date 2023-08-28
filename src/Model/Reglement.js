@@ -23,7 +23,7 @@ class Reglement {
     htmlContent;
 
     //id du titre actuellement affiché dans l'éditeur
-    idTitreActuel
+    //idTitreActuel
 
     constructor() {
         this.id = `idReglementPlu${Math.floor(Math.random()*Date.now())}`;
@@ -64,6 +64,28 @@ class Reglement {
             const titre = this.titres[index].findTitreById(id);
             if (titre) { return titre; }
         }
+    }
+
+
+    getTitreChildrenId(id) {
+        let childrenId = [];
+        let niv;
+        let ind;
+        for(let i in this.titres) {   
+            if(this.titres[i].id == id) {
+                niv = this.titres[i].niveau;
+                ind = Number(i);
+                break;
+            }
+        }
+        for(let i = ind+1; i < this.titres.length; i++ ) {
+            if(this.titres[i].niveau > niv) {
+                childrenId.push(this.titres[i].id);
+            } else {
+                break;
+            }
+        }
+        return childrenId;
     }
 
 
@@ -118,6 +140,143 @@ class Reglement {
             }
         }
     }
+
+
+    isMovableDown(id) {
+        let niv = this.getTitreById(id).niveau
+        let movable = false;
+        let ind = -1;
+        for(var i in this.titres) {
+            if(this.titres[i].id == id) {
+               ind = i;
+            }
+            if(ind > -1 && i > ind && this.titres[i].niveau < niv) {
+                break;
+            }
+            if(ind > -1 && i > ind && this.titres[i].niveau == niv) {
+                movable = true;
+                break;
+            }
+        }
+        return movable;
+    }
+
+    isMovableUp(id) {
+        let niv = this.getTitreById(id).niveau
+        let movable = false;
+        let ind = -1;
+        for(var i = this.titres.length-1; i > -1; i--) {
+            if(this.titres[i].id == id) {
+               ind = i;
+            }
+            if(ind > -1 && i < ind && this.titres[i].niveau < niv) {
+                break;
+            }
+            if(ind > -1 && i < ind && this.titres[i].niveau == niv) {
+                movable = true;
+                break;
+            }
+        }
+        return movable;
+    }
+
+
+    moveDownTitre(id) {
+        if(!this.isMovableDown(id)) {
+            return;
+        }
+
+        let childrenId = this.getTitreChildrenId(id);
+        let nextTitleChildrenId = false;
+        let orderedTitles = [];
+        let ind;
+        let insert = false;
+        let insertFct = function(titres) {
+            orderedTitles.push(titres[ind]);
+            for(var i in childrenId) {
+                for(var j in titres) {
+                    if(childrenId[i] == titres[j].id) {
+                        orderedTitles.push(titres[j]);
+                    }
+                } 
+            }
+        }
+
+        for(var i in this.titres) {
+            if(this.titres[i].id != id) {
+                let push = true;
+                for(var j in childrenId) {
+                    if(childrenId[j] == this.titres[i].id) {
+                        push = false;
+                        break;
+                    } 
+                }
+                if(push) {
+                    orderedTitles.push(this.titres[i]);
+                    if(insert && !nextTitleChildrenId) {
+                        nextTitleChildrenId = this.getTitreChildrenId(this.titres[i].id);    
+                    } else if(insert && nextTitleChildrenId.length) {
+                        nextTitleChildrenId.shift();
+                    }
+                    if(insert && nextTitleChildrenId && !nextTitleChildrenId.length) {
+                        insertFct(this.titres);
+                        insert = false;
+                    }
+                }
+            } else {
+                ind = i;
+                insert = true;
+            }
+        }
+
+        this.titres = orderedTitles;
+    }
+
+
+    moveUpTitre(id) {
+        if(!this.isMovableUp(id)) {
+            return;
+        }
+
+        let childrenId = this.getTitreChildrenId(id);
+        let orderedTitles = [];
+        let ind;
+        let niv = this.getTitreById(id).niveau
+        let insertFct = function(titres) {
+            for(var i = childrenId.length-1; i > -1; i--) {
+                for(var j in titres) {
+                    if(childrenId[i] == titres[j].id) {
+                        orderedTitles.push(titres[j]);
+                    }
+                } 
+            }
+            orderedTitles.push(titres[ind]);
+        }
+
+        for(var i = this.titres.length-1; i > -1; i--) {
+            if(this.titres[i].id != id) {
+                let push = true;
+                for(var j in childrenId) {
+                    if(childrenId[j] == this.titres[i].id) {
+                        push = false;
+                        break;
+                    } 
+                }
+                if(push) {
+                    orderedTitles.push(this.titres[i]);
+                    if(ind > -1 && this.titres[i].niveau == niv) {
+                        insertFct(this.titres);
+                        ind = -1;
+                    }
+                }
+            } else {
+                ind = i;
+            }
+        }
+
+        this.titres = orderedTitles.reverse();
+    }
+
 
     toSimpleContent() {
         const content = this.titres.map(titre => titre.toSimpleContent()).join('');

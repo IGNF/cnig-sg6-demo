@@ -111,7 +111,20 @@ class EditeurService {
     loadTitle(title = null) {
         if (title !== null) { this.activeTitle = title; }
         if (this.actionTitle === null) { return; }
-        this.setContent(this.activeTitle.toHtml(), { format: 'raw' });
+
+        document.getElementsByClassName("tox-anchorbar")[0].innerHTML = this.activeTitle.contents[0].htmlContent.replace('style="display: none;"',"");
+
+        if(this.activeTitle.toHtml().match("display: none;")) {
+            this.setContent(this.activeTitle.toHtml(), { format: 'raw' });
+        }else{
+            this.setContent(this.activeTitle.toHtml().replace('data-id', 'style="display: none;" data-id') + "</br>", { format: 'raw' });
+        }
+        
+        if(this.activeTitle.contents[0].htmlContent.match("xmlns")) {
+            this.actionSave();
+            const titre = this.storageService.getReglement().getTitreById(this.activeTitle.id)
+            this.loadTitle(titre)
+        }
     }
 
 
@@ -125,7 +138,7 @@ class EditeurService {
             height: 820,
             plugins: 'image link media table emoticons',
             menubar: 'edit insert format table',
-            toolbar: 'styles pluRule toggleZone togglePrescription',
+            toolbar: 'styles pluRule toggleZone togglePrescription title',
             extended_valid_elements: this.getExtendedValidElements(),
             menu: {
                 edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },

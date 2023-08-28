@@ -75,6 +75,9 @@ export class HomePage extends Component {
                         <a href="https://github.com/cboucheIGN/sg6-demo" target="_blank">
                             Readme
                         </a>
+                        <a style="display:block" href="https://github.com/cnigfr/structuration-reglement-urbanisme/raw/master/standard_niveau_1/Outil_Web_%C3%A9dition_niveau_1/Manuel%20op%C3%A9rateur%20outil%20de%20saisie%20web%2001.05.2023.docx" target="_blank">
+                            Manuel utilisateur
+                        </a>
                     </h1>
                     <p>Outils d'export de réglement d'urbanisme au format CNIG/XML.</p>
                 </div>

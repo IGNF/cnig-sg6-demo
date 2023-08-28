@@ -30,6 +30,8 @@ export class LoadButtonComponent extends Component {
             this.storageService.save(reglement);
 
             this.editeurService.setContent('');
+            document.getElementsByClassName("tox-anchorbar")[0].innerHTML = "";
+
             this.editeurService.toggleEditorMode();
         }
         reader.readAsText(event.target.files[0]);

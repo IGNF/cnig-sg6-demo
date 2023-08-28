@@ -27,11 +27,6 @@ export class NouveauButtonComponent extends Component {
         } else {
             return;
         }
-        // const reglement = new Reglement();
-        // this.storageService.save(reglement);
-
-        // this.editeurService.setContent('');
-        // this.editeurService.toggleEditorMode();
     }
 
     getTemplate() {
