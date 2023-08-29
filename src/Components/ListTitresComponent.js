@@ -121,7 +121,7 @@ export class ListTitresComponent extends Component {
         }
 
         if(childrenId.length) {
-            if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau supérieur qui lui étaient associés ?")) {
+            if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau inférieur qui lui étaient associés ?")) {
                 for(let i in childrenId) {
                     reglement.removeTitre(childrenId[i]);
                 }
@@ -202,7 +202,6 @@ export class ListTitresComponent extends Component {
             if (title.children && title.children.length > 0) {
                 sublist = title.children.map(subtitle => listFromTitle(subtitle)).join('');
             }
-            console.log("test");
 
             let btnUpClass = "";
             let btnDownClass = "";
