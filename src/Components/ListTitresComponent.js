@@ -116,9 +116,6 @@ export class ListTitresComponent extends Component {
             reglement.removeTitre(id);
             this.editeurService.setContent("");
             this.storageService.save(reglement);
-            // if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
-            //     document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
-            // }
 
             if(childrenId.length) {
                 if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau inférieur qui lui étaient associés ?")) {
@@ -126,10 +123,7 @@ export class ListTitresComponent extends Component {
                         reglement.removeTitre(childrenId[i]);
                     }
                     this.editeurService.setContent("");
-                    this.storageService.save(reglement);
-                    if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
-                    document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
-                    }   
+                    this.storageService.save(reglement);  
                 } else {
                     return;
                 }
