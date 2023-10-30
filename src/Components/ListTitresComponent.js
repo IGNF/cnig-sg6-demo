@@ -108,31 +108,34 @@ export class ListTitresComponent extends Component {
 
 
     delete(event) {
-        const id = event.target.getAttribute('idtitle');
-        const reglement = this.storageService.getReglement();
-;
-        let childrenId = reglement.getTitreChildrenId(id);
+        if(confirm("Attention, le titre va être supprimé.")) {
+            const id = event.target.getAttribute('idtitle');
+            const reglement = this.storageService.getReglement();
+            let childrenId = reglement.getTitreChildrenId(id);
 
-        reglement.removeTitre(id);
-        this.editeurService.setContent("");
-        this.storageService.save(reglement);
-        if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
-            document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
-        }
+            reglement.removeTitre(id);
+            this.editeurService.setContent("");
+            this.storageService.save(reglement);
+            // if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
+            //     document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
+            // }
 
-        if(childrenId.length) {
-            if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau inférieur qui lui étaient associés ?")) {
-                for(let i in childrenId) {
-                    reglement.removeTitre(childrenId[i]);
+            if(childrenId.length) {
+                if(confirm("Le titre a été supprimé. Voulez-vous également supprimer les titres de niveau inférieur qui lui étaient associés ?")) {
+                    for(let i in childrenId) {
+                        reglement.removeTitre(childrenId[i]);
+                    }
+                    this.editeurService.setContent("");
+                    this.storageService.save(reglement);
+                    if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
+                    document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
+                    }   
+                } else {
+                    return;
                 }
-                this.editeurService.setContent("");
-                this.storageService.save(reglement);
-                if(reglement.titres.length && !document.getElementsByClassName("btn-add")[0].classList.contains("hidden")) {
-                document.getElementsByClassName("btn-add")[0].classList.toggle("hidden");
-                }   
-            } else {
-                return;
             }
+        } else {
+            return;
         }
     }
 
@@ -216,7 +219,7 @@ export class ListTitresComponent extends Component {
             const buttonPart = `
                 <button idtitle="${title.id}" class="btn-update">Modifier</button>
                 <button idtitle="${title.id}" class="btn-delete">Supprimer</button>
-                <button idtitle="${title.id}" class="btn-insert">+</button> 
+                <button idtitle="${title.id}" class="btn-insert" title="Insérer un titre">+</button> 
                 <div id="orderBtn">
                     <button idtitle="${title.id}" class="btn-up ${btnUpClass}">↑</button> 
                     <button idtitle="${title.id}" class="btn-down ${btnDownClass}">↓</button> 
@@ -248,11 +251,6 @@ export class ListTitresComponent extends Component {
         }
         const content = this.reglement.titres.map(title => listFromTitle(this.reglement, title)).join('');
 
-        let hidden = "";
-        if(this.reglement.titres.length) {
-            hidden = "hidden"
-        }
-
         const template = `
             <div class="app-card">
                 <div class="app-card-header">
@@ -264,7 +262,7 @@ export class ListTitresComponent extends Component {
                         Gérer la liste des titres.
                         Cliquer sur un titre pour modifier le contenu.
                     </p>
-                    <button class="btn-add ${hidden}">+</button>
+                    <button class="btn-add" title="Ajouter un titre au début de la liste">+</button>
                     <ul id="title-list">${content}</ul>
                 </div>
             </div>

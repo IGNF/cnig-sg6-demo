@@ -81,10 +81,6 @@ class TitreForm extends Component {
             }
         }
 
-        if(!document.getElementsByClassName("btn-add")[0].classList.contains("hidden") ) {
-            document.getElementsByClassName("btn-add")[0].classList.add("hidden");
-        }
-
         document.getElementById("title-list").scrollTo(0, scrollTop);
         document.getElementById(this.titre.id).children[0].click();
     }

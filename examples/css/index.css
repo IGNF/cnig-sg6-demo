@@ -142,10 +142,7 @@ button {
 .list-titres ul li.hidden1, .list-titres ul li.hidden2, .list-titres ul li.hidden3 {
     display: none;
 }
-.list-titres ul li:hover {
-    background-color: rgba(0, 0, 0, 0.185);
-    cursor: pointer;
-}
+
 .list-titres ul li > * {
     margin: 2px 5px;
     user-select: none;
@@ -207,8 +204,20 @@ button {
     font-size: 20px;
     padding: 0;
 }
-.list-titres .btn-add.hidden {
-   display: none;
+
+.list-titres ul li[niveau="1"] {
+    background-color: #9D9D9D;
+}
+.list-titres ul li[niveau="2"] {
+    background-color: #BDBDBD;
+}
+.list-titres ul li[niveau="3"] {
+    background-color: #DDDDDD;
+}
+
+.list-titres ul li:hover {
+    border: 1px black solid;
+    cursor: pointer;
 }
 
 .list-titres #orderBtn {

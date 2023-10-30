@@ -129,7 +129,7 @@ class Reglement {
         titre.contents.push(contenu);
 
         if(!previousId) {
-            this.titres.push(titre);
+            this.titres.unshift(titre);
             return;
         }
 
