@@ -20,8 +20,14 @@ class ReglementForm extends Component {
 
 
     valid(event) {
+
         const selector = `.${this.name} form`;
         const form = document.querySelector(selector);
+
+        if(!form.idUrba.value) {
+            alert("Veuillez renseigner l'identifiant d'urbanisme.");
+            return;
+        }
 
         this.reglement.id = form.id.value;
         this.reglement.nom = form.nom.value;

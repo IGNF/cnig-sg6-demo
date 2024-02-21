@@ -146,7 +146,6 @@ class EditeurService {
                 table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' }
             },
             style_formats: [
-                { title: 'Article', block: 'div', classes: 'plu-article' },
                 { title: 'Paragraphe', block: 'p', classes: 'plu-paragraph' }
             ]
         });
