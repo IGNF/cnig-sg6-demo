@@ -44,8 +44,12 @@ class ContenuForm extends Component {
 
     getTemplate() {
         var id = "";
+        var titre = this.getTitle();
         for(var i in this.contenu) {
             id += this.contenu[i].id + " ; ";
+            if(!this.contenu[i].idZone) {
+                this.contenu[i].idZone = titre.idZone;
+            }
         }
         id = id.replace(/; $/,"");
 
@@ -84,6 +88,18 @@ class ContenuForm extends Component {
 
         const closeSelector = `.${this.name} .btn-close`;
         document.querySelector(closeSelector).addEventListener('click', event => this.close(event));
+    }
+
+    getTitle() {
+        let idContenu = this.contenu[0].id;
+        let titres = this.storageService.reglement.titres;
+        for(var i in titres) {
+            for(var j in titres[i].contents) {
+                if(idContenu == titres[i].contents[j].id) {
+                    return titres[i];
+                }
+            }
+        }
     }
 
 }

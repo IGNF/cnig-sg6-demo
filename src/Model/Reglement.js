@@ -117,6 +117,7 @@ class Reglement {
         existing.numero = formData.numero;
         existing.href = formData.href;
         existing.idZone = formData.idZone;
+        existing.idSousZone = formData.idSousZone;
         existing.idPrescription = formData.idPrescription;
         return;
     }

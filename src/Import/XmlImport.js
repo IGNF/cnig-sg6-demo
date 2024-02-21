@@ -53,6 +53,7 @@ class XmlImport {
         titre.numero = element.getAttribute('numero');
 
         titre.idZone = element.getAttribute('idZone');
+        titre.idSousZone = element.getAttribute('idSousZone');
         titre.idPrescription = element.getAttribute('idPrescription');
 
         var cb = function(element, titre) {

@@ -111,8 +111,7 @@ class EditeurService {
     loadTitle(title = null) {
         if (title !== null) { this.activeTitle = title; }
         if (this.actionTitle === null) { return; }
-
-        document.getElementsByClassName("tox-anchorbar")[0].innerHTML = this.activeTitle.contents[0].htmlContent.replace('style="display: none;"',"");
+        document.getElementsByClassName("tox-anchorbar")[0].innerHTML = "<h" + this.activeTitle.niveau + ">" + this.activeTitle.intitule + "</" + this.activeTitle.niveau + ">";
 
         if(this.activeTitle.toHtml().match("display: none;")) {
             this.setContent(this.activeTitle.toHtml(), { format: 'raw' });

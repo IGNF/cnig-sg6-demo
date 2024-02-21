@@ -20,18 +20,18 @@ class DialogService {
 
         node.appendChild(component.getElement());
 
-        const body = document.querySelector('body');
-        body.appendChild(node);
+        const container = document.querySelector('#container');
+        container.appendChild(node);
 
         component.registerEvents();
     }
 
     close() {
-        const dialogs = document.querySelectorAll('body > .app-dialog');
-        const body = document.querySelector('body');
+        const dialogs = document.querySelectorAll('#container > .app-dialog');
+        const container = document.querySelector('#container');
 
         dialogs.forEach((dialog) => {
-            body.removeChild(dialog);
+            container.removeChild(dialog);
         });
     }
 

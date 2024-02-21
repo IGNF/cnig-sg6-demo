@@ -152,7 +152,6 @@ export class ListTitresComponent extends Component {
         const reglement = this.storageService.getReglement();
         reglement.moveUpTitre(id);
         this.storageService.save(reglement);
-        console.log(document.getElementById(event.target.getAttribute('idtitle')).classList);
         this.openEditor(event);
     }
 

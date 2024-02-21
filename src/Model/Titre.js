@@ -10,6 +10,7 @@ class Titre {
 
     // gpu attributes
     idZone;
+    idSousZone
     idPrescription;
 
     // Liste de contenu
@@ -21,24 +22,29 @@ class Titre {
     hiddenClass;
 
     constructor() {
-        this.id =             `idTitre${Math.floor(Math.random()*Date.now())}`;
-        this.intitule =       '';
-        this.niveau =         '';
-        this.numero =         '';
-        this.idZone =         '';
-        this.idPrescription = 'nonConcerne';
-        this.contents = [];
-        this.children = [];
-        this.displayChildren = true;
-        this.hiddenClass = [];
+        
+        this.id =               `idTitre${Math.floor(Math.random()*Date.now())}`;
+        this.idCnig =           '';
+        this.intitule =         '';
+        this.niveau =           '';
+        this.numero =           '';
+        this.idZone =           '';
+        this.idSousZone =       '';
+        this.idPrescription =   'nonConcerne';
+        this.contents =         [];
+        this.children =         [];
+        this.displayChildren =  true;
+        this.hiddenClass =      [];               
     }
 
     unserialise(data) {
         this.id =             data.id;
+        this.idCnig =         data.idCnig;
         this.intitule =       data.intitule;
         this.niveau =         data.niveau;
         this.numero =         data.numero;
         this.idZone =         data.idZone;
+        this.idSousZone =     data.idSousZone;
         this.idPrescription = data.idPrescription;
         // TODO manage order
         this.contents =       data.contents.map(contentData => new Contenu().unserialise(contentData));
@@ -85,10 +91,12 @@ class Titre {
         const titleNode = node.querySelector(`h${this.niveau}`);
         if (titleNode) {
             titleNode.setAttribute('data-id', this.id);
+            titleNode.setAttribute('data-idCnig', this.idCnig);
             titleNode.setAttribute('data-intitule', this.intitule);
             titleNode.setAttribute('data-niveau', this.niveau);
             titleNode.setAttribute('data-numero', this.numero);
             titleNode.setAttribute('data-idzone', this.idZone);
+            titleNode.setAttribute('data-idsouszone', this.idSousZone);
             titleNode.setAttribute('data-idprescription', this.idPrescription);
         }
         return node.innerHTML;
@@ -96,8 +104,7 @@ class Titre {
 
 
     toXml() {
-        // TODO fuse content with same attribute
-        // const partContent = this.contents.map(contenu => contenu.toXml()).join('');
+        //fuse content with same attribute
         const partContent = this.contents.reduce((previousValue, contenu) => {
             if (previousValue.length === 0) {
                 previousValue.push(contenu);
@@ -113,8 +120,8 @@ class Titre {
         }, []).map(contenu => contenu.toXml()).join('');
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
-            <plu:Titre id="${this.id}" intitule="${this.intitule}" niveau="${this.niveau}"
-                numero="${this.numero}" idZone="${this.idZone}"
+            <plu:Titre id="${this.idCnig}" intitule="${this.intitule}" niveau="${this.niveau}"
+                numero="${this.numero}" idZone="${this.idZone}" idSousZone="${this.idSousZone}"
                 idPrescription="${this.idPrescription}">
                 ${partContent}
                 ${partChildren}

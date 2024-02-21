@@ -15,6 +15,7 @@ class Contenu {
 
     constructor() {
         this.id =             `idContenu${Math.floor(Math.random()*Date.now())}`;
+        this.idCnig =         '';
         this.idZone =         '';
         this.idPrescription = 'nonConcerne';
         this.htmlContent =    '';
@@ -24,6 +25,7 @@ class Contenu {
     unserialise(data) {
         this.id =             data.id;
         this.idZone =         data.idZone;
+        this.idCnig =         data.idCnig;
         this.idPrescription = data.idPrescription;
         this.htmlContent =    data.htmlContent;
         return this;
@@ -62,7 +64,7 @@ class Contenu {
 
     toXml() {
         return `
-            <plu:Contenu id="${this.id}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+            <plu:Contenu id="${this.idCnig}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
                 ${this.htmlContent}
             </plu:Contenu>
         `.trim();

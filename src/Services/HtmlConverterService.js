@@ -59,7 +59,7 @@ class HtmlConverterService {
         titre.intitule = element.innerText;
         // from data attributes
         const attributes = [
-            'id', 'numero',
+            'id', 'numero', 'idSousZone',
             'idZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
@@ -102,7 +102,7 @@ class HtmlConverterService {
     updateTitreNode(node, titre) {
         const attributes = [
             'id', 'numero',
-            'idZone', 'idPrescription'
+            'idZone', , 'idSousZone', 'idPrescription'
         ];
         attributes.forEach((att) => {
             let attribute = att;

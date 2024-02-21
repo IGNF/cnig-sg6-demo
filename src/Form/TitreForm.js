@@ -42,11 +42,17 @@ class TitreForm extends Component {
             return;
         }
         
+        if( form.idZone.value === '') {
+            alert("La zone doit être renseignée");
+            return;
+        }
+
         this.titre.id =             form.id.value;
         this.titre.intitule =       form.intitule.value;
         this.titre.niveau =         parseInt(form.niveau.value);
         this.titre.numero =         form.numero.value;
         this.titre.idZone =         form.idZone.value;
+        this.titre.idSousZone =     form.idSousZone.value;
         this.titre.idPrescription = form.idPrescription.value;
 
         // save titre dans reglement
@@ -82,7 +88,9 @@ class TitreForm extends Component {
         }
 
         document.getElementById("title-list").scrollTo(0, scrollTop);
+
         document.getElementById(this.titre.id).children[0].click();
+
     }
 
 
@@ -120,13 +128,15 @@ class TitreForm extends Component {
                 <label for="id" class="hidden">Identifiant</label>
                 <input id="id" class="hidden" type="string" value="${this.titre.id || ''}" readonly>
                 <label for="intitule">Intitulé</label>
-                <input id="intitule" type="string" value="${this.titre.intitule || ''}" placeholder="Titre I : disposition générales">
+                <input id="intitule" type="string" value="${this.titre.intitule || ''}" placeholder="Titre I : dispositions générales">
                 <label for="niveau">Niveau du titre dans la hiérarchie (Ex : 1, 2, 3, etc.)</label>
                 <input id="niveau" type="number" min="1" max="4" value="${this.titre.niveau || 1}">
                 <label for="numero">Numéro</label>
                 <input id="numero" type="string" value="${this.titre.numero || ''}" placeholder="Numéro du titre dans l’arborescence du règlement (Ex : I.1.4.2)">
                 <label for="idZone">Zone (ex : U, Ua, etc.) ou la mention porteeGenerale si toutes les zones sont concernées</label>
                 <input id="idZone" type="string" value="${this.titre.idZone || ''}" placeholder="U">
+                <label for="idSousZone">Sous-zone (ex : UE1, UE2, etc.)</label>
+                <input id="idSousZone" type="string" value="${this.titre.idSousZone || ''}" placeholder="UE1">
                 <label for="idPrescription">Identifiant de prescription si nécessaire</label>
                 <input id="idPrescription" type="string" value="${this.titre.idPrescription || ''}">
             </form>
