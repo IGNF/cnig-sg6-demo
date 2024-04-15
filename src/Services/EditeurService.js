@@ -118,12 +118,13 @@ class EditeurService {
         }else{
             this.setContent(this.activeTitle.toHtml().replace('data-id', 'style="display: none;" data-id') + "</br>", { format: 'raw' });
         }
-        
-        if(this.activeTitle.contents[0].htmlContent.match("xmlns")) {
-            this.actionSave();
-            const titre = this.storageService.getReglement().getTitreById(this.activeTitle.id)
-            this.loadTitle(titre)
-        }
+        //console.log(this.activeTitle);
+        // if(this.activeTitle.contents[0].htmlContent.match("xmlns")) {
+        //     console.log(this.activeTitle.contents[0]);
+        //     this.actionSave();
+        //     const titre = this.storageService.getReglement().getTitreById(this.activeTitle.id)
+        //     this.loadTitle(titre)
+        // }
     }
 
 

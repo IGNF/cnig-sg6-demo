@@ -64,7 +64,7 @@ class Contenu {
 
     toXml() {
         return `
-            <plu:Contenu id="${this.idCnig}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
+            <plu:Contenu idContenu="${this.idCnig}" idZone="${this.idZone}" idPrescription="${this.idPrescription}">
                 ${this.htmlContent}
             </plu:Contenu>
         `.trim();

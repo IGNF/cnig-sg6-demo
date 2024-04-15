@@ -290,7 +290,7 @@ class Reglement {
     toHtml() {
         const content = this.titres.map(titre => titre.toHtml()).join('');
         return `
-            <div id="${this.id}" nom="${this.nom}" lien="${this.lien}"
+            <div idReglement="${this.idUrba}/reglement" nom="${this.nom}" lien="${this.lien}"
                 idUrba="${this.idUrba}" inseeCommune="${this.inseeCommune}" sirenIntercomm="${this.sirenIntercomm}" >
                 ${content}
             </div>
@@ -305,7 +305,7 @@ class Reglement {
                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
                 xmlns:plu="https://cnig.gouv.fr/reglementPLU"
                 xsi:schemaLocation="https://cnig.gouv.fr/reglementPLU https://raw.githubusercontent.com/IGNF/cnig-sg6-demo/master/examples/data/reglementPLU.XSD"
-                id="${this.id}" nom="${this.nom}" lien="${this.lien}"
+                idReglement="${this.idUrba}/reglement" nom="${this.nom}" lien="${this.lien}"
                 idUrba="${this.idUrba}" inseeCommune="${this.inseeCommune}" sirenIntercomm="${this.sirenIntercomm}">
                 ${content}
             </plu:ReglementPLU>

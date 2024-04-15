@@ -120,7 +120,7 @@ class Titre {
         }, []).map(contenu => contenu.toXml()).join('');
         const partChildren = this.children.map(titre => titre.toXml()).join('');
         const xmlString = `
-            <plu:Titre id="${this.idCnig}" intitule="${this.intitule}" niveau="${this.niveau}"
+            <plu:Titre idTitre="${this.idCnig}" intitule="${this.intitule}" niveau="${this.niveau}"
                 numero="${this.numero}" idZone="${this.idZone}" idSousZone="${this.idSousZone}"
                 idPrescription="${this.idPrescription}">
                 ${partContent}

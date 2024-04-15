@@ -43,9 +43,7 @@ class HtmlConverterService {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
             if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
-                if(att != "id" || element.getAttribute(attribute).match("Contenu")) {
                     contenu[att] = element.getAttribute(attribute);
-                }
             }
         });
         return contenu;
@@ -66,9 +64,7 @@ class HtmlConverterService {
             let attribute = att;
             attribute = 'data-' + attribute.toLowerCase();
             if (element.getAttribute(attribute) && element.getAttribute(attribute) !== 'null') {
-                if(att != "id" || element.getAttribute(attribute).match("Titre")) {
                     titre[att] = element.getAttribute(attribute);
-                }
             }
         });
         return titre;

@@ -31,7 +31,7 @@ class XmlImport {
         const reglement = new Reglement();
         const reglementElement = xmlReglement.getElementsByTagName('plu:ReglementPLU')[0];
 
-        reglement.id =      reglementElement.getAttribute('id');
+        reglement.id =      reglementElement.getAttribute('idReglement');
         reglement.lien =    reglementElement.getAttribute('lien');
         reglement.nom =     reglementElement.getAttribute('nom');
         reglement.idUrba =  reglementElement.getAttribute('idUrba');
@@ -47,7 +47,8 @@ class XmlImport {
     loadTitre(element) {
         
         const titre = new Titre();
-        titre.id = element.getAttribute('id');
+        titre.id = element.getAttribute('idTitre');
+        titre.idCnig = element.getAttribute('idTitre');
         titre.intitule = element.getAttribute('intitule');
         titre.niveau = parseInt(element.getAttribute('niveau'));
         titre.numero = element.getAttribute('numero');
@@ -58,17 +59,17 @@ class XmlImport {
 
         var cb = function(element, titre) {
             
-            if(element.parentNode.id == titre.id && element.parentNode.attributes.niveau.value == titre.niveau) {
+            if(element.parentNode.getAttribute("idTitre") == titre.id && element.parentNode.attributes.niveau.value == titre.niveau) {
                 return true;
             }
             return false; 
         }
 
-        titre.contents = Array.from(this.xmlReglement.getElementById(titre.id).getElementsByTagName('plu:Contenu'))
+        titre.contents = Array.from(this.xmlReglement.querySelector("[idTitre='" + titre.id + "'").getElementsByTagName('plu:Contenu'))
 			.filter(element => cb(element, titre))
             .map(subtitle => this.loadContenu(subtitle));
 
-        titre.children = Array.from(this.xmlReglement.getElementById(titre.id).getElementsByTagName('plu:Titre'))
+        titre.children = Array.from(this.xmlReglement.querySelector("[idTitre='" + titre.id + "'").getElementsByTagName('plu:Titre'))
             .filter(element =>cb(element, titre))
             .map(subtitle => this.loadTitre(subtitle));
 
@@ -85,7 +86,8 @@ class XmlImport {
     loadContenu(element) {
         const contenu = new Contenu();
 
-        contenu.id = element.getAttribute('id');
+        contenu.id = element.getAttribute('idContenu');
+        contenu.idCnig = element.getAttribute('idContenu');
         contenu.idZone = element.getAttribute('idZone');
         contenu.idPrescription = element.getAttribute('idPrescription');
         if (!this.lameCheckHTML(element.innerHTML)) {
