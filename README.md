@@ -1,4 +1,4 @@
-# SG6 Editeur PLU au format CNIG
+# SG6 Editeur PLU au format CNIG - Dépôt archivé le 13/10/26
 
 ## Lien vers la demo
 
